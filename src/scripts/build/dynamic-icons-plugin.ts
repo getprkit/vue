@@ -6,6 +6,7 @@ import { defaultIconStyle } from '../util/config.ts'
 
 const cachedIcons = new Set<string>()
 
+// TODO: Must review in future, change .md extension and some part move to Doc library.
 export function dynamicIcon(): Plugin {
   const outputPath = path.resolve('./src/.temp/uikit-icons.ts')
 
@@ -15,7 +16,7 @@ export function dynamicIcon(): Plugin {
       existingIcons(outputPath).forEach((icon) => cachedIcons.add(icon))
     },
     async handleHotUpdate({ file }) {
-      if (file && file.endsWith('.vue')) {
+      if (file && ['.vue', '.md'].some((ext) => file?.endsWith(ext))) {
         const newIcon = new Set<string>()
 
         findIcons(file).forEach(
@@ -42,7 +43,7 @@ function existingIcons(filePath: string): string[] {
 function findIcons(file: string): Set<string> {
   const icons = new Set<string>()
 
-  const iconRegex = /icon-[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*/g
+  const iconRegex = /(?:icon|component)-[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*/g
   const content = fs.readFileSync(file, 'utf-8').match(iconRegex) || []
 
   content.forEach((icon) => icons.add(icon))

@@ -1,17 +1,21 @@
 /**
  * Env
  * ========================================================================
- * TODO:
- *  need to change the name and move to another directory ( maybe main )
- *  We still don't have plan for this setting to keep it here or
- *  locate these configs in another files, so until that we keep them here
+ * TODO: need to change the name and move to another directory ( maybe main ).
+ *       We still don't have plan for this setting to keep it here or
+ *       locate these configs in another files, so until that we keep them here
  *
- * Sometimes we need if and some ref just run in computed mod and we don't want
+ * Sometimes we need some ref just run in computed mod and we don't want
  * them to be reactive or run in production build see we use isDev const and
- * devComputed to reduce bundle size refer to https://vuejs.org/guide/best-practices/performance.html#bundle-size-and-tree-shaking
+ * devComputed to reduce bundle size refer to
+ * https://vuejs.org/guide/best-practices/performance.html#bundle-size-and-tree-shaking
  *
  * For a value be reactive just in dev mode and be simple const in production build we use: devComputed
  * ex: const devReactive = devComputed(() => .....)
+ *
+ * FIXME: Maybe we need to remove devComputed in future and use computed, to reactive all classes instead
+ *        of being non-reactive with changing the class states with props. for now we use this solution
+ *        and we think classes not need to be reactive in production build.
  *
  * For a section to not be compiled in production build we use isDev with an if
  * ex: if (isDev) { ... }
@@ -29,12 +33,12 @@ import { type MaybeRef, computed, watch } from 'vue'
 
 /** Types */
 
-export type StringKeyOf<T> = Extract<keyof T, string>
+export type DevKeyOf<T> = Extract<keyof T, string>
 
-type DevPropsWatchKey<T> = StringKeyOf<T> | 'modelValue'
+type DevPropsWatchKey<T> = DevKeyOf<T> | 'modelValue'
 
 export type DevPropsWatchOptions<T extends object> =
-  | { only: readonly StringKeyOf<T>[]; exclude?: never }
+  | { only: readonly DevKeyOf<T>[]; exclude?: never }
   | { only?: never; exclude?: readonly DevPropsWatchKey<T>[] }
 
 
@@ -59,7 +63,7 @@ export function devPropsWatch<T extends object>(
   const keys =
     'only' in options && options.only
       ? options.only
-      : (Object.keys(props) as StringKeyOf<T>[]).filter((key) => !options.exclude?.includes(key))
+      : (Object.keys(props) as DevKeyOf<T>[]).filter((key) => !options.exclude?.includes(key))
 
   const sources = keys.map((key) => () => props[key])
 

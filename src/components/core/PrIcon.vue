@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { type IconPropsType, IconDefaults } from '@u/props'
-import { setIcon } from '@u/util'
-import type { RefElement } from '@u/types.ts'
-import { ref, onMounted, watchEffect } from 'vue'
+import { icon } from '@u/util'
+import { useTemplateRef, onMounted, watchEffect } from 'vue'
 
 const props = withDefaults(defineProps<IconPropsType>(), IconDefaults)
 
-const el = ref<RefElement>(null)
+const el = useTemplateRef<HTMLElement>('el')
 
-function setIconAgain() {
-  return setIcon(el.value, props)
+function setIcon() {
+  return icon(el.value, props)
 }
 
 onMounted(() => {
-  watchEffect(setIconAgain)
+  watchEffect(setIcon)
 })
 </script>
 

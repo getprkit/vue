@@ -24,6 +24,8 @@
 
 @accordion-default-icon-color:                  @accordion-base-icon-color;
 @accordion-icon-circle-active-color:            @global-primary-background;
+@accordion-icon-circle-opacity:                 var(--global-icon-tertiary-color-opacity);
+@accordion-icon-circle-active-opacity:          1;
 
 @accordion-disabled-title-color:                @global-muted-color;
 @accordion-disabled-icon-color:                 @global-muted-color;
@@ -131,11 +133,11 @@
   }
 
   .pr-accordion-hover .uk-accordion-icon {
-    color: @accordion-hover-icon-color
+    color: @accordion-hover-icon-color;
   }
 
   .pr-accordion-line .uk-accordion-icon {
-    color: @accordion-line-icon-color
+    color: @accordion-line-icon-color;
   }
 
   /*
@@ -143,15 +145,15 @@
    */
 
   .pr-accordion-item-disabled .uk-accordion-title {
-    pointer-events: none
+    pointer-events: none;
   }
 
   .uk-accordion .pr-accordion-item-disabled .uk-accordion-title {
-    color: @accordion-disabled-title-color
+    color: @accordion-disabled-title-color;
   }
 
   .uk-accordion .pr-accordion-item-disabled .uk-accordion-icon {
-    color: @accordion-disabled-icon-color
+    color: @accordion-disabled-icon-color;
   }
 
   // Style: Hover
@@ -260,6 +262,11 @@
   // Style: Circle
   // ========================================================================
 
+  .uk-accordion-icon svg[fill="currentColor"] > .circle,
+  .uk-accordion-icon svg > .circle[fill="currentColor"] {
+    opacity: @accordion-icon-circle-opacity;
+  }
+
   [aria-expanded="true"] .uk-accordion-icon svg > .circle {
     color: @accordion-icon-circle-active-color;
   }
@@ -267,6 +274,11 @@
   [aria-expanded="true"] .uk-accordion-icon svg[stroke] > .circle,
   [aria-expanded="true"] .uk-accordion-icon svg > .circle[stroke] {
     stroke: @accordion-icon-circle-active-color;
+  }
+
+  [aria-expanded="true"] .uk-accordion-icon svg[fill="currentColor"] > .circle,
+  [aria-expanded="true"] .uk-accordion-icon svg > .circle[fill="currentColor"] {
+    opacity: @accordion-icon-circle-active-opacity;
   }
 }
 

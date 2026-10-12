@@ -49,7 +49,6 @@ export async function compile(
 
   // write file in destination
   await limit(() => bundle.write(output))
-  console.log('  > PRkit Icons is Ready...')
 
   await bundle.close()
 }
@@ -57,12 +56,13 @@ export async function compile(
 // Find which used icons in project and render just those svg from path
 // this function Scan all Vue files in project and Match icons by a naming pattern: "icon-*"
 // we must replace it with a better function, problem: it will scan all files
-// TODO: .md extension must move to another library (docs project)
+// TODO: .md extension must move to doc library
+// TODO: check `component-` prefix work good and correctly or not
 export async function findIcons(findDir: string): Promise<Set<string>> {
   const files = glob.sync(`${findDir}/**/*.{vue,ts,md}`)
   const iconSet = new Set<string>()
 
-  const prefixes = ['icon-', 'component-default-']
+  const prefixes = ['icon-', 'component-']
 
   const pattern = new RegExp(`(?:${prefixes.join('|')})[a-zA-Z0-9_-]+`, 'g')
 

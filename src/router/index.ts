@@ -11,6 +11,7 @@ if (isDev) {
   routes.push(...devRoutes())
 }
 
+// TODO: Must change in future with moving to another library (Doc library)
 const router: Router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: 'uk-active',
@@ -19,10 +20,11 @@ const router: Router = createRouter({
     if (to.hash) {
       return {
         el: to.hash,
-        top: 40,
-        behavior: 'smooth',
+        top: 20,
       }
     }
+
+    return { top: 0 }
   },
   routes,
 })

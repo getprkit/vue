@@ -8,49 +8,90 @@
  * xPropsType in props.ts until we fix problems we define UIKit
  * types here and use them in props.ts as extends for xPropsType.
  *
- * TODO:
- *  Fix why we can't use UIKit define props: @types/uikit as extends for xPropsType in props.ts
+ * TODO: Fix why we can't use UIKit define props directly: @types/uikit
+ *       as extends for xPropsType in props.ts.
  *
- * UIKit JavaScript Components also accept some options like:
- * UIKit.accordion(el, { active: number = false, animation: Boolean = true }) so
- * when we want to use the options as props for our component (ex: PrAccordion)
- * it returns some value as vue default value refer to: https://vuejs.org/guide/components/props.html#boolean
- * or some value as undefined value, and it will replace the UIKit JavaScript component value
- * when we're trying to call the UIKit JavaScript function, for example if a component default option be like:
- * v-bind = { active = false, animation = true, duration = 200 } it will be replaced with
- * { active = false, animation = false, duration = undefined } and when we calling it with
- * UIKit.accordion(el, props) the UIKit JavaScript component will be broke.
- * for fixing that we need to do 2 thing:
- * 1. define all UIKit boolean function like: boolean extends infer T ? T : never
- * and change all UIKit type option from boolean to UIkitBoolean. vue can't change
- * this boolean to false, and also we don't have problem when we using boolean
- * value at calling component (it will accept just boolean)
- * 2. before we send them to UIKit JavaScript Function we filter them using
- * omitUndefined function in the util.ts, it will remove the undefined props before
- * its receive to UIKit JavaScript Function
+ * When we are using UIKit JavaScript Components, they have methods, so if we want to
+ * access and use methods we need to first access UIkit JavaScript Component. for this
+ * First We define apiRef prop Second Use it in main component when calling UIkit
+ * JavaScript Component in onMounted.
+ * ex:
+ * props.ts:
+ * import type { AccordionApi } from '@u/types.ts'
+ * export interface AccordionPropsType {
+ *   apiRef?: ApiRef<AccordionApi>
+ * }
  *
- * We also define other types here
+ * PrAccordion.vue (main component):
+ * onMounted(() => {
+ *   const getAccordion = accordion(el.value, { ...props, active: getActive() })
+ *   props.apiRef?.(getAccordion)
+ * })
  *
- * When are we using UIKit JavaScript Components, they contain methods, if we want to use
- * methods we need the pass doom element to the method, so for getting element target we
- * have 3 way:
- * 1. set element component to a prop in that component (it can be accessed
- * from parent when define the ref - recommend)
- * 2. define templateRef (or ref) when using component ex: <PrAccordion ref="x"> and
- * access the element with: xRef.value?.$el (optional - maybe not work always)
- * 3. define that method in component and expose component to access it from parent (removed)
+ * using:
+ * import type { AccordionApi } from '@u/types'
+ * const accordionApi = ref<AccordionApi>()
+ * <PrAccordion :api-ref="(api) => (AccordionApi = api)" />
  *
- * We prefer option one, because its lean for production build, and we
- * make it conditional, so if specific props define in component it will compile it
+ * AccordionApi are predefined from UIkit JavaScript Component, so we don't need to
+ * defined them again.
  *
- * So all UIKit JavaScript Component Contains a prop named: refElement with type RefElementCallback
+ * So near to all UIKit JavaScript Component Contains a prop named: apiRef with type ApiRef<AccordionApi>.
+ *
+ * apiRef prop will rended when defined in using component, so it will not access and hold any UIkit JavaScript
+ * Component data until we call it when using component.
+ *
  * Structure:
- * <PrAccordion :ref-element="setRefElement">
- * setRefElement = (el) => { refElement.value = el } and in component
- * PrAccordion.vue: <component :ref="setElement">
- * setElement(value) { el.value = value; props.refElement?.(value) }
+ * props.ts:
+ * import type { XApi } from '@u/types.ts'
+ * export interface XPropsType {
+ *   apiRef?: ApiRef<XApi>
+ * }
  *
- * RefElement type will use for those refs that will assign to element
+ * PrComponent.vue (main component):
+ * onMounted(() => {
+ *   const getX = x(el.value, props || { ...props, ....additional-args})
+ *   props.apiRef?.(getX)
+ * })
+ *
+ * using:
+ * import type { XApi } from '@u/types'
+ * const xApi = ref<XApi>()
+ * <PrX :api-ref="(api) => (XApi = api)" />
+ *
+ * For manually initialize a component we must first define templateRef for a node then
+ * we will pas it to [componentName] function and the HTML/CSS part structure also will
+ * define in doc pages and exist also in UIkit docs: https://getuikit.com/docs/introduction
+ * structure:
+ * import { x } from '@u/util.ts'
+ * const xEl = useTemplateRef('xEl')
+ * onMounted(() => {
+ *   const xApi = x(xEl.value, { options } || 'primary-option')
+ *   xApi.[methodName || api](....)
+ * })
+ * <element ref="xEl">....</element>
+ *
+ * If we want to access the initialized JavaScript component call the [componentName] function
+ * without setting the option argument:
+ * import { x } from '@u/util.ts'
+ * onMounted(() => {
+ *   const initializedApi = x(xEl.value)
+ *   initializedApi.[methodName || api](....)
+ * })
+ * <initialized>....</initialized>
+ *
+ * There is other way to access the JavaScript Component Api and it is when using the PrX component
+ * we can defined templateRef for PrX and access to the element then passing the element to [componentName]
+ * function without any option to access it, Structure:
+ * const accordionEl = useTemplateRef('accordionEl')
+ * onMounted(() => {
+ *   const xApi = x(accordionEl.value?.$el)
+ *   xApi.[methodName || api](....)
+ * })
+ * Accordion to Using Root DOM Node In Vue: https://vuejs.org/api/component-instance.html#el for consistency
+ * it is recommend to not use accordionEl.value?.$el for accessing the component element.
+ *
+ * We also define other types here.
  *
  * ========================================================================
  */
@@ -59,33 +100,55 @@
  * Imports
  * ======================================================================== */
 
+import type { MaybeRef, TemplateRef } from 'vue';
 import type { IconStyles } from '@u/config'
-
 
 /**
  * Generic|Custom Types
  * ======================================================================== */
 
-export type RefElement = HTMLElement | null
-export type RefElementCallback = (el: RefElement) => void
+// set UIkit JavaScript Component type in ComponentPropsType.
+export type ApiRef<T> = (componentApi: T) => void
 
-/** Icon names Types  */
-type StringSuffix<T extends string> =
-  T | (`${T}${string}` & { _?: string })
+// for accepting UIkit JavaScript Component elements, will use in UIkit JavaScript Function and methods.
+export type ElementTarget = object | HTMLElement | string | null;
 
-export type IconStylePrefix = {
-  [Style in IconStyles]: `icon-${Style}-`
-}[IconStyles]
+// for UIkit.update function, there is no type for it, so we define our type
+// null element will trigger document.body update, type also accept custom event with string
+export type UpdateApi = (element?: ElementTarget, type?: string | Event) => void
 
-export type IconName = StringSuffix<IconStylePrefix>
+/**
+ * Icon Types
+ * ======================================================================== */
 
-/** useComponentIcon Types */
-export type IconNameResolver<T extends string = string> = (icon: T) => string | false
+// base icon types.
+export type IconType = string | false | undefined
 
-export interface ComponentIconProps<T extends string = string> {
-  icon?: T
-  iconRatio?: number
-  strokeRatio?: number
+// for suggest available icon styles and also accept any string (for custom icons).
+export type IconName = `icon-${IconStyles}-` | `component-${IconStyles}-` | (string & {})
+
+// for component that include icons, will accept component added icons.
+export type DefaultIcon<K extends string = never> = K | IconName | false | undefined
+
+
+/**
+ * Composable Component Types
+ * ======================================================================== */
+
+// useComponentEmit
+export type UseComponentEmit = (
+  el: TemplateRef<HTMLElement>,
+  componentEmits: readonly string[],
+  handler: EventListener
+ ) => void
+
+// useComponentIcon
+export type UseComponentIcon = <T extends string | false>(
+  props: { icon?: T, iconRatio?: number, strokeRatio?: number},
+  getIconName?: (icon: T | undefined) => IconType,
+) => {
+  iconEl: TemplateRef<HTMLElement>
+  iconName: MaybeRef<IconType>
 }
 
 
@@ -94,13 +157,33 @@ export interface ComponentIconProps<T extends string = string> {
  * ======================================================================== */
 
 import type {
-  UIkitElementBase,
+  UIkitFunction,
   UIkitElement,
+  UIkitElementBase,
+  UIkitIconElement,
   UIkitAlign,
   UIkitCssSelector,
   UIkitClickHoverMode,
   UIkitPosition,
   UIkitStretch,
+  UIkitAccordionElement,
+  UIkitAlertElement,
+  UIkitCountdownElement,
+  UIkitDropElement,
+  UIkitDropdownElement,
+  UIkitLightboxElement,
+  UIkitModalElement,
+  UIkitNavElement,
+  UIkitNotificationElement,
+  UIkitOffcanvasElement,
+  UIkitScrollElement,
+  UIkitSliderElement,
+  UIkitSlideshowElement,
+  UIkitSvgElement,
+  UIkitSwitcherElement,
+  UIkitTabElement,
+  UIkitToggleElement,
+  UIkitTooltipElement,
 } from 'uikit'
 
 type UIkitBoolean = boolean extends infer T ? T : never
@@ -206,27 +289,7 @@ interface UIkitDropOptionsBase {
 
 type UIkitDropOptions = UIkitDropOptionsBase
 
-interface UIkitDropElement extends UIkitElementBase {
-  /** Shows the drop. */
-  show(): void
-  /**
-   * Hides the drop.
-   * @param delay Delay hiding the drop.
-   */
-  hide(delay?: UIkitBoolean): void
-}
-
-// type UIkitDropdownOptions = UIkitDropOptionsBase
-
-interface UIkitDropdownElement extends UIkitElementBase {
-  /** Shows the dropdown. */
-  show(): void
-  /**
-   * Hides the dropdown.
-   * @param delay Delay hiding the Dropdown.
-   */
-  hide(delay?: UIkitBoolean): void
-}
+type UIkitDropdownOptions = UIkitDropOptionsBase;
 
 interface UIkitDropnavOptions extends Pick<
   UIkitDropOptionsBase,
@@ -310,6 +373,11 @@ interface UIkitHeightMatchOptions {
   row?: UIkitBoolean
 }
 
+interface UIkitHeightPlaceholderOptions {
+  /** Elements that should match. */
+  target?: string;
+}
+
 interface UIkitIconOptions {
   /** The icon to display. */
   icon?: string
@@ -318,6 +386,8 @@ interface UIkitIconOptions {
   /** The icon stroke size ratio. */
   strokeRatio?: number
 }
+
+type UIkitIcon = UIkitFunction<UIkitIconOptions, UIkitIconElement, Promise<SVGElement>>
 
 interface UIkitImageOptions {
   /**	The image's src attribute. */
@@ -812,47 +882,289 @@ interface UIkitVideoOptions {
   automute?: UIkitBoolean
 }
 
+
+/** UIkit Component Methods */
+
+// access the type of UIkit JavaScript Component Method for each UIkit JavaScript Component.
+type ComponentMethod<M extends (...args: never[]) => unknown> = (
+  el: ElementTarget,
+  ...args: Parameters<M>
+) => ReturnType<M>
+
+type ComponentProp<P> = (el: ElementTarget) => P
+
+// Accordion
+
+/**
+ * Toggles the content pane.
+ * @param index Accordion pane to toggle. 0 based index.
+ * @param animate Suppress opening animation by passing false.
+ */
+type MethodAccordionToggle = ComponentMethod<UIkitAccordionElement['toggle']>
+
+// Alert
+
+/** Closes and removes the Alert. */
+type MethodAlertClose = ComponentMethod<UIkitAlertElement['close']>
+
+// Countdown
+
+/** Starts the countdown. */
+type MethodCountdownStart = ComponentMethod<UIkitCountdownElement['start']>
+
+/** Stops the countdown. */
+type MethodCountdownStop = ComponentMethod<UIkitCountdownElement['stop']>
+
+// Drop
+
+/**
+ * Hides the drop.
+ * @param delay Delay hiding the drop.
+ */
+type MethodDropHide = ComponentMethod<UIkitDropElement['hide']>
+
+/** Shows the drop. */
+type MethodDropShow = ComponentMethod<UIkitDropElement['show']>
+
+// Dropdown
+
+/**
+ * Hides the dropdown.
+ * @param delay Delay hiding the Dropdown.
+ */
+type MethodDropdownHide = ComponentMethod<UIkitDropdownElement['hide']>
+
+/** Shows the dropdown. */
+type MethodDropdownShow = ComponentMethod<UIkitDropdownElement['show']>
+
+// Lightbox
+
+/** Hides the Lightbox. */
+type MethodLightboxHide = ComponentMethod<UIkitLightboxElement['hide']>
+
+/**
+ * Shows the Lightbox and item.
+ * @param index Lightbox item to show. 0 based index.
+ */
+type MethodLightboxShow = ComponentMethod<UIkitLightboxElement['show']>
+
+// Modal
+
+/** Hides the Modal. */
+type MethodModalHide = ComponentMethod<UIkitModalElement['hide']>
+
+/** Shows the Modal. */
+type MethodModalShow = ComponentMethod<UIkitModalElement['show']>
+
+// Nav
+
+/**
+ * Toggles the content pane.
+ * @param index Nav pane to toggle. 0 based index.
+ * @param animate Suppress opening animation by passing false.
+ */
+type MethodNavToggle = ComponentMethod<UIkitNavElement['toggle']>
+
+// Notification
+
+/**
+ * Closes the notification.
+ * @param immediate Transition the notification out.
+ */
+type MethodNotificationClose = ComponentMethod<UIkitNotificationElement['close']>
+
+// Offcanvas
+
+/** Hides the Offcanvas. */
+type MethodOffcanvasHide = ComponentMethod<UIkitOffcanvasElement['hide']>
+
+/** Shows the Offcanvas. */
+type MethodOffcanvasShow = ComponentMethod<UIkitOffcanvasElement['show']>
+
+// Scroll
+
+/**
+ * Scroll to the given element.
+ * @param el The element to scroll to.
+ */
+type MethodScrollScrollTo = ComponentMethod<UIkitScrollElement['scrollTo']>
+
+// Slider
+
+/**
+ * Shows the slider item.
+ * @param index The item to show. (zero-based).
+ */
+type MethodSliderShow = ComponentMethod<UIkitSliderElement['show']>
+
+/** Starts the slider autoplay. */
+type MethodSliderStartAutoplay = ComponentMethod<UIkitSliderElement['startAutoplay']>
+
+/** Stops the slider autoplay. */
+type MethodSliderStopAutoplay = ComponentMethod<UIkitSliderElement['stopAutoplay']>
+
+// Slideshow
+
+/**
+ * Shows the slideshow item.
+ * @param index The item to show. 0 based index.
+ */
+type MethodSlideshowShow = ComponentMethod<UIkitSlideshowElement['show']>
+
+/** Starts the slideshow autoplay. */
+type MethodSlideshowStartAutoplay = ComponentMethod<UIkitSlideshowElement['startAutoplay']>
+
+/** Stops the slideshow autoplay. */
+type MethodSlideshowStopAutoplay = ComponentMethod<UIkitSlideshowElement['stopAutoplay']>
+
+// Svg
+
+/** A JavaScript Promise that will resolve with the added SVG Node. */
+type PropSvgSvg = ComponentProp<UIkitSvgElement['svg']>
+
+// Switcher
+
+/**
+ * Shows the Switcher item with given index.
+ * @param index Switcher item to show. 0 based index.
+ */
+type MethodSwitcherShow = ComponentMethod<UIkitSwitcherElement['show']>
+
+// Tab
+
+/**
+ * Shows the Tab item with the given index.
+ * @param index Tab item to show. 0 based index.
+ */
+type MethodTabShow = ComponentMethod<UIkitTabElement['show']>
+
+// Toggle
+
+/** Toggles the Toggle's target. */
+type MethodToggleToggle = ComponentMethod<UIkitToggleElement['toggle']>
+
+// Tooltip
+
+/** Hides the Tooltip. */
+type MethodTooltipHide = ComponentMethod<UIkitTooltipElement['hide']>
+
+/** Shows the Tooltip. */
+type MethodTooltipShow = ComponentMethod<UIkitTooltipElement['show']>
+
+
 export type {
-  UIkitBoolean,
-  UIkitAccordionOptions,
-  UIkitAlertOptions,
-  UIkitCountdownOptions,
-  UIkitCoverOptions,
-  UIkitDropOptions,
-  UIkitDropElement,
-  UIkitDropdownElement,
-  UIkitDropnavOptions,
-  UIkitFilterOptions,
-  UIkitFormOptions,
-  UIkitGridOptions,
-  UIkitHeightViewportOptions,
-  UIkitHeightMatchOptions,
-  UIkitIconOptions,
-  UIkitImageOptions,
-  UIkitInverseOptions,
-  UIkitLeaderOptions,
-  UIkitLightboxOptionsBase,
-  UIkitLightboxOptions,
-  UIkitMarginOptions,
-  UIkitModalOptions,
-  UIkitNavOptions,
-  UIkitNavbarOptions,
-  UIkitNotificationOptions,
-  UIkitOffcanvasOptions,
-  UIkitParallaxOptions,
-  UIkitScrollOptions,
-  UIkitScrollspyOptionsBase,
-  UIkitScrollspyOptions,
-  UIkitScrollspyNavOptions,
-  UIkitSliderOptions,
-  UIkitSlideshowOptions,
-  UIkitSortableOptions,
-  UIkitStickyOptions,
-  UIkitSvgOptions,
-  UIkitSwitcherOptions,
-  UIkitTabOptions,
-  UIkitToggleOptions,
-  UIkitTooltipOptions,
-  UIkitUploadOptions,
-  UIkitVideoOptions,
+  // UIkit component Api
+  UIkitAccordionElement as AccordionApi,
+  UIkitAlertElement as AlertApi,
+  UIkitCountdownElement as CountdownApi,
+  UIkitElementBase as CoverApi,
+  UIkitDropElement as DropApi,
+  UIkitElementBase as DropnavApi,
+  UIkitDropdownElement as DropdownApi,
+  UIkitElementBase as FilterApi,
+  UIkitElementBase as FormApi,
+  UIkitElementBase as GridApi,
+  UIkitElementBase as HeightViewportApi,
+  UIkitElementBase as HeightMatchApi,
+  UIkitElementBase as HeightPlaceholderApi,
+  UIkitElementBase as ImageApi,
+  UIkitElementBase as InverseApi,
+  UIkitElementBase as LeaderApi,
+  UIkitLightboxElement as LightboxApi,
+  UIkitElementBase as MarginApi,
+  UIkitModalElement as ModalApi,
+  UIkitNavElement as NavApi,
+  UIkitElementBase as NavbarApi,
+  UIkitNotificationElement as NotificationApi,
+  UIkitOffcanvasElement as OffcanvasApi,
+  UIkitElementBase as ParallaxApi,
+  UIkitScrollElement as ScrollApi,
+  UIkitElementBase as ScrollspyApi,
+  UIkitElementBase as ScrollspyNavApi,
+  UIkitSliderElement as SliderApi,
+  UIkitSlideshowElement as SlideshowApi,
+  UIkitElementBase as SortableApi,
+  UIkitElementBase as StickyApi,
+  UIkitSvgElement as SvgApi,
+  UIkitSwitcherElement as SwitcherApi,
+  UIkitTabElement as TabApi,
+  UIkitToggleElement as ToggleApi,
+  UIkitTooltipElement as TooltipApi,
+  UIkitElementBase as UploadApi,
+  UIkitElementBase as VideoApi,
+
+  // UIkit component options
+  UIkitAccordionOptions as OptionsAccordion,
+  UIkitAlertOptions as OptionsAlert,
+  UIkitCountdownOptions as OptionsCountdown,
+  UIkitCoverOptions as OptionsCover,
+  UIkitDropOptions as OptionsDrop,
+  UIkitDropdownOptions as OptionsDropdown,
+  UIkitDropnavOptions as OptionsDropnav,
+  UIkitFilterOptions as OptionsFilter,
+  UIkitFormOptions as OptionsForm,
+  UIkitGridOptions as OptionsGrid,
+  UIkitHeightViewportOptions as OptionsHeightViewport,
+  UIkitHeightMatchOptions as OptionsHeightMatch,
+  UIkitHeightPlaceholderOptions as OptionsHeightPlaceholder,
+  UIkitIconOptions as OptionsIcon,
+  UIkitImageOptions as OptionsImage,
+  UIkitInverseOptions as OptionsInverse,
+  UIkitLeaderOptions as OptionsLeader,
+  UIkitLightboxOptions as OptionsLightbox,
+  UIkitMarginOptions as OptionsMargin,
+  UIkitModalOptions as OptionsModal,
+  UIkitNavOptions as OptionsNav,
+  UIkitNavbarOptions as OptionsNavbar,
+  UIkitNotificationOptions as OptionsNotification,
+  UIkitOffcanvasOptions as OptionsOffcanvas,
+  UIkitParallaxOptions as OptionsParallax,
+  UIkitScrollOptions as OptionsScroll,
+  UIkitScrollspyOptions as OptionsScrollspy,
+  UIkitScrollspyNavOptions as OptionsScrollspyNav,
+  UIkitSliderOptions as OptionsSlider,
+  UIkitSlideshowOptions as OptionsSlideshow,
+  UIkitSortableOptions as OptionsSortable,
+  UIkitStickyOptions as OptionsSticky,
+  UIkitSvgOptions as OptionsSvg,
+  UIkitSwitcherOptions as OptionsSwitcher,
+  UIkitTabOptions as OptionsTab,
+  UIkitToggleOptions as OptionsToggle,
+  UIkitTooltipOptions as OptionsTooltip,
+  UIkitUploadOptions as OptionsUpload,
+  UIkitVideoOptions as OptionsVideo,
+
+  // UIkit component functions
+  UIkitIcon as IconFunction,
+
+  // UIkit component methods
+  MethodAccordionToggle,
+  MethodAlertClose,
+  MethodCountdownStart,
+  MethodCountdownStop,
+  MethodDropHide,
+  MethodDropShow,
+  MethodDropdownHide,
+  MethodDropdownShow,
+  MethodLightboxHide,
+  MethodLightboxShow,
+  MethodModalHide,
+  MethodModalShow,
+  MethodNavToggle,
+  MethodNotificationClose,
+  MethodOffcanvasHide,
+  MethodOffcanvasShow,
+  MethodScrollScrollTo,
+  MethodSliderShow,
+  MethodSliderStartAutoplay,
+  MethodSliderStopAutoplay,
+  MethodSlideshowShow,
+  MethodSlideshowStartAutoplay,
+  MethodSlideshowStopAutoplay,
+  PropSvgSvg,
+  MethodSwitcherShow,
+  MethodTabShow,
+  MethodToggleToggle,
+  MethodTooltipHide,
+  MethodTooltipShow,
 }

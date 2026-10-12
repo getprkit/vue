@@ -8,17 +8,19 @@ Our goal is for this library to be a collection of Vue components and a set of r
 This WHITE PAPER is still a work in progress.
 
 # Vision
+
 refer to this page: https://vuejs.org/guide/best-practices/performance.html we are trying our best to get best optimize for PrKit components library and PrKit Starter Kit.
 
 We will prevent to use components in components for exmaple a main compnent that's contains child component like: accordion has accordion-title and accordion-content we will create the child components, but we will not use child component in structre of main component, we just create them to get used in component slot, and we notice that instead of using compnents in a v-for use it with pure CSS and Methods that's avaible in project refer to https://vuejs.org/guide/best-practices/performance.html#avoid-unnecessary-component-abstractions. we will make document guide for 3 mode of using component: 1. component itself that's accept content and option with props, 2. compnent with child compnent that is useable for main component for costom slot etc. 3. component just with avaiable methods and CSS stlye. we are trying to get the best performance for or compnents.
 
 ## what we are doing now?
 
-we are making all project (CSS framework and vue components and starter kit) in one project and will separate them to our vision at last. 
+we are making all project (CSS framework and vue components and starter kit) in one project and will separate them to our vision at last.
 
 components are collection of UIKit components (with additional property and style) + some usable component that not exists in UIKit library (we can find other usable components name in library like shadcn or shuriken-ui)
 
 ## Visions
+
 - PrKIt and Vue: Ui CSS framework with components based on PrKit
 - Nuxt Starter based on PrKit Vue and have everything for start a front project
 - we need also document pages for PrKit and PrKit Vue and Nuxt `Starter Kit`
@@ -26,7 +28,9 @@ components are collection of UIKit components (with additional property and styl
 # Roadmap
 
 ### icons
-### icon libraries and version: 
+
+### icon libraries and version:
+
 - [Font Awesome (fa) - 7.3.1](https://fontawesome.com) should update to last version
 - [Hugeicons (huge) - 4375](https://hugeicons.com) should update to last version
 - [Iconoir (iconoir) - 7.12.1](https://iconoir.com)
@@ -41,6 +45,7 @@ components are collection of UIKit components (with additional property and styl
 - [Unicons (uni) - without version](https://iconscout.com/unicons)
 
 ### TODO
+
 - [ ] add mx-icons to project
 - [ ] add icon versions to icon-libraries
 - [ ] add isocons component icons
@@ -52,18 +57,21 @@ components are collection of UIKit components (with additional property and styl
 - [ ] Create starter kit for `Nuxt`
 - [ ] Migrate to modern CSS rgb
 - [ ] Fix accordion-circle icon for line-circle icon styles
+- [ ] Change import UIkit library in app.ts from full library to specific components for lean final production build file.
 
 ## Tasklists (sub roadmap)
+
 - [ ] we need make this project separate to 4 npm libraries:
-  - icons libraries: *placed at __src/images/core__*
-  - core theme components: *placed at __src/components/__ or __src/components/core__* (the ui framework)
-  - documents: *placed at __src/views/docs__*
-  - starter kit: *ready-to-use pages: including all pre-build pages and layouts, vite build, vite build scripts and etc*
+  - icons libraries: _placed at **src/images/core**_
+  - core theme components: _placed at **src/components/** or **src/components/core**_ (the ui framework)
+  - documents: _placed at **src/views/docs**_
+  - starter kit: _ready-to-use pages: including all pre-build pages and layouts, vite build, vite build scripts and etc_
 - [ ] design it for **Nuxt** (starter kit)
 - [ ] we need add a setting.css file for customizing the style of the main css like: changing global and main colors, changing fonts and changing default icons
 
 ## Notes
-- we define all Uikit components in vue, but in documents if a document can be defined as css component we must mark down the code as a css also. (vue and css together) 
+
+- we define all Uikit components in vue, but in documents if a document can be defined as css component we must mark down the code as a css also. (vue and css together)
 - add default icons to project, when it adds we can change all icon set with changing the default icon name attribute
 - add Solar-Icon-Set outline to icons set: the different between regular set is outline wrote as path fillable and outline is wrote as a path line with ability to change line-stroke
 - check aria-label html attribute and read the docs

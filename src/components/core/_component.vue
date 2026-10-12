@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, useTemplateRef } from 'vue'
 import { isDev, devComputed, devPropsWatch } from '@u/env.ts'
-import type { RefElement } from '@u/types.ts'
 import { type AccordionPropsType, accordionDefaults } from '@u/props'
 import { type AccordionEmitsType, accordionEmits } from '@u/emits.ts'
-import { setAccordion, getAccordionIconName } from '@u/util'
+import { accordion, getAccordionIcon } from '@u/util'
 import { useComponentEmit } from '@cc/useComponentEmit.ts'
 import { useComponentIcon } from '@cc/useComponentIcon.ts'
 import { accordionClasses } from '@u/classes'
@@ -16,18 +15,23 @@ import { accordionClasses } from '@u/classes'
  * */
 
 /**
- * Props:
+ * Props
+ *
  * UIKit JavaScript Component props:
  *
+ *
  * Icon Props:
- * icon: icon-types | string(CustomIconName | ex: icon-fa-duotone-plus)
+ * icon: icon-types | string(customIconName | ex: icon-fa-duotone-plus)
  * iconRatio: number
  * strokeRatio: number
  *
+ *
  * Class Props:
  *
+ *
  * Component Props:
- * refElement?: RefElementCallback
+ * apiRef?: ApiRef<AccordionApi>
+ *
  *
  * Defaults:
  *
@@ -40,18 +44,12 @@ import { accordionClasses } from '@u/classes'
 const props = withDefaults(defineProps<AccordionPropsType>(), accordionDefaults)
 
 /**
- * Component Ref and Props Ref Element:
- * el, props.refElement
+ * Component Template Refs:
+ * el
  * ========================================================================
  */
 
-const el = ref<RefElement>(null)
-
-// If parent needs access to the component element:
-// function setElement(value: RefElement) {
-//   el.value = value
-//   props.refElement?.(value)
-// }
+const el = useTemplateRef<HTMLElement>('el')
 
 /**
  * Emits:
@@ -71,7 +69,9 @@ const el = ref<RefElement>(null)
 
 /**
  * CSS Classes:
- * ...Defined CSS UIKit and PrKit Classes for main element of component
+ * ...Defined CSS UIKit and PrKit Classes for main element of component.
+ * Child CSS classes:
+ * ...Define CSS UIKit and PrKit Classes for child elements of component.
  * ========================================================================
  */
 
@@ -79,12 +79,16 @@ const accordionClass = devComputed(() => accordionClasses(props))
 
 /**
  * Icons:
- * icon-types | string(CustomIconName | ex: icon-fa-duotone-plus)
+ * icon-types | string(customIconName | ex: icon-fa-duotone-plus)
  * ========================================================================
  */
 
-// If component contains icon
+// If component contains multiple icon and has conditional rendering and custom icon type
 // const { iconName } = useComponentIcon(props, getAccordionIconName)
+
+// If component contains icon and get name directly from props without any condition and custom icon type
+// const xIconName = () => props.icon
+// const { iconName } = useComponentIcon(props, xIconName)
 
 /**
  * Component-specific Logic:
@@ -94,13 +98,13 @@ const accordionClass = devComputed(() => accordionClasses(props))
 
 onMounted(() => {
   // If there is UIKit JavaScript Component
-  // setAccordion(el.value, props)
+  // accordion(el.value, props)
   //
   // if (isDev) {
   //   devPropsWatch(
   //     props,
   //     () => {
-  //       setAccordion(el.value, props)
+  //       accordion(el.value, props)
   //     },
   //     { exclude: ['modelValue', 'refElement'] },
   //   )
@@ -109,5 +113,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="accordionClass"></div>
+  <div :class="accordionClass">
+    <!-- If component contains icon <span v-if="iconName" ref="iconEl" /> -->
+  </div>
 </template>

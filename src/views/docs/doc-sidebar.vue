@@ -15,28 +15,26 @@ const darkMode = useDarkModeStore()
     style="border-right: 1px solid #e7e7e1"
   >
     <div class="uk-padding" :class="darkMode.light === 'uk-dark' && 'uk-light'">
-      <ul class="uk-nav uk-nav-default">
-        <li class="uk-nav-header">
-          <h3>
-            Documentation
-            <a class="uk-link uk-link-text" @click="darkMode.changeMode()">
-              <span uk-icon="icon-huge-sharp-sun-01" v-if="darkMode.light === 'uk-light'"></span>
-              <span uk-icon="icon-huge-sharp-moon" v-if="darkMode.light === 'uk-dark'"></span>
-            </a>
-          </h3>
-        </li>
-        <li>Components</li>
+      <h3 class="uk-margin-medium-bottom">
+        Documentation
+        <a class="uk-link uk-link-text" @click="darkMode.changeMode()">
+          <span uk-icon="icon-huge-sharp-sun-01" v-if="darkMode.light === 'uk-light'"></span>
+          <span uk-icon="icon-huge-sharp-moon" v-if="darkMode.light === 'uk-dark'"></span>
+        </a>
+      </h3>
+      <ul class="uk-nav uk-nav-default uk-margin-top" v-for="(value, key) in docLinks" :key>
+        <li class="uk-nav-header">{{ key }}</li>
         <li class="uk-nav-divider"></li>
         <RouterLink
-          v-for="([link], index) in docLinks"
-          :to="`/docs/${link.toLowerCase()}`"
+          v-for="([link], index) in value"
+          :to="`/docs/${link.replace(/\s+/g, '-').toLowerCase()}`"
           v-bind="$props"
           v-slot="{ navigate }"
           custom
           :key="index"
         >
           <li @click="navigate" :class="route.name === link ? 'uk-active' : ''">
-            <a>{{ link }}</a>
+            <a :href="`/docs/${link.replace(/\s+/g, '-').toLowerCase()}`">{{ link }}</a>
           </li>
         </RouterLink>
       </ul>

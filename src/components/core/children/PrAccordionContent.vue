@@ -1,7 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+/**
+ * PrAccordionContent
+ * Child component of: PrAccordion | PrAccordionItem.
+ * will create content section for accordion item contents.
+ * ========================================================================
+ * */
+
+/**
+ * CSS Classes:
+ * uk-accordion-content
+ * ========================================================================
+ */
+</script>
 
 <template>
   <div class="uk-accordion-content">
-    <slot />
+    <p><slot /></p>
   </div>
 </template>
