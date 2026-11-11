@@ -182,7 +182,13 @@ watch(darkMode, () => {
 }
 
 .pr-doc-switcher > div:first-child {
-  padding: 60px;
+  padding: 20px;
+}
+
+@media (min-width: 960px) {
+  .pr-doc-switcher > div:first-child {
+    padding: 60px;
+  }
 }
 
 .pr-doc-label {
