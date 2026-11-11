@@ -1,6 +1,4 @@
 import type { UserConfig, PluginOption, AliasOptions, Plugin } from 'vite'
-import rtlcss from 'rtlcss'
-import { rtlcssConfig, rtlPlugin } from './rtlcss.ts'
 // TODO: must change in future
 import { markdown } from './markdown.ts'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
@@ -13,7 +11,6 @@ import { defaultIconStyle } from '../util/config.ts'
 
 interface ViteConfig {
   command: 'serve' | 'build'
-  rtl: string | undefined
 }
 
 export function setIcons(defaultIcons: string) {
@@ -52,33 +49,11 @@ export async function pluginsFunc(
   return p
 }
 
-// if user start with "npm run dev:rtl" we add rtlcss config
-// to process and rtl less file will be used in dev mode.
-// if user run build command we use our rtlPlugin to create separated
-// CSS file.
-export default async function viteConfig({
-  rtl,
-  command = 'serve',
-}: ViteConfig): Promise<UserConfig> {
+export default async function viteConfig({ command = 'serve' }: ViteConfig): Promise<UserConfig> {
   const vitePlugins = await pluginsFunc(command === 'serve')
-
-  const postCssPlugins = []
-
-  if (rtl) {
-    postCssPlugins.push(rtlcss.configure(rtlcssConfig))
-  }
-
-  if (command === 'build') {
-    vitePlugins.push(rtlPlugin())
-  }
 
   return {
     plugins: vitePlugins,
-    css: {
-      postcss: {
-        plugins: postCssPlugins,
-      },
-    },
     resolve: {
       alias,
     },

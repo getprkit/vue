@@ -7,13 +7,15 @@ export const useDarkModeStore = defineStore('lightMode', () => {
   function changeMode() {
     if (light.value === 'uk-light') {
       light.value = 'uk-dark'
-    } else light.value = 'uk-light'
+    } else {
+      light.value = 'uk-light'
+    }
 
     localStorage.setItem('lightMode', light.value)
   }
 
   function sectionMode() {
-    return light.value === 'uk-dark' ? 'uk-section-secondary' : 'uk-section-default'
+    return 'uk-section-default'
   }
 
   return { light, changeMode, sectionMode }

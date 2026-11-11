@@ -40,6 +40,25 @@
  * now we can call icon in props and use specific types (icon style types will suggest as well also):
  * <PrAccordion icon="false | plus | icon-fa-regular-chevron-down" :icon-ratio="1.5" :stroke-ratio="2" />
  *
+ * If component render icon from another props, we need to define iconKey in getXIcon and pass
+ * it when using useComponentIcon(props, getXIcon, iconKey) also need to add a condition with true value
+ * in getXIcon function and at last set icon to true when using the PrX component. alert is the on of
+ * example:
+ * const { iconName } = useComponentIcon(props, getAlertIcon, 'variant')
+ * export const alertIconMap = {
+ *   default: 'component-default-alert-default',
+ *   muted: 'component-default-alert-muted',
+ *   ...
+ * } as const
+ * export type AlertIconType = DefaultIcon<keyof typeof alertIconMap>
+ * export function getAlertIcon(icon: AlertIconType, iconKey?: string) {
+ *   if (icon === true) {
+ *     return alertIconMap[iconKey as keyof typeof alertIconMap]
+ *   }
+ *   return alertIconMap[icon as keyof typeof alertIconMap] ?? icon
+ * }
+ * then for usage: <PrAlert variant="muted" icon>....</PrAlert>
+ *
  * Process of solution two:
  * first we define HTML element to render icon inside the main component.
  * like:
@@ -49,12 +68,12 @@
  * interface NavPropsType extends BaseIconPropsType
  * at last we need to call useComponentIcon in component:
  * const getNavIcon = () => props.icon
- * like: const { icon, iconName } = useComponentIcon(props, getNavIcon)
+ * like: const { iconEl, iconName } = useComponentIcon(props, getNavIcon)
  * now we can call icon in props and use specific types (icon style types will suggest as well also):
  * <PrNav icon="icon-fa-regular-chevron-down | any-icon-styles" :icon-ratio="1.5" :stroke-ratio="2" />
  *
  * BaseIconPropsType itself is: { icon?: DefaultIcon, iconRatio?: number, strokeRatio?: number }
- * DefaultIcon is: IconName | false | undefined
+ * DefaultIcon is: IconName | boolean | undefined
  * IconName also will help us with icon style types.
  *
  * if you want to addition compile and props or prevent some controls from icon part of component
@@ -103,20 +122,22 @@
 
 import { onMounted, unref, useTemplateRef } from 'vue'
 import { devComputed, devPropsWatch, isDev } from '@u/env.ts'
+import type { BaseIconPropsType, UseComponentIcon } from '@/scripts/util/types'
 import { icon } from '@u/util.ts'
-import type { UseComponentIcon } from '@/scripts/util/types'
 
-export const useComponentIcon: UseComponentIcon = (props, getIcon) => {
-  const iconEl = useTemplateRef<HTMLElement>('iconEl')
+export const useComponentIcon: UseComponentIcon = (props, getIcon, iconKey, refEl = 'iconEl') => {
+  const iconEl = useTemplateRef<HTMLElement>(refEl)
 
-  const iconName = devComputed(getIcon ? () => getIcon(props.icon) : () => props.icon || false)
+  const iconName = devComputed(() =>
+    props.icon ? getIcon(props.icon, iconKey && props[iconKey]) : false,
+  )
 
   function updateIcon() {
     const name = unref(iconName)
     if (!name) return
 
     icon(iconEl.value, {
-      icon: name,
+      icon: name as string,
       ratio: props.iconRatio,
       strokeRatio: props.strokeRatio,
     })
@@ -126,7 +147,7 @@ export const useComponentIcon: UseComponentIcon = (props, getIcon) => {
     updateIcon()
 
     if (isDev) {
-      devPropsWatch(
+      devPropsWatch<BaseIconPropsType>(
         props,
         () => {
           updateIcon()

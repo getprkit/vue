@@ -1,0 +1,85 @@
+// Name:            Drop
+// Description:     Component to position any element next to any other element.
+//
+// Component:       `uk-drop`
+//
+// Sub-objects:     `uk-drop-parent-icon`
+//
+// Modifiers:       `uk-drop-stack`
+//                  `uk-drop-grid`
+//
+// States:          `uk-open`
+//
+// Uses:            Animation
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-drop-variables() {
+
+    --drop-z-index:                              calc(var(--global-z-index) + 20);
+    --drop-margin:                               var(--global-margin);
+    --drop-viewport-margin:                      15px;
+    --drop-width:                                300px;
+
+    --drop-parent-icon-margin-inline-start:      0.25em;
+
+}
+
+
+/* ========================================================================
+   Component: Drop
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ */
+
+.uk-drop {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: var(--drop-z-index);
+    --uk-position-offset: var(--drop-margin);
+    --uk-position-viewport-offset: var(--drop-viewport-margin);
+    /* 3 */
+    box-sizing: border-box;
+    width: var(--drop-width);
+    .hook-drop();
+}
+
+/* Show */
+.uk-drop.uk-open { display: block; }
+
+
+/* Grid modifiers
+ ========================================================================== */
+
+.uk-drop-stack .uk-drop-grid > * { width: 100% !important; }
+
+
+/* Parent icon
+ ========================================================================== */
+
+.uk-drop-parent-icon {
+    margin-inline-start: var(--drop-parent-icon-margin-inline-start);
+    transition: transform 0.3s ease-out;
+}
+
+[aria-expanded="true"] > .uk-drop-parent-icon { transform: rotateX(calc(180deg * var(--uk-dir-sign))); }
+
+
+// Hooks
+// ========================================================================
+
+.hook-drop-misc();
+
+.hook-drop-variables() {}
+.hook-drop() {}
+.hook-drop-misc() {}

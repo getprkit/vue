@@ -107,3 +107,49 @@ export type AccordionEmitsType = {
   hide: AccordionEmitArgs
   hidden: AccordionEmitArgs
 }
+
+
+/**
+ * Alert Component Emits
+ * emits: beforehide, hide
+ * types: emit(e: 'emit', event: Event): void
+ * ======================================================================== */
+
+export const alertEmits = [
+  'beforehide',
+  'hide',
+  'hidden',
+] as const
+
+export type AlertEmitsType = {
+  beforehide: DefaultEmitArgs
+  hide: DefaultEmitArgs
+  hidden: DefaultEmitArgs
+}
+
+
+/**
+ * ComponentName Component Emits :New-Component-Template
+ * emits: beforeshow, show, shown, beforehide, hide, hidden
+ * types: emit(e: 'emit', event: Event): void
+ * ======================================================================== */
+
+export const componentEmits = [
+  'beforeshow',
+  'show',
+  'shown',
+  'beforehide',
+  'hide',
+  'hidden',
+] as const
+
+// type ComponentEmitArgs = [...DefaultEmitArgs, value: unknown]
+
+export type ComponentEmitsType = {
+  beforeshow: DefaultEmitArgs
+  show: DefaultEmitArgs
+  shown: DefaultEmitArgs
+  beforehide: DefaultEmitArgs
+  hide: DefaultEmitArgs
+  hidden: DefaultEmitArgs
+}

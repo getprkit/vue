@@ -1,0 +1,189 @@
+// Name:            Divider
+// Description:     Styles for dividers
+//
+// Component:       `uk-divider-icon`
+//                  `uk-divider-small`
+//                  `uk-divider-vertical`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-divider-variables() {
+
+    --divider-margin-vertical:                       var(--global-margin);
+
+    --divider-icon-width:                            50px;
+    --divider-icon-height:                           20px;
+    --divider-icon-color:                            var(--global-border);
+    --divider-icon-line-top:                         50%;
+    --divider-icon-line-width:                       100%;
+    --divider-icon-line-border-width:                var(--global-border-width);
+    --divider-icon-line-border:                      var(--global-border);
+
+    --internal-divider-icon-image:                   url("../../images/backgrounds/divider-icon.svg");
+
+    --divider-small-width:                           100px;
+    --divider-small-border-width:                    var(--global-border-width);
+    --divider-small-border:                          var(--global-border);
+
+    --divider-vertical-height:                       100px;
+    --divider-vertical-border-width:                 var(--global-border-width);
+    --divider-vertical-border:                       var(--global-border);
+    
+}
+
+
+/* ========================================================================
+   Component: Divider
+ ========================================================================== */
+
+/*
+ * 1. Reset default `hr`
+ * 2. Set margin if a `div` is used for semantical reason
+ */
+
+[class*="uk-divider"] {
+    /* 1 */
+    border: none;
+    /* 2 */
+    margin-bottom: var(--divider-margin-vertical);
+    .hook-divider();
+}
+
+/* Add margin if adjacent element */
+* + [class*="uk-divider"] { margin-top: var(--divider-margin-vertical); }
+
+
+/* Icon
+ ========================================================================== */
+
+.uk-divider-icon {
+    position: relative;
+    height: var(--divider-icon-height);
+    // .svg-fill(@internal-divider-icon-image, "#000", @divider-icon-color);
+    background-image: var(--internal-divider-icon-image);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    .hook-divider-icon();
+}
+
+.uk-divider-icon::before,
+.uk-divider-icon::after {
+    content: "";
+    position: absolute;
+    top: var(--divider-icon-line-top);
+    max-width: ~'calc(50% - (var(--divider-icon-width) / 2))';
+    border-bottom: var(--divider-icon-line-border-width) solid var(--divider-icon-line-border);
+    .hook-divider-icon-line();
+}
+
+.uk-divider-icon::before {
+    inset-inline-end: ~'calc(50% + (var(--divider-icon-width) / 2))';
+    width: var(--divider-icon-line-width);
+    .hook-divider-icon-line-start();
+}
+
+.uk-divider-icon::after {
+    inset-inline-start: ~'calc(50% + (var(--divider-icon-width) / 2))';
+    width: var(--divider-icon-line-width);
+    .hook-divider-icon-line-end();
+}
+
+
+/* Small
+ ========================================================================== */
+
+/*
+ * 1. Fix height because of `inline-block`
+ * 2. Using ::after and inline-block to make `text-align` work
+ */
+
+/* 1 */
+.uk-divider-small { line-height: 0; }
+
+/* 2 */
+.uk-divider-small::after {
+    content: "";
+    display: inline-block;
+    width: var(--divider-small-width);
+    max-width: 100%;
+    border-top: var(--divider-small-border-width) solid var(--divider-small-border);
+    vertical-align: top;
+    .hook-divider-small();
+}
+
+
+/* Vertical
+ ========================================================================== */
+
+.uk-divider-vertical {
+    width: max-content;
+    height: var(--divider-vertical-height);
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    border-inline-start: var(--divider-vertical-border-width) solid var(--divider-vertical-border);
+    .hook-divider-vertical();
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-divider-misc();
+
+.hook-divider-variables() {}
+.hook-divider() {}
+.hook-divider-icon() {}
+.hook-divider-icon-line() {}
+.hook-divider-icon-line-start() {}
+.hook-divider-icon-line-end() {}
+.hook-divider-small() {}
+.hook-divider-vertical() {}
+.hook-divider-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-divider-variables() {
+
+    --inverse-divider-icon-color:                      var(--inverse-global-border);
+    --inverse-divider-icon-line-border:                var(--inverse-global-border);
+    --inverse-divider-small-border:                    var(--inverse-global-border);
+    --inverse-divider-vertical-border:                 var(--inverse-global-border);
+    
+}
+
+.hook-inverse() {
+
+    .uk-divider-icon {
+        // .svg-fill(@internal-divider-icon-image, "#000", @inverse-divider-icon-color);
+        background-image: var(--internal-divider-icon-image);
+        .hook-inverse-divider-icon();
+    }
+
+    .uk-divider-icon::before,
+    .uk-divider-icon::after {
+        border-bottom-color: var(--inverse-divider-icon-line-border);
+        .hook-inverse-divider-icon-line();
+    }
+
+    .uk-divider-small::after {
+        border-top-color: var(--inverse-divider-small-border);
+        .hook-inverse-divider-small();
+    }
+
+    .uk-divider-vertical {
+        border-inline-start-color: var(--inverse-divider-vertical-border);
+        .hook-inverse-divider-vertical();
+    }
+
+}
+
+.hook-inverse-divider-icon() {}
+.hook-inverse-divider-icon-line() {}
+.hook-inverse-divider-small() {}
+.hook-inverse-divider-vertical() {}

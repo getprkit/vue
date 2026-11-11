@@ -84,7 +84,7 @@
  *   chevron: 'component-default-accordion-chevron',
  *   circle: 'component-default-accordion-circle',
  * } as const
- * type AccordionIconType = IconDefault<keyof typeof accordionIconMap>
+ * type AccordionIconType = DefaultIcon<keyof typeof accordionIconMap>
  * export function getAccordionIcon(icon: AccordionIconType) {
  *   return accordionIconMap[icon as keyof typeof accordionIconMap] ?? icon
  * }
@@ -98,7 +98,22 @@
  * DefaultIcon is: IconName | false | undefined
  * IconName also will help us with icon style types.
  *
- * if components dos'nt have multiple icon style/type or conditional icon rendering they will use
+* If component render icon from another props, we need to define iconKey in getXIcon and pass
+* it when using useComponentIcon(props, getXIcon, iconKey) also need to add a condition with true value
+* in getXIcon function and at last set icon to true when using the PrX component. the
+* structure is:
+* const { iconName } = useComponentIcon(props, getXIcon, iconKey)
+* const xIconMap = { style1: 'component-default-x-style1', style2: 'component-default-x-style2', ... } as const
+* export type XIconType = DefaultIcon<keyof typeof xIconMap>
+* export function getXIcon(icon: XIconType, iconKey?: string) {
+*   if (icon === true) {
+*     return xIconMap[iconKey as keyof typeof xIconMap]
+*   }
+*   return xIconMap[icon as keyof typeof xIconMap] ?? icon
+* }
+* then for usage: <PrX iconKey="style1||style2" icon>....</PrAlert>
+ *
+ * If components dos'nt have multiple icon style/type or conditional icon rendering they will use
  * this structure in props:
  * interface xPropsType extends BaseIconPropsType
  *

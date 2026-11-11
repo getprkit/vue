@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type IconPropsType, IconDefaults } from '@u/props'
-import { icon } from '@u/util'
+import type { OptionsIcon } from '@/scripts/util/types'
+import { icon } from 'prkit'
 import { useTemplateRef, onMounted, watchEffect } from 'vue'
 
-const props = withDefaults(defineProps<IconPropsType>(), IconDefaults)
+const props = defineProps<OptionsIcon>()
 
 const el = useTemplateRef<HTMLElement>('el')
 
@@ -17,5 +17,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <component :is="tag" ref="el"></component>
+  <span ref="el" />
 </template>

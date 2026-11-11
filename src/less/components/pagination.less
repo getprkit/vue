@@ -1,0 +1,168 @@
+// Name:            Pagination
+// Description:     Component to create a page navigation
+//
+// Component:       `uk-pagination`
+//
+// Adopted:         `uk-pagination-next`
+//                  `uk-pagination-previous`
+//
+// States:          `uk-active`
+//                  `uk-disabled`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-pagination-variables() {
+
+    --pagination-margin-horizontal:                  0;
+
+    --pagination-item-padding-vertical:              5px;
+    --pagination-item-padding-horizontal:            10px;
+    --pagination-item-color:                         var(--global-color-muted);
+    --pagination-item-hover-color:                   var(--global-color);
+    --pagination-item-hover-text-decoration:         none;
+    --pagination-item-active-color:                  var(--global-color);
+    --pagination-item-disabled-color:                var(--global-color-muted);
+
+}
+
+
+/* ========================================================================
+   Component: Pagination
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Center items vertically if they have a different height
+ * 3. Gutter
+ * 4. Reset list
+ */
+
+.uk-pagination {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    align-items: center;
+    /* 3 */
+    margin-inline-start: calc(var(--pagination-margin-horizontal) * -1);
+    /* 4 */
+    padding: 0;
+    list-style: none;
+    .hook-pagination();
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ */
+
+.uk-pagination > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    padding-inline-start: var(--pagination-margin-horizontal);
+    /* 3 */
+    position: relative;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Center content vertically, e.g. an icon
+ * 2. Imitate white space gap when using flexbox
+ * 3. Style
+ */
+
+.uk-pagination > * > * {
+    /* 1 */
+    display: flex;
+    align-items: center;
+    /* 2 */
+    column-gap: 0.25em;
+    /* 3 */
+    padding: var(--pagination-item-padding-vertical) var(--pagination-item-padding-horizontal);
+    color: var(--pagination-item-color);
+    .hook-pagination-item();
+}
+
+/* Hover */
+.uk-pagination > * > :hover {
+    color: var(--pagination-item-hover-color);
+    text-decoration: var(--pagination-item-hover-text-decoration);
+    .hook-pagination-item-hover();
+}
+
+/* Active */
+.uk-pagination > .uk-active > * {
+    color: var(--pagination-item-active-color);
+    .hook-pagination-item-active();
+}
+
+/* Disabled */
+.uk-pagination > .uk-disabled > * {
+    color: var(--pagination-item-disabled-color);
+    .hook-pagination-item-disabled();
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-pagination-misc();
+
+.hook-pagination-variables() {}
+.hook-pagination() {}
+.hook-pagination-item() {}
+.hook-pagination-item-hover() {}
+.hook-pagination-item-active() {}
+.hook-pagination-item-disabled() {}
+.hook-pagination-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-pagination-variables() {
+
+    --inverse-pagination-item-color:                var(--inverse-global-color-muted);
+    --inverse-pagination-item-hover-color:          var(--inverse-global-color);
+    --inverse-pagination-item-active-color:         var(--inverse-global-color);
+    --inverse-pagination-item-disabled-color:       var(--inverse-global-color-muted);
+    
+}
+
+.hook-inverse() {
+
+    .uk-pagination > * > * {
+        color: var(--inverse-pagination-item-color);
+        .hook-inverse-pagination-item();
+    }
+
+    .uk-pagination > * > :hover {
+        color: var(--inverse-pagination-item-hover-color);
+        .hook-inverse-pagination-item-hover();
+    }
+
+    .uk-pagination > .uk-active > * {
+        color: var(--inverse-pagination-item-active-color);
+        .hook-inverse-pagination-item-active();
+    }
+
+    .uk-pagination > .uk-disabled > * {
+        color: var(--inverse-pagination-item-disabled-color);
+        .hook-inverse-pagination-item-disabled();
+    }
+
+}
+
+.hook-inverse-pagination-item() {}
+.hook-inverse-pagination-item-hover() {}
+.hook-inverse-pagination-item-active() {}
+.hook-inverse-pagination-item-disabled() {}

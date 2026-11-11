@@ -1,0 +1,109 @@
+// Name:            Description list
+// Description:     Styles for description lists
+//
+// Component:       `uk-description-list`
+//
+// Modifiers:       `uk-description-list-divider`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-description-list-variables() {
+
+    --description-list-term-color:                   var(--global-color-emphasis);
+    --description-list-term-margin-top:              var(--global-margin);
+
+    --description-list-divider-term-margin-top:      var(--global-margin);
+    --description-list-divider-term-border-width:    var(--global-border-width);
+    --description-list-divider-term-border:          var(--global-border);
+    
+}
+
+
+/* ========================================================================
+   Component: Description list
+ ========================================================================== */
+
+ .uk-description-list {
+    .hook-description-list();
+ }
+
+/*
+ * Term
+ */
+
+.uk-description-list > dt {
+    color: var(--description-list-term-color);
+    .hook-description-list-term();
+}
+
+.uk-description-list > dt:nth-child(n+2) {
+    margin-top: var(--description-list-term-margin-top);
+}
+
+/*
+ * Description
+ */
+
+.uk-description-list > dd {
+    .hook-description-list-description();
+}
+
+
+/* Style modifier
+ ========================================================================== */
+
+/*
+ * Line
+ */
+
+.uk-description-list-divider > dt:nth-child(n+2) {
+    margin-top: var(--description-list-divider-term-margin-top);
+    padding-top: var(--description-list-divider-term-margin-top);
+    border-top: var(--description-list-divider-term-border-width) solid var(--description-list-divider-term-border);
+    .hook-description-list-divider-term();
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-description-list-misc();
+
+.hook-description-list-variables() {}
+.hook-description-list() {}
+.hook-description-list-term() {}
+.hook-description-list-description() {}
+.hook-description-list-divider-term() {}
+.hook-description-list-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-description-list-variables() {
+
+    --inverse-description-list-term-color:               var(--inverse-global-color-emphasis);
+    --inverse-description-list-divider-term-border:      var(--inverse-global-border);
+    
+}
+
+.hook-inverse {
+
+    .uk-description-list > dt {
+        color: var(--inverse-description-list-term-color);
+        .hook-inverse-description-list-term();
+    }
+
+    .uk-description-list-divider > dt:nth-child(n+2) {
+        border-top-color: var(--inverse-description-list-divider-term-border);
+        .hook-inverse-description-list-divider-term();
+    }
+
+}
+
+.hook-inverse-description-list-term() {}
+.hook-inverse-description-list-divider-term() {}

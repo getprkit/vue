@@ -54,12 +54,21 @@
  *       is costly for us or not, because it's related to another TODO which saying sending all props
  *       to UIkit JavaScript Component will hold the all props in the UIkit JavaScript Component data.
  *
- * Refer to configs.ts line 54 to 109 components which contains icons in their template must follow this
+ * Refer to configs.ts line 54 to 128 components which contains icons in their template must follow this
  * structure:
  * import type { IconNames } from '@u/types.ts'
  * const xIconMap = { style1: 'component-default-x-style1', style2: 'component-default-x-style2', ... } as const
  * type xIconType = DefaultIcon<keyof typeof xIconMap> || or custom type if we not using default styles
  * export function getXIcon(icon: xIconType) {
+ *  ....any additional conditions
+ *   return xIconMap[icon as keyof typeof xIconMap] ?? icon
+ * }
+ * , ....if there is need to access additional props for conditions:
+ * export function getXIcon(icon: xIconType, iconKey?: string) {
+ *   if(iconKey === valueOfCondition) {
+ *     ....example of additional prop icon compile:
+ *     return xIconMap[iconKey as keyof typeof xIconMap]
+ *   }
  *  ....any additional conditions
  *   return xIconMap[icon as keyof typeof xIconMap] ?? icon
  * }
@@ -104,6 +113,11 @@
  * ========================================================================
  */
 
+// New component template error fix
+// TODO: Must remove when creating component work done.
+import type { MethodAccordionToggle as MethodComponentToggle } from '@u/types.ts'
+import { accordion as uikitComponent, grid as uikitGrid, } from 'prkit'
+export const grid = uikitGrid
 
 /**
  * Types
@@ -114,26 +128,50 @@ import type {
   UpdateApi,
   DefaultIcon,
   MethodAccordionToggle,
-  OptionsIcon,
-  IconFunction,
+  MethodAlertClose,
 } from '@u/types.ts'
 
 // UIkit JavaScript Components and utils
 import UIkit, {
   util as uikitUtil,
-  accordion as uikitAccordion,
   icon as uikitIcon,
-} from 'uikit'
+  accordion as uikitAccordion,
+  alert as uikitAlert,
+} from 'prkit'
+
+// TODO: Must move to icon component part when icon JavaScript Component added
+import { type IconFunction } from '@u/types'
+export const icon: IconFunction = uikitIcon
 
 
 /**
  * Miscellaneous functions and configs
  * ======================================================================== */
 
+export type ComponentInit<O, R = unknown> = (element: HTMLElement, options: O) => R
+
+export type SetComponents = <O, R>(
+  root: HTMLElement,
+  selector: string,
+  component: ComponentInit<O, R>,
+  options: O,
+) => R[]
+
+export const setComponents: SetComponents = (root, selector, component, options) =>
+  Array.from(root.querySelectorAll<HTMLElement>(selector), (element) =>
+    component(element, options),
+  )
+
 
 // ========================================================================
 // UIkit JavaScript Components and related methods
 // ========================================================================
+
+/**
+ * UIkit utilities
+ * More here: https://github.com/uikit/uikit-site/blob/feature/js-utils/docs/pages/javascript-utilities.md
+ * TODO: check usable UIkit utils and add them here.
+ * ======================================================================== */
 
 // add UIkit event listener with UIkit util on, will return default
 // function with action off
@@ -145,7 +183,9 @@ export const utilOff = uikitUtil.off
 // Calls the update hook on components registered on the element itself, its parents and children.
 export const utilUpdate = UIkit.update as UpdateApi
 
-/** Accordion
+
+/**
+ * Accordion
  * ======================================================================== */
 
 /** Javascript Component */
@@ -176,15 +216,70 @@ export function getAccordionIcon(icon: AccordionIconType) {
 /** Miscellaneous */
 
 
-/** Icon
+/**
+ * Alert
  * ======================================================================== */
 
 /** Javascript Component */
 
-export const icon: IconFunction = uikitIcon
+export const alert = uikitAlert
+
+/** Methods */
+
+export const alertClose: MethodAlertClose = (el) => alert(el).close()
+
+/** Icons */
+
+export const alertIconMap = {
+  default: 'component-default-alert-default',
+  muted: 'component-default-alert-muted',
+  primary: 'component-default-alert-primary',
+  success: 'component-default-alert-success',
+  info: 'component-default-alert-info',
+  warning: 'component-default-alert-warning',
+  danger: 'component-default-alert-danger',
+} as const
+
+export type AlertIconType = DefaultIcon<keyof typeof alertIconMap>
+
+export function getAlertIcon(icon: AlertIconType, iconKey?: string) {
+  if (icon === true) {
+    return alertIconMap[iconKey as keyof typeof alertIconMap]
+  }
+  return alertIconMap[icon as keyof typeof alertIconMap] ?? icon
+}
 
 /** Miscellaneous */
 
-export function setComponents(root: HTMLElement, selector: string, options: OptionsIcon) {
-  root.querySelectorAll<HTMLElement>(selector).forEach(element => icon(element, options))
+
+/**
+ * ComponentName :New-Component-Template
+ * ======================================================================== */
+
+/** Javascript Component */
+
+export const component = uikitComponent
+
+/** Methods */
+
+export const methodName: MethodComponentToggle = (
+  el, index, animate
+) => component(el).toggle(index, animate)
+
+/** Icons */
+
+export const componentIconMap = {
+  default: 'component-default-accordion-default',
+  plus: 'component-default-accordion-plus',
+  chevron: 'component-default-accordion-chevron',
+  circle: 'component-default-accordion-circle',
+} as const
+
+export type ComponentIconType = DefaultIcon<keyof typeof componentIconMap>
+
+export function getComponentIcon(icon: ComponentIconType) {
+  return componentIconMap[icon as keyof typeof componentIconMap] ?? icon
 }
+
+/** Miscellaneous */
+

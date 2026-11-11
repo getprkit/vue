@@ -1,0 +1,69 @@
+//
+// Component: Notification
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-notification-variables() {}
+
+
+// Component
+// ========================================================================
+
+.hook-notification() {}
+
+
+// Message
+// ========================================================================
+
+.hook-notification-message() {}
+
+
+// Close
+// ========================================================================
+
+.hook-notification-close() {}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-notification-message-primary() {}
+
+.hook-notification-message-success() {}
+
+.hook-notification-message-warning() {}
+
+.hook-notification-message-danger() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-notification-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-notification-variables() {
+
+    --inverse-notification-message-primary-color:      var(--global-primary-color);
+    --inverse-notification-message-success-color:      var(--global-success-color);
+    --inverse-notification-message-warning-color:      var(--global-warning-color);
+    --inverse-notification-message-danger-color:       var(--global-danger-color);
+
+}
+
+.hook-inverse-notification-message() {}
+
+.uk-notification-message-primary { color: var(--inverse-notification-message-primary-color); }
+
+.uk-notification-message-success { color: var(--inverse-notification-message-success-color); }
+
+.uk-notification-message-warning { color: var(--inverse-notification-message-warning-color); }
+
+.uk-notification-message-danger { color: var(--inverse-notification-message-danger-color); }

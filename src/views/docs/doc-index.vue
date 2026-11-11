@@ -1,16 +1,28 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import { useDarkModeStore } from '@vd/stores/darkMode.ts'
 import Sidebar from '@vd/doc-sidebar.vue'
 
+const removeTransition = ref()
+
 const darkMode = useDarkModeStore()
+
+watch(darkMode, () => {
+  removeTransition.value = 'pr-remove-child-transition'
+  setTimeout(() => {
+    removeTransition.value = false
+  }, 200)
+})
 </script>
 
 <template>
-  <sidebar />
+  <div :class="[darkMode.light === 'uk-dark' && 'uk-light', removeTransition]">
+    <sidebar />
 
-  <div class="uk-section" :class="darkMode.sectionMode()">
-    <router-view />
-    <div class="uk-height-viewport"></div>
+    <div class="uk-section uk-section-default">
+      <router-view />
+      <div class="uk-height-viewport"></div>
+    </div>
   </div>
 </template>
 
@@ -24,7 +36,7 @@ const darkMode = useDarkModeStore()
 
 @font-face {
   font-family: 'roboto mono';
-  src: url('@f/roboto-mono/roboto-mono-ital.woff2') format('woff2');
+  src: url('@f/roboto-mono/roboto-mono-italic.woff2') format('woff2');
   font-style: italic;
   font-weight: 100 900;
   font-variation-settings: 'ital' 100;
@@ -34,16 +46,26 @@ const darkMode = useDarkModeStore()
   --global-line-height: 1.5;
 }
 
+.uk-text-semibold {
+  font-weight: 600;
+}
+
+.pr-remove-child-transition *,
+.pr-remove-child-transition *::before,
+.pr-remove-child-transition *::after {
+  transition-duration: 0s !important;
+}
+
 .pr-doc .pr-heading-fragment {
   position: relative;
 }
 
 .pr-heading-fragment > a {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 50%;
   transform: translate(0, calc(-50% + 1px));
-  margin-left: -40px;
+  margin-inline-start: -40px;
   text-align: center;
   font-family: Inter;
   font-size: 1.4rem;
@@ -89,7 +111,7 @@ const darkMode = useDarkModeStore()
 }
 
 .pr-doc-nav {
-  left: calc(100% + 60px);
+  inset-inline-start: calc(100% + 60px);
   top: 0;
   position: absolute;
   width: 200px;
@@ -103,13 +125,13 @@ const darkMode = useDarkModeStore()
   content: '';
   position: absolute;
   top: 14px;
-  left: -25px;
+  inset-inline-start: -25px;
   width: 15px;
-  border-top: 2px solid #1e87f0;
+  border-top: 2px solid var(--global-primary-color);
 }
 
 .pr-doc-tab {
-  margin-left: -10px;
+  margin-inline-start: -10px;
 }
 
 .pr-doc-tab,
@@ -145,13 +167,13 @@ const darkMode = useDarkModeStore()
   content: '';
   position: absolute;
   bottom: -1px;
-  left: 0;
+  inset-inline-start: 0;
   width: 100%;
   height: 2px;
 }
 
 .pr-doc-tab > .uk-active > a::before {
-  background-color: var(--global-primary-background);
+  background-color: var(--global-primary-color);
 }
 
 .pr-doc-switcher {
@@ -169,7 +191,7 @@ const darkMode = useDarkModeStore()
 
 .pr-doc-note {
   padding: 35px 35px 35px 55px;
-  border: 1px solid var(--global-primary-background);
+  border: 1px solid var(--global-primary-color);
   border-radius: 8px;
   background: var(--global-white-color);
   margin: var(--global-medium-margin) 0;
@@ -184,10 +206,10 @@ const darkMode = useDarkModeStore()
 
 .pr-doc-note-title svg {
   position: absolute;
-  left: -30px;
+  inset-inline-start: -30px;
   top: 2px;
   fill: none;
-  color: var(--global-primary-background);
+  color: var(--global-primary-color);
 }
 
 /** Markdown */
@@ -199,19 +221,19 @@ const darkMode = useDarkModeStore()
 }
 
 .pr-doc :not(pre) td code:has(+ strong) {
-  padding-right: 0;
+  padding-inline-end: 0;
 }
 
 .pr-doc :not(pre) td code + strong:has(> code) + code {
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 
 .pr-doc :not(pre) td code + strong > code {
   padding: 0;
 }
 
-.uk-section:not(.uk-section-secondary) .pr-doc-pre {
-  background: var(--global-muted-background);
+.pr-doc-pre {
+  background: var(--global-muted-color);
 }
 
 .pr-shiki-26q00h {
@@ -231,7 +253,7 @@ const darkMode = useDarkModeStore()
 }
 
 .pr-doc [class*='pr-tag-component-'] {
-  color: var(--global-danger-background);
+  color: var(--global-danger-color);
 }
 
 .pr-shiki-l0gdu9 {
@@ -258,7 +280,7 @@ const darkMode = useDarkModeStore()
   color: #0550ae;
 }
 
-.uk-section-secondary .pr-doc {
+.uk-light .pr-doc {
   .pr-doc-pre {
     background: #22272e;
     color: #adbac7;
@@ -271,7 +293,7 @@ const darkMode = useDarkModeStore()
   }
 
   .pr-doc-note {
-    background: var(--global-secondary-background);
+    background: var(--global-secondary-color);
   }
 
   .pr-shiki-26q00h {

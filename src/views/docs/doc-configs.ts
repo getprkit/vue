@@ -13,6 +13,7 @@ export const docLinks: Record<string, Array<[string, 'md' | 'vue']>> = {
   ],
   Components: [
     ['Accordion', 'md'],
+    ['Alert', 'md'],
     ['Icon', 'vue'],
   ],
 }

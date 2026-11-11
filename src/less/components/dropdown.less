@@ -1,0 +1,284 @@
+// Name:            Dropdown
+// Description:     Component to create a dropdown based on Drop component
+//
+// Component:       `uk-dropdown`
+//
+// Adopted:         `uk-dropdown-nav`
+//
+// Modifiers:       `uk-dropdown-large`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@dropdown-color-mode:                           dark; // FIXME: need to change inverse process
+
+.hook-dropdown-variables() {
+    
+    --dropdown-margin:                               var(--global-small-margin);
+    --dropdown-viewport-margin:                      15px;
+    --dropdown-min-width:                            200px;
+    --dropdown-padding:                              15px;
+    --dropdown-background:                           var(--global-muted-color);
+    --dropdown-color:                                var(--global-color);
+    --dropdown-color-mode:                           @dropdown-color-mode;
+    --dropdown-focus-outline:                        var(--base-focus-outline);
+
+    --dropdown-large-padding:                        40px;
+
+    --dropdown-dropbar-margin:                       var(--dropdown-margin);
+    --dropdown-dropbar-padding-top:                  var(--dropdown-padding);
+    --dropdown-dropbar-padding-bottom:               var(--dropdown-padding);
+    --dropdown-dropbar-viewport-margin:              15px;
+    --dropdown-dropbar-viewport-margin-s:            var(--global-gutter);
+    --dropdown-dropbar-viewport-margin-m:            var(--global-medium-gutter);
+
+    --dropdown-dropbar-large-padding-top:            var(--dropdown-large-padding);
+    --dropdown-dropbar-large-padding-bottom:         var(--dropdown-large-padding);
+
+    --dropdown-nav-item-color:                       var(--global-color-muted);
+    --dropdown-nav-item-hover-color:                 var(--global-color);
+    --dropdown-nav-subtitle-font-size:               var(--global-small-font-size);
+    --dropdown-nav-header-color:                     var(--global-color-emphasis);
+    --dropdown-nav-divider-border-width:             var(--global-border-width);
+    --dropdown-nav-divider-border:                   var(--global-border);
+    --dropdown-nav-sublist-item-color:               var(--global-color-muted);
+    --dropdown-nav-sublist-item-hover-color:         var(--global-color);
+
+}
+
+
+/* ========================================================================
+   Component: Dropdown
+ ========================================================================== */
+
+/*
+ * Adopts `uk-drop`
+ * 1. Reset drop and let text expand the width instead of wrapping
+ * 2. Set a default width
+ * 3. Style
+ */
+
+.uk-dropdown {
+    --uk-position-offset: var(--dropdown-margin);
+    --uk-position-viewport-offset: var(--dropdown-viewport-margin);
+    --uk-inverse: var(--dropdown-color-mode);
+    /* 1 */
+    width: auto;
+    /* 2 */
+    min-width: var(--dropdown-min-width);
+    /* 3 */
+    padding: var(--dropdown-padding);
+    background: var(--dropdown-background);
+    color: var(--dropdown-color);
+    .hook-dropdown();
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-dropdown > :last-child { margin-bottom: 0; }
+
+// Color Mode
+.uk-dropdown:extend(.uk-light all) when (@dropdown-color-mode = light) {}
+.uk-dropdown:extend(.uk-dark all) when (@dropdown-color-mode = dark) {}
+
+.uk-dropdown :focus-visible when not (@dropdown-color-mode = @inverse-global-color-mode) {
+    outline-color: var(--dropdown-focus-outline) !important;
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-dropdown-large { padding: var(--dropdown-large-padding); }
+
+
+/* Dropbar modifier
+ ========================================================================== */
+
+/*
+ * 1. Reset dropdown width to prevent to early shifting
+ * 2. Reset style
+ * 3. Padding
+ */
+
+.uk-dropdown-dropbar {
+    --uk-position-offset: var(--dropdown-dropbar-margin);
+    /* 1 */
+    width: auto;
+    /* 2 */
+    background: transparent;
+    /* 3 */
+    padding: var(--dropdown-dropbar-padding-top) 0 var(--dropdown-dropbar-padding-bottom) 0;
+    --uk-position-viewport-offset: var(--dropdown-dropbar-viewport-margin);
+    .hook-dropdown-dropbar();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-dropdown-dropbar { --uk-position-viewport-offset: var(--dropdown-dropbar-viewport-margin-s); }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-dropdown-dropbar { --uk-position-viewport-offset: var(--dropdown-dropbar-viewport-margin-m); }
+
+}
+
+.uk-dropdown-dropbar-large {
+    padding-top: var(--dropdown-dropbar-large-padding-top);
+    padding-bottom: var(--dropdown-dropbar-large-padding-bottom);
+    .hook-dropdown-dropbar-large();
+}
+
+
+/* Nav
+ * Adopts `uk-nav`
+ ========================================================================== */
+
+.uk-dropdown-nav {
+    .hook-dropdown-nav();
+}
+
+/*
+ * Items
+ */
+
+.uk-dropdown-nav > li > a {
+    color: var(--dropdown-nav-item-color);
+    .hook-dropdown-nav-item();
+}
+
+/* Hover + Active */
+.uk-dropdown-nav > li > a:hover,
+.uk-dropdown-nav > li.uk-active > a {
+    color: var(--dropdown-nav-item-hover-color);
+    .hook-dropdown-nav-item-hover();
+}
+
+/*
+ * Subtitle
+ */
+
+.uk-dropdown-nav .uk-nav-subtitle {
+    font-size: var(--dropdown-nav-subtitle-font-size);
+    .hook-dropdown-nav-subtitle();
+}
+
+/*
+ * Header
+ */
+
+.uk-dropdown-nav .uk-nav-header {
+    color: var(--dropdown-nav-header-color);
+    .hook-dropdown-nav-header();
+}
+
+/*
+ * Divider
+ */
+
+.uk-dropdown-nav .uk-nav-divider {
+    border-top: var(--dropdown-nav-divider-border-width) solid var(--dropdown-nav-divider-border);
+    .hook-dropdown-nav-divider();
+}
+
+/*
+ * Sublists
+ */
+
+.uk-dropdown-nav .uk-nav-sub a { color: var(--dropdown-nav-sublist-item-color); }
+
+.uk-dropdown-nav .uk-nav-sub a:hover,
+.uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: var(--dropdown-nav-sublist-item-hover-color); }
+
+
+// Hooks
+// ========================================================================
+
+.hook-dropdown-misc();
+
+.hook-dropdown-variables() {}
+.hook-dropdown() {}
+.hook-dropdown-dropbar() {}
+.hook-dropdown-dropbar-large() {}
+.hook-dropdown-nav() {}
+.hook-dropdown-nav-item() {}
+.hook-dropdown-nav-item-hover() {}
+.hook-dropdown-nav-subtitle() {}
+.hook-dropdown-nav-header() {}
+.hook-dropdown-nav-divider() {}
+.hook-dropdown-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-dropdown-variables() {
+
+    --inverse-dropdown-background:                   var(--inverse-global-muted-color);
+    --inverse-dropdown-color:                        var(--inverse-global-color);
+
+    --inverse-dropdown-nav-item-color:               var(--inverse-global-color-muted);
+    --inverse-dropdown-nav-item-hover-color:         var(--inverse-global-color);
+    --inverse-dropdown-nav-header-color:             var(--inverse-global-color-emphasis);
+    --inverse-dropdown-nav-divider-border:           var(--inverse-global-border);
+    --inverse-dropdown-nav-sublist-item-color:       var(--inverse-global-color-muted);
+    --inverse-dropdown-nav-sublist-item-hover-color: var(--inverse-global-color);
+    
+}
+
+.hook-inverse() {
+
+    .uk-dropdown {
+        background: var(--inverse-dropdown-background);
+        color: var(--inverse-dropdown-color);
+        .hook-inverse-dropdown();
+    }
+
+    // Items
+    .uk-dropdown-nav > li > a {
+        color: var(--inverse-dropdown-nav-item-color);
+        .hook-inverse-dropdown-nav-item();
+    }
+
+    // Hover + Active
+    .uk-dropdown-nav > li > a:hover,
+    .uk-dropdown-nav > li.uk-active > a {
+        color: var(--inverse-dropdown-nav-item-hover-color);
+        .hook-inverse-dropdown-nav-item-hover();
+    }
+
+    // Header
+    .uk-dropdown-nav .uk-nav-header {
+        color: var(--inverse-dropdown-nav-header-color);
+        .hook-inverse-dropdown-nav-header();
+    }
+
+    // Divider
+    .uk-dropdown-nav .uk-nav-divider {
+        border-top-color: var(--inverse-dropdown-nav-divider-border);
+        .hook-inverse-dropdown-nav-divider();
+    }
+
+    // Sublists
+    .uk-dropdown-nav .uk-nav-sub a { color: var(--inverse-dropdown-nav-sublist-item-color); }
+    .uk-dropdown-nav .uk-nav-sub a:hover,
+    .uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: var(--inverse-dropdown-nav-sublist-item-hover-color); }
+
+}
+
+.hook-inverse-dropdown() {}
+.hook-inverse-dropdown-nav-item() {}
+.hook-inverse-dropdown-nav-item-hover() {}
+.hook-inverse-dropdown-nav-header() {}
+.hook-inverse-dropdown-nav-divider() {}

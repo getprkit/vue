@@ -1,0 +1,76 @@
+// Name:            Close
+// Description:     Component to create a close button
+//
+// Component:       `uk-close`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-close-variables() {
+
+    --close-color:                                   var(--global-color-muted);
+    --close-hover-color:                             var(--global-color);
+    
+}
+
+
+/* ========================================================================
+   Component: Close
+ ========================================================================== */
+
+/*
+ * Adopts `uk-icon`
+ */
+
+.uk-close {
+    color: var(--close-color);
+    .hook-close();
+}
+
+/* Hover */
+.uk-close:hover {
+    color: var(--close-hover-color);
+    .hook-close-hover();
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-close-misc();
+
+.hook-close-variables() {}
+.hook-close() {}
+.hook-close-hover() {}
+.hook-close-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-close-variables() {
+
+    --inverse-close-color:                           var(--inverse-global-color-muted);
+    --inverse-close-hover-color:                     var(--inverse-global-color);
+    
+}
+
+.hook-inverse() {
+
+    .uk-close {
+        color: var(--inverse-close-color);
+        .hook-inverse-close();
+    }
+
+    .uk-close:hover {
+        color: var(--inverse-close-hover-color);
+        .hook-inverse-close-hover();
+    }
+
+}
+
+.hook-inverse-close() {}
+.hook-inverse-close-hover() {}

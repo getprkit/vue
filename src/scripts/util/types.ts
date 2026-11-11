@@ -122,14 +122,37 @@ export type UpdateApi = (element?: ElementTarget, type?: string | Event) => void
  * ======================================================================== */
 
 // base icon types.
-export type IconType = string | false | undefined
+export type IconType = string | boolean | undefined
 
 // for suggest available icon styles and also accept any string (for custom icons).
 export type IconName = `icon-${IconStyles}-` | `component-${IconStyles}-` | (string & {})
 
 // for component that include icons, will accept component added icons.
-export type DefaultIcon<K extends string = never> = K | IconName | false | undefined
+export type DefaultIcon<K extends string = never> = boolean | K | IconName | undefined
 
+// base icon props type, for component which include icon
+export interface BaseIconPropsType<T = DefaultIcon> {
+  /** The icon selector, false to disable and boolean for select from another prop. */
+  icon?: boolean | T
+  /** The icon size ratio. */
+  iconRatio?: number
+  /** The icon stroke size ratio. */
+  strokeRatio?: number
+}
+
+// base close props type, for component which include close
+export interface BaseClosePropsType<T = DefaultIcon> {
+  /** Whether the alert can be closed */
+  close?: boolean
+  /** The close icon selector, false to disable. */
+  closeIcon?: T
+  /** The icon size ratio. */
+  closeIconRatio?: number
+  /** The icon stroke size ratio. */
+  closeStrokeRatio?: number
+  /** Set text after close icon, if close icon be false, only text will shown */
+  closeText?: string
+}
 
 /**
  * Composable Component Types
@@ -143,12 +166,28 @@ export type UseComponentEmit = (
  ) => void
 
 // useComponentIcon
-export type UseComponentIcon = <T extends string | false>(
-  props: { icon?: T, iconRatio?: number, strokeRatio?: number},
-  getIconName?: (icon: T | undefined) => IconType,
+export type UseComponentIcon = <
+  P extends BaseIconPropsType,
+  K extends keyof P = never
+>(
+  props: P,
+  getIcon: (icon: P['icon'], iconKey?: P[K]) => IconType,
+  iconKey?: K,
+  refEl?: string,
 ) => {
   iconEl: TemplateRef<HTMLElement>
   iconName: MaybeRef<IconType>
+}
+
+// useComponentClose
+export type UseComponentClose = <
+  P extends BaseClosePropsType
+>(
+  props: P,
+  refEl?: string,
+) => {
+  closeEl: TemplateRef<HTMLElement>
+  closeIconName: MaybeRef<IconType>
 }
 
 
@@ -184,7 +223,7 @@ import type {
   UIkitTabElement,
   UIkitToggleElement,
   UIkitTooltipElement,
-} from 'uikit'
+} from 'prkit'
 
 type UIkitBoolean = boolean extends infer T ? T : never
 

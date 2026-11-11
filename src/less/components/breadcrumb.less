@@ -1,0 +1,166 @@
+// Name:            Breadcrumb
+// Description:     Component to create a breadcrumb navigation
+//
+// Component:       `uk-breadcrumb`
+//
+// States:          `uk-disabled`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-breadcrumb-variables() {
+
+    --breadcrumb-item-font-size:                         var(--global-small-font-size);
+    --breadcrumb-item-color:                             var(--global-color-muted);
+    --breadcrumb-item-hover-color:                       var(--global-color);
+    --breadcrumb-item-hover-text-decoration:             none;
+    --breadcrumb-item-active-color:                      var(--global-color);
+
+    --breadcrumb-divider:                                "/";
+    --breadcrumb-divider-margin-horizontal:              20px;
+    --breadcrumb-divider-font-size:                      var(--breadcrumb-item-font-size);
+    --breadcrumb-divider-color:                          var(--global-color-muted);
+
+}
+
+
+/* ========================================================================
+   Component: Breadcrumb
+ ========================================================================== */
+
+/*
+ * 1. Reset list
+ * 2. Remove space between elements
+ */
+
+.uk-breadcrumb {
+    /* 1 */
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    font-size: 0;
+    .hook-breadcrumb();
+}
+
+/*
+ * 1. Doesn't generate any box and replaced by child boxes
+ */
+
+.uk-breadcrumb > * { display: contents; }
+
+
+/* Items
+ ========================================================================== */
+
+.uk-breadcrumb > * > * {
+    font-size: var(--breadcrumb-item-font-size);
+    color: var(--breadcrumb-item-color);
+    .hook-breadcrumb-item();
+}
+
+/* Hover */
+.uk-breadcrumb > * > :hover {
+    color: var(--breadcrumb-item-hover-color);
+    text-decoration: var(--breadcrumb-item-hover-text-decoration);
+    .hook-breadcrumb-item-hover();
+}
+
+/* Disabled */
+.uk-breadcrumb > .uk-disabled > * {
+    .hook-breadcrumb-item-disabled();
+}
+
+/* Active */
+.uk-breadcrumb > :last-child > span,
+.uk-breadcrumb > :last-child > a:not([href]) {
+    color: var(--breadcrumb-item-active-color);
+    .hook-breadcrumb-item-active();
+}
+
+/*
+ * Divider
+ * `nth-child` makes it also work without JS if it's only one row
+ * 1. Remove space between inline block elements.
+ * 2. Style
+ */
+
+.uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+    content: var(--breadcrumb-divider);
+    display: inline-block;
+    /* 1 */
+    margin: 0 var(--breadcrumb-divider-margin-horizontal);
+    /* 2 */
+    font-size: var(--breadcrumb-divider-font-size);
+    color: var(--breadcrumb-divider-color);
+    .hook-breadcrumb-divider();
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-breadcrumb-misc();
+
+.hook-breadcrumb-variables() {}
+.hook-breadcrumb() {}
+.hook-breadcrumb-item() {}
+.hook-breadcrumb-item-hover() {}
+.hook-breadcrumb-item-disabled() {}
+.hook-breadcrumb-item-active() {}
+.hook-breadcrumb-divider() {}
+.hook-breadcrumb-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-breadcrumb-variables() {
+
+    --inverse-breadcrumb-item-color:                var(--inverse-global-color-muted);
+    --inverse-breadcrumb-item-hover-color:          var(--inverse-global-color);
+    --inverse-breadcrumb-item-active-color:         var(--inverse-global-color);
+    --inverse-breadcrumb-divider-color:             var(--inverse-global-color-muted);
+    
+}
+
+.hook-inverse() {
+
+    .uk-breadcrumb > * > * {
+        color: var(--inverse-breadcrumb-item-color);
+        .hook-inverse-breadcrumb-item();
+    }
+
+    .uk-breadcrumb > * > :hover {
+        color: var(--inverse-breadcrumb-item-hover-color);
+        .hook-inverse-breadcrumb-item-hover();
+    }
+
+
+    .uk-breadcrumb > .uk-disabled > * {
+        .hook-inverse-breadcrumb-item-disabled();
+    }
+
+    .uk-breadcrumb > :last-child > * {
+        color: var(--inverse-breadcrumb-item-active-color);
+        .hook-inverse-breadcrumb-item-active();
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+        color: var(--inverse-breadcrumb-divider-color);
+        .hook-inverse-breadcrumb-divider();
+    }
+
+}
+
+.hook-inverse-breadcrumb-item() {}
+.hook-inverse-breadcrumb-item-hover() {}
+.hook-inverse-breadcrumb-item-disabled() {}
+.hook-inverse-breadcrumb-item-active() {}
+.hook-inverse-breadcrumb-divider() {}

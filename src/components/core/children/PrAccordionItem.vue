@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<AccordionItemPropsType>(), accordionItemD
 
 /**
  * CSS Classes:
- * uk-open | pr-accordion-item-disabled
+ * uk-open | uk-accordion-item-disabled
  * ========================================================================
  */
 

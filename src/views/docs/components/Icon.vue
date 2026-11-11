@@ -1,62 +1,9 @@
 <script setup lang="ts">
-import { on } from '@/scripts/util/util'
 import PrIcon from '@c/PrIcon.vue'
-import { accordion } from 'uikit'
-import { onMounted, useTemplateRef } from 'vue'
-
-const accordionEl = useTemplateRef('accordionEl')
-
-onMounted(() => {
-  const accordinoApi = accordion(accordionEl.value)
-
-  on(accordionEl.value, 'show', (event, index, test) => {
-    console.log(event)
-    console.log(index)
-    console.log(test)
-  })
-})
 </script>
 
 <template>
   <div class="uk-container uk-container-xsmall">
-    <ul class="pr-accordion-hover" ref="accordionEl">
-      <li>
-        <a class="uk-accordion-title">
-          Accordion Item 1
-          <span class="pr-accordion-icon uk-accordion-icon" />
-        </a>
-        <div class="uk-accordion-content">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-      </li>
-      <li>
-        <a class="uk-accordion-title">
-          Accordion Item 2
-          <span class="pr-accordion-icon uk-accordion-icon" />
-        </a>
-        <div class="uk-accordion-content">
-          <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. Duis aute irure dolor reprehenderit.
-          </p>
-        </div>
-      </li>
-      <li>
-        <a class="uk-accordion-title">
-          Accordion Item 2
-          <span class="pr-accordion-icon uk-accordion-icon" />
-        </a>
-        <div class="uk-accordion-content">
-          <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. Duis aute irure dolor reprehenderit.
-          </p>
-        </div>
-      </li>
-    </ul>
     <h1>Icon</h1>
     <PrIcon icon="component-fa-duotone-accordion-circle" :ratio="2" :stroke-ratio="2" />
     <div class="uk-text-center">

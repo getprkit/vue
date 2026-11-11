@@ -1,0 +1,84 @@
+// Name:            Marker
+// Description:     Component to create a marker icon
+//
+// Component:       `uk-marker`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-marker-variables() {
+
+    --marker-padding:                                 5px;
+    --marker-background:                              var(--global-secondary-color);
+    --marker-color:                                   var(--global-color-inverse);
+
+    --marker-hover-color:                             var(--global-color-inverse);
+
+}
+
+
+/* ========================================================================
+   Component: Marker
+ ========================================================================== */
+
+/*
+ * Addopts `uk-icon`
+ */
+
+.uk-marker {
+    padding: var(--marker-padding);
+    background: var(--marker-background);
+    color: var(--marker-color);
+    .hook-marker();
+}
+
+/* Hover */
+.uk-marker:hover {
+    color: var(--marker-hover-color);
+    .hook-marker-hover();
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-marker-misc();
+
+.hook-marker-variables() {}
+.hook-marker() {}
+.hook-marker-hover() {}
+.hook-marker-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-marker-variables() {
+    
+    --inverse-marker-background:                  var(--global-muted-color);
+    --inverse-marker-color:                       var(--global-color);
+    
+    --inverse-marker-hover-color:                 var(--global-color);
+
+}
+
+.hook-inverse() {
+
+    .uk-marker {
+        background: var(--inverse-marker-background);
+        color: var(--inverse-marker-color);
+        .hook-inverse-marker();
+    }
+
+    .uk-marker:hover {
+        color: var(--inverse-marker-hover-color);
+        .hook-inverse-marker-hover();
+    }
+
+}
+
+.hook-inverse-marker() {}
+.hook-inverse-marker-hover() {}

@@ -1,0 +1,297 @@
+//
+// Component: Card
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-card-variables() {
+
+    --card-hover-background:                        var(--global-default-color);
+
+    --card-default-background:                      var(--global-default-color);
+    --card-default-hover-background:                var(--card-default-background);
+
+    --card-primary-hover-background:                var(--card-primary-background);
+
+    --card-secondary-hover-background:              var(--card-secondary-background);
+
+    //
+    // New
+    //
+
+    --card-badge-border-radius:                     2px;
+    --card-badge-text-transform:                    uppercase;
+
+    --card-hover-box-shadow:                        var(--global-large-box-shadow);
+
+    --card-default-box-shadow:                      var(--global-medium-box-shadow);
+    --card-default-hover-box-shadow:                var(--global-large-box-shadow);
+
+    --card-default-header-border-width:             var(--global-border-width);
+    --card-default-header-border:                   var(--global-border);
+
+    --card-default-footer-border-width:             var(--global-border-width);
+    --card-default-footer-border:                   var(--global-border);
+
+    --card-primary-box-shadow:                      var(--global-medium-box-shadow);
+    --card-primary-hover-box-shadow:                var(--global-large-box-shadow);
+
+    --card-secondary-box-shadow:                    var(--global-medium-box-shadow);
+    --card-secondary-hover-box-shadow:              var(--global-large-box-shadow);
+
+    --card-overlay-box-shadow:                      var(--global-medium-box-shadow);
+    --card-overlay-hover-box-shadow:                var(--global-large-box-shadow);
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-card() { transition: box-shadow 0.1s ease-in-out; }
+
+
+// Sections
+// ========================================================================
+
+.hook-card-body() {}
+
+.hook-card-header() {}
+
+.hook-card-footer() {}
+
+
+// Media
+// ========================================================================
+
+.hook-card-media() {}
+
+.hook-card-media-top() {}
+
+.hook-card-media-bottom() {}
+
+.hook-card-media-left() {}
+
+.hook-card-media-right() {}
+
+.hook-card-media-start() {}
+
+.hook-card-media-end() {}
+
+
+// Title
+// ========================================================================
+
+.hook-card-title() {}
+
+
+// Badge
+// ========================================================================
+
+.hook-card-badge() {
+    border-radius: var(--card-badge-border-radius);
+    text-transform: var(--card-badge-text-transform);
+}
+
+
+// Hover modifier
+// ========================================================================
+
+.hook-card-hover() { box-shadow: var(--card-hover-box-shadow); }
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-card-default() { box-shadow: var(--card-default-box-shadow); }
+
+.hook-card-default-title() {}
+
+.hook-card-default-hover() { box-shadow: var(--card-default-hover-box-shadow); }
+
+.hook-card-default-header() { border-bottom: var(--card-default-header-border-width) solid var(--card-default-header-border); }
+
+.hook-card-default-footer() { border-top: var(--card-default-footer-border-width)  solid var(--card-default-footer-border); }
+
+//
+// Primary
+//
+
+.hook-card-primary() { box-shadow: var(--card-primary-box-shadow); }
+
+.hook-card-primary-title() {}
+
+.hook-card-primary-hover() { box-shadow: var(--card-primary-hover-box-shadow); }
+
+//
+// Secondary
+//
+
+.hook-card-secondary() { box-shadow: var(--card-secondary-box-shadow); }
+
+.hook-card-secondary-title() {}
+
+.hook-card-secondary-hover() { box-shadow: var(--card-secondary-hover-box-shadow); }
+
+//
+// Overlay
+//
+
+.hook-card-overlay() { box-shadow: var(--card-overlay-box-shadow); }
+
+.hook-card-overlay-title() {}
+
+.hook-card-overlay-hover() { box-shadow: var(--card-overlay-hover-box-shadow); }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-card-misc() {
+
+    /*
+     * Default
+     */
+
+    .uk-card-body > .uk-nav-default {
+        margin-inline-start: calc(var(--card-body-padding-horizontal) * -1);
+        margin-inline-end: calc(var(--card-body-padding-horizontal) * -1);
+    }
+    .uk-card-body > .uk-nav-default:only-child {
+        margin-top: calc((var(--card-body-padding-vertical) * -1) + 15px);
+        margin-bottom: calc((var(--card-body-padding-vertical) * -1) + 15px);
+    }
+
+    .uk-card-body > .uk-nav-default > li > a,
+    .uk-card-body > .uk-nav-default .uk-nav-header,
+    .uk-card-body > .uk-nav-default .uk-nav-divider {
+        padding-inline-start: var(--card-body-padding-horizontal);
+        padding-inline-end: var(--card-body-padding-horizontal);
+    }
+
+    .uk-card-body > .uk-nav-default .uk-nav-sub { padding-inline-start: calc(var(--nav-sublist-deeper-padding-inline-start) + var(--card-body-padding-horizontal)); }
+
+
+    /* Desktop and bigger */
+    @media (min-width: @breakpoint-large) {
+
+        .uk-card-body > .uk-nav-default {
+            margin-inline-start: calc(var(--card-body-padding-horizontal-l) * -1);;
+            margin-inline-end: calc(var(--card-body-padding-horizontal-l) * -1);;
+        }
+        .uk-card-body > .uk-nav-default:only-child {
+            margin-top: calc((var(--card-body-padding-vertical-l) * -1) + 15px);
+            margin-bottom: calc((var(--card-body-padding-vertical-l) * -1) + 15px);
+        }
+
+        .uk-card-body > .uk-nav-default > li > a,
+        .uk-card-body > .uk-nav-default .uk-nav-header,
+        .uk-card-body > .uk-nav-default .uk-nav-divider {
+            padding-inline-start: var(--card-body-padding-horizontal-l);
+            padding-inline-end: var(--card-body-padding-horizontal-l);
+        }
+
+        .uk-card-body > .uk-nav-default .uk-nav-sub { padding-inline-start: calc(var(--nav-sublist-deeper-padding-inline-start) + var(--card-body-padding-horizontal-l)); }
+
+    }
+
+    /*
+     * Small
+     */
+
+    .uk-card-small > .uk-nav-default {
+        margin-inline-start: calc(var(--card-small-body-padding-horizontal) * -1);
+        margin-inline-end: calc(var(--card-small-body-padding-horizontal) * -1);
+    }
+    .uk-card-small > .uk-nav-default:only-child {
+        margin-top: calc((var(--card-small-body-padding-vertical) * -1) + 15px);
+        margin-bottom: calc((var(--card-small-body-padding-vertical) * -1) + 15px);
+    }
+
+    .uk-card-small > .uk-nav-default > li > a,
+    .uk-card-small > .uk-nav-default .uk-nav-header,
+    .uk-card-small > .uk-nav-default .uk-nav-divider {
+        padding-inline-start: var(--card-small-body-padding-horizontal);
+        padding-inline-end: var(--card-small-body-padding-horizontal);
+    }
+
+    .uk-card-small > .uk-nav-default .uk-nav-sub { padding-inline-start: calc(var(--nav-sublist-deeper-padding-inline-start) + var(--card-small-body-padding-horizontal)); }
+
+    /*
+     * Large
+     */
+
+    /* Desktop and bigger */
+    @media (min-width: @breakpoint-large) {
+
+        .uk-card-large > .uk-nav-default { margin: 0; }
+        .uk-card-large > .uk-nav-default:only-child { margin: 0; }
+
+        .uk-card-large > .uk-nav-default > li > a,
+        .uk-card-large > .uk-nav-default .uk-nav-header,
+        .uk-card-large > .uk-nav-default .uk-nav-divider {
+            padding-inline-start: 0;
+            padding-inline-end: 0;
+        }
+
+        .uk-card-large > .uk-nav-default .uk-nav-sub { padding-inline-start: var(--nav-sublist-deeper-padding-inline-start); }
+
+    }
+
+}
+
+
+// Inverse
+// ========================================================================
+
+.hook-card-variables() {
+
+    --inverse-card-hover-background:                var(--inverse-global-default-color);
+
+    --inverse-card-default-background:              var(--inverse-global-default-color);
+    --inverse-card-default-hover-background:        var(--inverse-card-default-background);
+
+    --inverse-card-hover-box-shadow:                var(--inverse-global-large-box-shadow);
+
+    --inverse-card-default-box-shadow:              var(--inverse-global-medium-box-shadow);
+    --inverse-card-default-hover-box-shadow:        var(--inverse-global-large-box-shadow);
+
+    --inverse-card-default-header-border:           var(--inverse-global-border);
+    --inverse-card-default-footer-border:           var(--inverse-global-border);
+
+    --inverse-card-primary-box-shadow:              var(--inverse-global-medium-box-shadow);
+    --inverse-card-primary-hover-box-shadow:        var(--inverse-global-large-box-shadow);
+
+    --inverse-card-secondary-box-shadow:            var(--inverse-global-medium-box-shadow);
+    --inverse-card-secondary-hover-box-shadow:      var(--inverse-global-large-box-shadow);
+
+    --inverse-card-overlay-box-shadow:              var(--inverse-global-medium-box-shadow);
+    --inverse-card-overlay-hover-box-shadow:        var(--inverse-global-large-box-shadow);
+
+}
+
+.hook-inverse-card() {}
+.hook-inverse-card-hover() { box-shadow: var(--inverse-card-hover-box-shadow); }
+
+.hook-inverse-card-default() { box-shadow: var(--inverse-card-default-box-shadow); }
+.hook-inverse-card-default-title() {}
+.hook-inverse-card-default-hover() { box-shadow: var(--inverse-card-default-hover-box-shadow); }
+.hook-inverse-card-default-header() { border-bottom-color: var(--inverse-card-default-header-border); }
+.hook-inverse-card-default-footer() { border-top-color: var(--inverse-card-default-footer-border) }
+
+.hook-inverse-card-primary() { box-shadow: var(--inverse-card-primary-box-shadow); }
+.hook-inverse-card-primary-title() {}
+.hook-inverse-card-primary-hover() { box-shadow: var(--inverse-card-primary-hover-box-shadow); }
+
+.hook-inverse-card-secondary() { box-shadow: var(--inverse-card-secondary-box-shadow); }
+.hook-inverse-card-secondary-title() {}
+.hook-inverse-card-secondary-hover() { box-shadow: var(--inverse-card-secondary-hover-box-shadow); }
+
+.hook-inverse-card-overlay() { box-shadow: var(--inverse-card-overlay-box-shadow); }
+.hook-inverse-card-overlay-title() {}
+.hook-inverse-card-overlay-hover() { box-shadow: var(--inverse-card-overlay-hover-box-shadow); }
+
+.hook-inverse-card-badge() {}

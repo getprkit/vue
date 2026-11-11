@@ -67,5 +67,5 @@ export function devPropsWatch<T extends object>(
 
   const sources = keys.map((key) => () => props[key])
 
-  return watch(sources, callback)
+  return watch(sources, callback, { flush: 'post' })
 }

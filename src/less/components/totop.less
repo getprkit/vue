@@ -1,0 +1,95 @@
+// Name:            Totop
+// Description:     Component to create an icon to scroll back to top
+//
+// Component:       `uk-totop`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-totop-variables() {
+    
+    --totop-padding:                                 5px;
+    --totop-color:                                   var(--global-color-muted);
+
+    --totop-hover-color:                             var(--global-color);
+
+    --totop-active-color:                            var(--global-color-emphasis);
+
+}
+
+
+/* ========================================================================
+   Component: Totop
+ ========================================================================== */
+
+/*
+ * Adopts `uk-icon`
+ */
+
+.uk-totop {
+    padding: var(--totop-padding);
+    color: var(--totop-color);
+    .hook-totop();
+}
+
+/* Hover */
+.uk-totop:hover {
+    color: var(--totop-hover-color);
+    .hook-totop-hover();
+}
+
+/* OnClick */
+.uk-totop:active {
+    color: var(--totop-active-color);
+    .hook-totop-active();
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-totop-misc();
+
+.hook-totop-variables() {}
+.hook-totop() {}
+.hook-totop-hover() {}
+.hook-totop-active() {}
+.hook-totop-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-totop-variables() {
+
+    --inverse-totop-color:                       var(--inverse-global-color-muted);
+    --inverse-totop-hover-color:                 var(--inverse-global-color);
+    --inverse-totop-active-color:                var(--inverse-global-color-emphasis);
+    
+}
+
+.hook-inverse() {
+
+    .uk-totop {
+        color: var(--inverse-totop-color);
+        .hook-inverse-totop();
+    }
+
+    .uk-totop:hover {
+        color: var(--inverse-totop-hover-color);
+        .hook-inverse-totop-hover();
+    }
+
+    .uk-totop:active {
+        color: var(--inverse-totop-active-color);
+        .hook-inverse-totop-active();
+    }
+
+}
+
+.hook-inverse-totop() {}
+.hook-inverse-totop-hover() {}
+.hook-inverse-totop-active() {}

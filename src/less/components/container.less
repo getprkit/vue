@@ -1,0 +1,224 @@
+// Name:            Container
+// Description:     Component to align and center your site and grid content
+//
+// Component:       `uk-container`
+//
+// Modifier:        `uk-container-small`
+//                  `uk-container-large`
+//                  `uk-container-expand`
+//                  `uk-container-expand-left`
+//                  `uk-container-expand-right`
+//                  `uk-container-expand-start`
+//                  `uk-container-expand-end`
+//                  `uk-container-item-padding-remove-left`
+//                  `uk-container-item-padding-remove-right`
+//                  `uk-container-item-padding-remove-start`
+//                  `uk-container-item-padding-remove-end`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-container-variables() {
+
+    --container-max-width:                   1200px;
+    --container-xsmall-max-width:            750px;
+    --container-small-max-width:             900px;
+    --container-large-max-width:             1400px;
+    --container-xlarge-max-width:            1600px;
+
+    --container-padding-horizontal:          15px;
+    --container-padding-horizontal-s:        var(--global-gutter);
+    --container-padding-horizontal-m:        var(--global-medium-gutter);
+    
+}
+
+
+/* ========================================================================
+   Component: Container
+ ========================================================================== */
+
+/*
+ * 1. Box sizing has to be `content-box` so the max-width is always the same and
+ *    unaffected by the padding on different breakpoints. It's important for the size modifiers.
+ */
+
+.uk-container {
+    display: flow-root;
+    /* 1 */
+    box-sizing: content-box;
+    max-width: var(--container-max-width);
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    padding-inline-start: var(--container-padding-horizontal);
+    padding-inline-end: var(--container-padding-horizontal);
+    .hook-container();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-container {
+        padding-inline-start: var(--container-padding-horizontal-s);
+        padding-inline-end: var(--container-padding-horizontal-s);
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-container {
+        padding-inline-start: var(--container-padding-horizontal-m);
+        padding-inline-end: var(--container-padding-horizontal-m);
+    }
+
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-container > :last-child { margin-bottom: 0; }
+
+/*
+ * Remove padding from nested containers
+ */
+
+.uk-container .uk-container {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-container-xsmall { max-width: var(--container-xsmall-max-width); }
+
+.uk-container-small { max-width: var(--container-small-max-width); }
+
+.uk-container-large { max-width: var(--container-large-max-width); }
+
+.uk-container-xlarge { max-width: var(--container-xlarge-max-width); }
+
+.uk-container-expand { max-width: none; }
+
+
+/* Expand modifier
+ ========================================================================== */
+
+/*
+ * Expand one side only
+ */
+
+.uk-container-expand-left { margin-left: 0; }
+.uk-container-expand-right { margin-right: 0; }
+.uk-container-expand-start { margin-inline-start: 0; }
+.uk-container-expand-end { margin-inline-end: 0; }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-container-expand-left.uk-container-xsmall,
+    .uk-container-expand-right.uk-container-xsmall,
+    .uk-container-expand-start.uk-container-xsmall,
+    .uk-container-expand-end.uk-container-xsmall { max-width: ~'calc(50% + (var(--container-xsmall-max-width) / 2) - var(--container-padding-horizontal-s))'; }
+
+    .uk-container-expand-left.uk-container-small,
+    .uk-container-expand-right.uk-container-small,
+    .uk-container-expand-start.uk-container-small,
+    .uk-container-expand-end.uk-container-small { max-width: ~'calc(50% + (var(--container-small-max-width) / 2) - var(--container-padding-horizontal-s))'; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-container-expand-left,
+    .uk-container-expand-right,
+    .uk-container-expand-start,
+    .uk-container-expand-end { max-width: ~'calc(50% + (var(--container-max-width) / 2) - var(--container-padding-horizontal-m))'; }
+
+    .uk-container-expand-left.uk-container-xsmall,
+    .uk-container-expand-right.uk-container-xsmall,
+    .uk-container-expand-start.uk-container-xsmall,
+    .uk-container-expand-end.uk-container-xsmall { max-width: ~'calc(50% + (var(--container-xsmall-max-width) / 2) - var(--container-padding-horizontal-m))'; }
+
+    .uk-container-expand-left.uk-container-small,
+    .uk-container-expand-right.uk-container-small,
+    .uk-container-expand-start.uk-container-small,
+    .uk-container-expand-end.uk-container-small { max-width: ~'calc(50% + (var(--container-small-max-width) / 2) - var(--container-padding-horizontal-m))'; }
+
+    .uk-container-expand-left.uk-container-large,
+    .uk-container-expand-right.uk-container-large,
+    .uk-container-expand-start.uk-container-large,
+    .uk-container-expand-end.uk-container-large { max-width: ~'calc(50% + (var(--container-large-max-width) / 2) - var(--container-padding-horizontal-m))'; }
+
+    .uk-container-expand-left.uk-container-xlarge,
+    .uk-container-expand-right.uk-container-xlarge,
+    .uk-container-expand-start.uk-container-xlarge,
+    .uk-container-expand-end.uk-container-xlarge { max-width: ~'calc(50% + (var(--container-xlarge-max-width) / 2) - var(--container-padding-horizontal-m))'; }
+
+}
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * Utility classes to reset container padding on the left or right side
+ * Note: It has to be negative margin on the item, because it's specific to the item.
+ */
+
+.uk-container-item-padding-remove-left,
+.uk-container-item-padding-remove-right,
+.uk-container-item-padding-remove-start,
+.uk-container-item-padding-remove-end { width: ~'calc(100% + var(--container-padding-horizontal))'; }
+
+.uk-container-item-padding-remove-left { margin-left: calc(var(--container-padding-horizontal) * -1); }
+.uk-container-item-padding-remove-right { margin-right: calc(var(--container-padding-horizontal) * -1); }
+.uk-container-item-padding-remove-start { margin-inline-start: calc(var(--container-padding-horizontal) * -1); }
+.uk-container-item-padding-remove-end { margin-inline-end: calc(var(--container-padding-horizontal) * -1); }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-container-item-padding-remove-left,
+    .uk-container-item-padding-remove-right,
+    .uk-container-item-padding-remove-start,
+    .uk-container-item-padding-remove-end { width: ~'calc(100% + var(--container-padding-horizontal-s))'; }
+
+    .uk-container-item-padding-remove-left { margin-left: calc(var(--container-padding-horizontal-s) * -1); }
+    .uk-container-item-padding-remove-right { margin-right: calc(var(--container-padding-horizontal-s) * -1); }
+    .uk-container-item-padding-remove-start { margin-inline-start: calc(var(--container-padding-horizontal-s) * -1); }
+    .uk-container-item-padding-remove-end { margin-inline-end: calc(var(--container-padding-horizontal-s) * -1); }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-container-item-padding-remove-left,
+    .uk-container-item-padding-remove-right,
+    .uk-container-item-padding-remove-start,
+    .uk-container-item-padding-remove-end { width: ~'calc(100% + var(--container-padding-horizontal-m))'; }
+
+    .uk-container-item-padding-remove-left { margin-left: calc(var(--container-padding-horizontal-m) * -1); }
+    .uk-container-item-padding-remove-right { margin-right: calc(var(--container-padding-horizontal-m) * -1); }
+    .uk-container-item-padding-remove-start { margin-inline-start: calc(var(--container-padding-horizontal-m) * -1); }
+    .uk-container-item-padding-remove-end { margin-inline-end: calc(var(--container-padding-horizontal-m) * -1); }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-container-misc();
+
+.hook-container-variables() {}
+.hook-container() {}
+.hook-container-misc() {}

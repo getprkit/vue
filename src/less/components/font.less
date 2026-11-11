@@ -1,0 +1,38 @@
+// Name:            Fonts
+// Description:     Component to import specific fonts
+//
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Fonts
+ ========================================================================== */
+
+/*
+ * 1. set global fonts
+ */
+
+/* 1 */
+.font-face() when (default()) {
+  @font-face {
+    font-family: 'proxima';
+    src: url('@f/proxima/proxima.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 100 900;
+  }
+
+  @font-face {
+    font-family: 'proxima';
+    src: url('@f/proxima/proxima.woff2') format('woff2');
+    font-style: italic;
+    font-weight: 100 900;
+    font-variation-settings: 'ital' 100;
+  }
+}
+
+.font-face();

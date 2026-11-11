@@ -52,7 +52,7 @@
 
 /**
  * Accordion Class Generator
- * Class Types: variant
+ * Class Types: variant, bordered
  * Child Components: PrAccordionTitle | PrAccordionContent
  * ======================================================================== */
 
@@ -64,20 +64,128 @@ export interface AccordionItemClassType {
 export function accordionItemClasses(props: AccordionItemClassType) {
   return [
     props.active && 'uk-open',
-    props.disabled && 'pr-accordion-item-disabled'
+    props.disabled && 'uk-accordion-item-disabled'
   ]
 }
 
 export interface AccordionClassType {
-  variant?: 'default' | 'hover' | 'line'
+  variant?: 'default' | 'pill' | 'line'
+  bordered?: boolean
 }
 
 const accordionVariantMap = {
   default: 'uk-accordion-default',
-  hover: 'pr-accordion-hover',
-  line: 'pr-accordion-line',
+  pill: 'uk-accordion-pill',
+  line: 'uk-accordion-line',
 } as const
 
 export function accordionClasses(props: AccordionClassType) {
-  return accordionVariantMap[props.variant!]
+  return [
+    accordionVariantMap[props.variant!],
+    props.bordered && 'uk-accordion-bordered',
+  ]
+}
+
+
+/**
+ * Alert Class Generator
+ * Class Types: variant, bordered, iconBox, closeVariant, closeCircle, closePosition
+ * Child Components: PrAlertIcon | PrAlertClose
+ * ======================================================================== */
+
+export interface AlertCloseClassType {
+  closeVariant?: 'default' | 'pill' | 'pill-hover' | 'pill-solid'
+  closeCircle?: boolean
+  closePosition?: 'default' | 'top' |'corner' | 'end'
+  closeIconAnimation?: boolean
+}
+
+const alertCloseVariantMap = {
+  default: false,
+  pill: 'uk-alert-close-pill',
+  'pill-hover': 'uk-alert-close-pill-hover',
+  'pill-solid': 'uk-alert-close-pill-solid',
+} as const
+
+const alertClosePositionMap = {
+  default: false,
+  top: 'uk-alert-close-top',
+  corner: 'uk-alert-close-corner',
+  end: 'uk-alert-close-end',
+} as const
+
+export function alertCloseClasses(props: AlertCloseClassType) {
+  return [
+    alertCloseVariantMap[props.closeVariant!],
+    props.closeCircle && 'uk-alert-close-circle',
+    alertClosePositionMap[props.closePosition!],
+    props.closeIconAnimation && 'uk-alert-close-icon-animation',
+  ]
+}
+
+export interface AlertClassType {
+  variant?: 'default' | 'muted' | 'primary' | 'success' | 'info' | 'warning' | 'danger'
+  bordered?: boolean
+  iconBox?: boolean
+}
+
+const alertVariantMap = {
+  default: 'uk-alert-default',
+  muted: 'uk-alert-muted',
+  primary: 'uk-alert-primary',
+  success: 'uk-alert-success',
+  info: 'uk-alert-info',
+  warning: 'uk-alert-warning',
+  danger: 'uk-alert-danger',
+} as const
+
+export function alertClasses(props: AlertClassType) {
+  return [
+    alertVariantMap[props.variant!],
+    props.bordered && 'uk-alert-bordered',
+    props.iconBox && 'uk-alert-icon-box',
+  ]
+}
+
+
+/**
+ * ComponentName Class Generator :New-Component-Template
+ * Class Types: variant
+ * Child Components: PrAccordionChild1 | PrAccordionChild2
+ * ======================================================================== */
+
+export interface ComponentChildClassType {
+  variant?: 'default' | 'pill' | 'line'
+  disabled?: boolean
+}
+
+const componentChildVariantMap = {
+  default: 'uk-accordion-default',
+  pill: 'uk-accordion-pill',
+  line: 'uk-accordion-line',
+} as const
+
+export function componentChildClasses(props: ComponentChildClassType) {
+  return [
+    componentChildVariantMap[props.variant!],
+    props.disabled && 'uk-accordion-item-disabled'
+  ]
+}
+
+export interface ComponentClassType {
+  variant?: 'default' | 'pill' | 'line'
+  disabled?: boolean
+}
+
+const componentVariantMap = {
+  default: 'uk-accordion-default',
+  pill: 'uk-accordion-pill',
+  line: 'uk-accordion-line',
+} as const
+
+export function componentClasses(props: ComponentClassType) {
+  return [
+    componentVariantMap[props.variant!],
+    props.disabled && 'uk-accordion-item-disabled'
+  ]
 }

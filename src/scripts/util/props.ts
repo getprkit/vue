@@ -8,7 +8,7 @@
  * main component clean, and we can manage all props at one file and import
  * them at main component.
  *
- * Component props itself has four part:
+ * Component props itself has five part:
  * 1. xPropsType: the main props of component (PrKit Props).
  * 2. xClassType: will return CSS class of main component (extended into xPropsType).
  * 3. UIKitXOptions: UIKit JavaScript Component options (just useable for
@@ -16,9 +16,11 @@
  *    ex: interface xPropsType extends UIkitXOptions, xClassType { ... }
  * 4. xIconPropType || BaseIconPropsType: Icon props of component (if component
  *    contain icons - extended into xPropsType).
+ * 4. xClosePropType || BaseClosePropsType: Close props of component (if component
+ *    contain close - extended into xPropsType).
  *
  * Component which contains icons in their template always extends
- * BaseIconPropsType which contain types: {icon?: DefaultIcon, iconRatio?: number, strokeWidth?: number}
+ * BaseIconPropsType which contain types: { icon?: DefaultIcon, iconRatio?: number, strokeWidth?: number }
  * For those components that has additional icon type/style or conditional icon compile we
  * import type { XIconType } from '@u/util.ts'
  * define icon types like: BaseIconPropsType<XIconType>
@@ -26,6 +28,13 @@
  * If you want to addition compile and props or prevent some controls from icon part of component
  * you can define new type for component props with adding it directly in to XPropsType:
  * structure: type XPropsType { icon?: XIconType || DefaultIcon }
+ * so we can not change icon ratio and stroke ratio when remove the props.
+ *
+ * Component which contains close in their template always extends
+ * BaseClosePropsType which contain types: { close?: boolean, closeIcon?: T, closeIconRatio?: number, closeStrokeRatio?: number, closeText?: string }
+ * If you want to addition compile and props or prevent some controls from close part of component
+ * you can define new type for component props with adding it directly in to XPropsType:
+ * structure: type XPropsType { close?: boolean, closeIcon?: XIconType || DefaultIcon }
  * so we can not change icon ratio and stroke ratio when remove the props.
  *
  * refer to ApiRef description in types.ts file (line: 60 to 115) every
@@ -70,43 +79,41 @@
  * ========================================================================
  */
 
+// New component template error fix
+// TODO: Must remove when creating component props work done.
+import type { OptionsAccordion as OptionsComponent, AccordionApi as ComponentApi } from '@u/types.ts'
+import type { AccordionIconType as ComponentIconType } from '@u/util.ts'
+import type { AccordionClassType as ComponentClassType } from '@u/classes'
 
 /**
  * Imports
  * ======================================================================== */
 
 import type {
-  DefaultIcon,
+  BaseIconPropsType,
+  BaseClosePropsType,
   ApiRef,
   OptionsAccordion,
   AccordionApi,
-  OptionsIcon,
+  OptionsAlert,
+  AlertApi,
 } from '@u/types.ts'
 
-import type { AccordionIconType } from '@u/util.ts'
+import type { AccordionIconType, AlertIconType } from '@u/util.ts'
 
-import type { AccordionClassType } from '@u/classes'
+import type { AccordionClassType, AlertCloseClassType, AlertClassType } from '@u/classes'
 
 
 /**
  * Base Types
  * ======================================================================== */
 
-export interface BaseIconPropsType<T = DefaultIcon> {
-  /** Icon Type of item - each T has its own defined style from component */
-  icon?: T
-  /** The icon size */
-  iconRatio?: number
-  /** The icon stroke size */
-  strokeRatio?: number
-}
-
 
 /**
  * Accordion Prop Types
- * Props: active, animation, collapsible, content, duration, multiple, targets,
- *        toggle, transition, offset, variant, apiRef, tag, list, icon, iconRatio,
- *        strokeRatio
+ * Props: apiRef, tag, list, variant, bordered, icon, iconRatio, strokeRatio,
+ *        active, animation, collapsible, content, duration, multiple,
+ *        targets, toggle, transition, offset
  * Child Components: PrAccordionItem | PrAccordionTitle | PrAccordionContent
  * ======================================================================== */
 
@@ -123,7 +130,7 @@ export interface AccordionItemType {
 
 export interface AccordionItemPropsType {
   /** Render tag of elements */
-  tag?: 'li' | 'div',
+  tag?: 'li' | 'div'
   /** Specify item should be opened initially */
   active?: boolean
   /** Disable item and preventing it from opening */
@@ -143,7 +150,8 @@ export const accordionTitleDefaults = {
 
 export interface AccordionPropsType
   extends OptionsAccordion, AccordionTitlePropsType, AccordionClassType {
-  /** Equal to element ref of component for accessing component element from parent */
+  /** Set with UIkit JavaScript Component returned value to access component
+   * methods and data */
   apiRef?: ApiRef<AccordionApi>
   /** Render tag of elements: ul-li | div-div */
   tag?: 'ul' | 'div'
@@ -156,19 +164,71 @@ export const accordionDefaults = {
   variant: 'default',
   icon: 'default',
   iconRatio: 0.7,
-  collapsible: true
+  collapsible: true,
 } satisfies Partial<AccordionPropsType>
 
 
 /**
- * Icon Prop Types
- * Props: icon, ratio, tag
+ * Alert Prop Types
+ * Props: apiRef, variant, bordered, iconBox, close, closeIcon, closeIconRatio
+ *        closeStrokeRatio, closeVariant, closeCircle, closePosition, closeText
+ *        icon, iconRatio, strokeRatio, animation, duration, sel-close
+ * Child Components: PrAlertIcon | PrAlertClose
  * ======================================================================== */
 
-export interface IconPropsType extends OptionsIcon {
-  tag?: 'span' | string
+export type AlertClosePropsType = AlertCloseClassType & BaseClosePropsType
+
+export const alertCloseDefaults = {
+  close: true,
+  closeIcon: 'component-default-alert-close',
+  closeIconRatio: 0.5,
+} satisfies Partial<AlertClosePropsType>
+
+export type AlertIconPropsType = BaseIconPropsType<AlertIconType>
+
+export interface AlertPropsType
+  extends OptionsAlert, BaseIconPropsType, AlertClosePropsType, AlertClassType {
+  /** Set with UIkit JavaScript Component returned value to access component
+   * methods and data */
+  apiRef?: ApiRef<AlertApi>
 }
 
-export const IconDefaults: Partial<IconPropsType> = {
-  tag: 'span',
+export const alertDefaults = {
+  variant: 'muted',
+  close: true,
+  closeIcon: 'component-default-alert-close',
+  closeIconRatio: 0.5,
+} satisfies Partial<AlertPropsType>
+
+
+/**
+ * ComponentName Prop Types :New-Component-Template
+ * Props: variant, apiRef, tag, icon, iconRatio, strokeRatio, active, animation
+ * Child Components: PrComponentChild1 | PrComponentChild2
+ * ======================================================================== */
+
+export interface ComponentChildPropsType {
+  /** Render tag of elements */
+  tag?: 'li' | 'div'
 }
+
+export const componentChildDefaults = {
+  tag: 'li',
+} satisfies Partial<ComponentChildPropsType>
+
+export type ComponentIconPropsType = BaseIconPropsType<ComponentIconType>
+
+export interface ComponentPropsType
+  extends OptionsComponent, ComponentIconPropsType, ComponentClassType {
+  /** Will set with UIkit JavaScript Component returned value to access component
+   * methods and data */
+  apiRef?: ApiRef<ComponentApi>
+  tag?: 'ul' | 'div'
+}
+
+export const componentDefaults = {
+  tag: 'ul',
+  variant: 'default',
+  icon: 'default',
+  iconRatio: 0.7,
+} satisfies Partial<ComponentPropsType>

@@ -1,0 +1,701 @@
+//
+// Component:       Variables
+// Description:     Defines common values which are used across all components
+//
+// ========================================================================
+
+
+// Load deprecated components
+// ========================================================================
+
+@deprecated:                                   false;
+
+
+// Breakpoints
+// ========================================================================
+
+// Phone Portrait:   Galaxy (360x640), iPhone 6 (375x667), iPhone 6+ (414x736)
+// Phone Landscape:  Galaxy (640x360), iPhone 6 (667x375), iPhone 6+ (736x414)
+// Tablet Portrait:  iPad (768x1024), Galaxy Tab (800x1280),
+// Tablet Landscape: iPad (1024x768), iPad Pro (1024x1366),
+// Desktop:          Galaxy Tab (1280x800), iPad Pro (1366x1024)
+
+@breakpoint-small:                             640px;  // Phone landscape
+@breakpoint-medium:                            960px;  // Tablet Landscape
+@breakpoint-large:                             1200px; // Desktop
+@breakpoint-xlarge:                            1600px; // Large Screens
+
+@breakpoint-xsmall-max:                        (@breakpoint-small - 1);
+@breakpoint-small-max:                         (@breakpoint-medium - 1);
+@breakpoint-medium-max:                        (@breakpoint-large - 1);
+@breakpoint-large-max:                         (@breakpoint-xlarge - 1);
+
+@layer variables;
+
+@layer variables {
+
+    :root {
+
+        /* Breakpoints
+        ========================================================================== */
+
+        /* Phone Portrait:   Galaxy (360x640), iPhone 6 (375x667), iPhone 6+ (414x736) */
+        /* Phone Landscape:  Galaxy (640x360), iPhone 6 (667x375), iPhone 6+ (736x414) */
+        /* Tablet Portrait:  iPad (768x1024), Galaxy Tab (800x1280), */
+        /* Tablet Landscape: iPad (1024x768), iPad Pro (1024x1366), */
+        /* Desktop:          Galaxy Tab (1280x800), iPad Pro (1366x1024) */
+
+        --breakpoint-small:                             @breakpoint-small;  /* Phone landscape */
+        --breakpoint-medium:                            @breakpoint-medium; /* Tablet Landscape */
+        --breakpoint-large:                             @breakpoint-large;  /* Desktop */
+        --breakpoint-xlarge:                            @breakpoint-xlarge; /* Large Screens */
+
+        --breakpoint-xsmall-max:                        calc(var(--breakpoint-small) - 1px);
+        --breakpoint-small-max:                         calc(var(--breakpoint-medium) - 1px);
+        --breakpoint-medium-max:                        calc(var(--breakpoint-large) - 1px);
+        --breakpoint-large-max:                         calc(var(--breakpoint-xlarge) - 1px);
+
+
+        /* Global variables
+        ========================================================================== */
+
+        /*
+         * Typography
+         */
+
+        --global-font-family:                            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        --global-font-size:                              16px;
+        --global-line-height:                            1.5;      // 24px
+
+        --global-2xlarge-font-size:                      2.625rem; // 42px
+        --global-xlarge-font-size:                       2rem;     // 32px
+        --global-large-font-size:                        1.5rem;   // 24px
+        --global-medium-font-size:                       1.25rem;  // 20px
+        --global-small-font-size:                        0.875rem; // 14px
+
+        /*
+         * Palettes
+         */
+
+        --global-default-color:                          #fff; // use: default backgrounds
+
+        --global-muted-color-50:                         oklch(97.9% 0 0); // #f8f8f8, muted-background, inverse-color
+        --global-muted-color-100:                        oklch(93.8% 0 0);
+        --global-muted-color-150:                        oklch(91.0% 0 0);
+        --global-muted-color-200:                        oklch(88.0% 0 0);
+        --global-muted-color-300:                        oklch(83.5% 0 0);
+        --global-muted-color-400:                        oklch(68.3% 0 0); // #999, color-muted
+        --global-muted-color-500:                        oklch(51.0% 0 0); // #666, color-global
+        --global-muted-color-600:                        oklch(41.5% 0 0);
+        --global-muted-color-700:                        oklch(32.1% 0 0); // #333, emphasis-color, inverse active
+        --global-muted-color-800:                        oklch(27.6% 0 0); // inverse active
+        --global-muted-color-850:                        oklch(25.0% 0 0); // inverse hover
+        --global-muted-color-900:                        oklch(20.4% 0 0);
+        --global-muted-color-950:                        oklch(16.5% 0 0);
+        --global-muted-color:                            var(--global-muted-color-50);  // use: backgrounds, muted alert/button/card/notification/link/text
+        --global-muted-color-soft:                       var(--global-muted-color-100); // #ebebeb, hover, form focus/checked
+        --global-muted-color-softer:                     var(--global-muted-color-150); // #e5e5e5, border, active
+
+        --global-primary-color-50:                       oklch(98.4% 0.008 248.2);
+        --global-primary-color-100:                      oklch(95.6% 0.022 248.5);
+        --global-primary-color-200:                      oklch(88.8% 0.060 249.3);
+        --global-primary-color-300:                      oklch(83.0% 0.095 250.5);
+        --global-primary-color-400:                      oklch(76.0% 0.138 252.0);    // inverse active
+        --global-primary-color-450:                      oklch(69.1% 0.160 252.8);    // inverse hover
+        --global-primary-color-500:                      oklch(62.27% 0.1814 253.48); // #1e87f0, primary, link
+        --global-primary-color-550:                      oklch(58.4% 0.177 254.1);
+        --global-primary-color-600:                      oklch(54.6% 0.172 254.8);
+        --global-primary-color-700:                      oklch(47.0% 0.156 256.1);
+        --global-primary-color-800:                      oklch(39.3% 0.138 257.5);
+        --global-primary-color-900:                      oklch(31.6% 0.119 258.8);
+        --global-primary-color-950:                      oklch(27.8% 0.108 260.1);
+        --global-primary-color:                          var(--global-primary-color-500); // use: backgrounds, primary alert/button/card/notification/link/text
+        --global-primary-color-soft:                     var(--global-primary-color-550); // hover
+        --global-primary-color-softer:                   var(--global-primary-color-600); // #0e6dcd, active, link-hover, form focus/checked
+
+        --global-secondary-color-50:                     oklch(98.0% 0 0);
+        --global-secondary-color-100:                    oklch(91.7% 0 0);
+        --global-secondary-color-200:                    oklch(82.2% 0 0);
+        --global-secondary-color-300:                    oklch(72.7% 0 0);
+        --global-secondary-color-400:                    oklch(63.2% 0 0);
+        --global-secondary-color-500:                    oklch(53.7% 0 0);
+        --global-secondary-color-600:                    oklch(44.2% 0 0);
+        --global-secondary-color-700:                    oklch(34.7% 0 0); // inverse active
+        --global-secondary-color-750:                    oklch(30.0% 0 0); // inverse hover
+        --global-secondary-color-800:                    oklch(25.2% 0 0); // #222, secondary-background
+        --global-secondary-color-850:                    oklch(19.6% 0 0);
+        --global-secondary-color-900:                    oklch(13.4% 0 0);
+        --global-secondary-color-950:                    oklch(8.0% 0 0);
+        --global-secondary-color:                        var(--global-secondary-color-800); // use: backgrounds, secondary button/card
+        --global-secondary-color-soft:                   var(--global-secondary-color-850); // hover
+        --global-secondary-color-softer:                 var(--global-secondary-color-900); // active
+
+        --global-info-color-50:                          oklch(98.4% 0.007 276.8);
+        --global-info-color-100:                         oklch(95.5% 0.020 277.0);  // #eceffe, alert-background
+        --global-info-color-200:                         oklch(87.1% 0.061 278.2);
+        --global-info-color-300:                         oklch(80.3% 0.096 279.1);
+        --global-info-color-400:                         oklch(73.5% 0.132 280.1);
+        --global-info-color-450:                         oklch(66.7% 0.151 281.1);
+        --global-info-color-500:                         oklch(60.0% 0.170 282.0);  // #736ee1, info
+        --global-info-color-550:                         oklch(56.4% 0.166 282.7);
+        --global-info-color-600:                         oklch(52.8% 0.161 283.5);
+        --global-info-color-700:                         oklch(45.7% 0.146 284.9);
+        --global-info-color-800:                         oklch(38.5% 0.129 286.4);
+        --global-info-color-900:                         oklch(31.4% 0.112 287.9);
+        --global-info-color-950:                         oklch(27.8% 0.101 288.6);
+        --global-info-color:                             var(--global-info-color-500); // use: backgrounds, info alert/notification/link/text
+        --global-info-color-soft:                        var(--global-info-color-550); // hover
+        --global-info-color-softer:                      var(--global-info-color-600); // active
+
+        --global-success-color-50:                       oklch(98.4% 0.010 174);
+        --global-success-color-100:                      oklch(95.3% 0.028 172.7);  // #def6ed, alert-background
+        --global-success-color-200:                      oklch(89.2% 0.068 170.2);  // #afebd5
+        --global-success-color-300:                      oklch(85.0% 0.093 168.3);  // #8fe2c3
+        --global-success-color-400:                      oklch(81.3% 0.117 166.3);
+        --global-success-color-450:                      oklch(76.9% 0.134 164.4);
+        --global-success-color-500:                      oklch(72.5% 0.150 162.4);  // #25c389, success
+        --global-success-color-550:                      oklch(67.5% 0.128 163.0);
+        --global-success-color-600:                      oklch(62.5% 0.118 163.7);
+        --global-success-color-700:                      oklch(52.7% 0.098 165.0);
+        --global-success-color-800:                      oklch(42.7% 0.078 166.4);
+        --global-success-color-900:                      oklch(32.7% 0.059 167.7);
+        --global-success-color-950:                      oklch(27.8% 0.049 169.0);
+        --global-success-color:                          var(--global-success-color-500); // use: backgrounds, success alert/notification/link/text
+        --global-success-color-soft:                     var(--global-success-color-550); // hover
+        --global-success-color-softer:                   var(--global-success-color-600); // active
+
+        --global-warning-color-50:                       oklch(98.5% 0.022 89.0);
+        --global-warning-color-100:                      oklch(95.5% 0.031 85.0);   // #faefd9, alert-background
+        --global-warning-color-200:                      oklch(91.4% 0.074 79.4);
+        --global-warning-color-300:                      oklch(88.1% 0.100 74.8);
+        --global-warning-color-400:                      oklch(84.8% 0.118 69.8);
+        --global-warning-color-450:                      oklch(81.6% 0.135 64.3);
+        --global-warning-color-500:                      oklch(78.3% 0.137 56.8);   // #faa05a, warning
+        --global-warning-color-550:                      oklch(72.6% 0.142 58.4);
+        --global-warning-color-600:                      oklch(67.1% 0.144 59.9);
+        --global-warning-color-700:                      oklch(55.9% 0.128 63.0);
+        --global-warning-color-800:                      oklch(44.7% 0.099 66.2);
+        --global-warning-color-900:                      oklch(33.4% 0.073 69.3);
+        --global-warning-color-950:                      oklch(27.8% 0.060 70.8);
+        --global-warning-color:                          var(--global-warning-color-500); // use: backgrounds, warning alert/notification/link/text
+        --global-warning-color-soft:                     var(--global-warning-color-550); // hover
+        --global-warning-color-softer:                   var(--global-warning-color-600); // active
+
+        --global-danger-color-50:                        oklch(98.4% 0.007 5);
+        --global-danger-color-100:                       oklch(95.5% 0.027 3.5);     // #ffeaee, alert-background
+        --global-danger-color-200:                       oklch(88.4% 0.064 5.8);
+        --global-danger-color-300:                       oklch(82.8% 0.099 7.7);
+        --global-danger-color-400:                       oklch(77.1% 0.139 9.6);
+        --global-danger-color-450:                       oklch(71.4% 0.174 11.5);
+        --global-danger-color-500:                       oklch(65.79% 0.1955 13.34); // #f0506e, danger
+        --global-danger-color-550:                       oklch(58.4% 0.187 14.5);
+        --global-danger-color-600:                       oklch(54.6% 0.180 15.1);
+        --global-danger-color-700:                       oklch(47.0% 0.164 16.3);
+        --global-danger-color-800:                       oklch(39.3% 0.146 17.5);
+        --global-danger-color-900:                       oklch(31.6% 0.127 18.8);
+        --global-danger-color-950:                       oklch(27.8% 0.112 20.0);
+        --global-danger-color:                           var(--global-danger-color-500); // use: backgrounds, danger alert/button/notification/link/text
+        --global-danger-color-soft:                      var(--global-danger-color-550); // hover
+        --global-danger-color-softer:                    var(--global-danger-color-600); // active
+
+        /*
+         * Colors
+         */
+
+        --global-color:                                  var(--global-muted-color-500); // use: main/base/body text color
+        --global-color-emphasis:                         var(--global-muted-color-700); // use: headers, titles, emphasis text
+        --global-color-muted:                            var(--global-muted-color-400); // use: muted text, subtext
+
+        --global-link-color:                             var(--global-primary-color);
+        --global-link-hover-color:                       var(--global-primary-color-600);
+
+        --global-color-inverse:                          var(--global-muted-color-50);
+
+        /*
+         * Borders
+         */
+
+        --global-border-width:                           1px;
+        --global-border:                                 var(--global-muted-color-150);
+
+        --global-border-radius:                          8px;
+        --global-border-radius-pill:                     500px;
+        --global-border-radius-circle:                   50%;
+        --global-border-radius-default:                  8px;
+
+        /*
+         * Box-Shadows
+         */
+
+        --global-small-box-shadow:                       0 2px 8px rgba(0,0,0,0.08);
+        --global-medium-box-shadow:                      0 5px 15px rgba(0,0,0,0.08);
+        --global-large-box-shadow:                       0 14px 25px rgba(0,0,0,0.16);
+        --global-xlarge-box-shadow:                      0 28px 50px rgba(0,0,0,0.16);
+
+        /*
+         * Spacings
+         */
+
+        /* Used in margin, section, list */
+        --global-margin:                                 20px;
+        --global-xsmall-margin:                          5px;
+        --global-small-margin:                           10px;
+        --global-medium-margin:                          40px;
+        --global-large-margin:                           70px;
+        --global-xlarge-margin:                          140px;
+
+        /* Used in grid, column, container, align, card, padding */
+        --global-gutter:                                 30px;
+        --global-xxsmall-gutter:                         5px;
+        --global-xsmall-gutter:                          10px;
+        --global-small-gutter:                           15px;
+        --global-medium-gutter:                          40px;
+        --global-large-gutter:                           70px;
+
+        /*
+         * Controls
+         */
+
+        --global-control-height:                         40px;
+        --global-control-small-height:                   30px;
+        --global-control-large-height:                   55px;
+
+        /*
+         * Z-index
+         */
+
+        --global-z-index:                                1000;
+
+        .hook-global-variables();
+
+
+        /* Base variables
+        ========================================================================== */
+
+        .hook-base-variables();
+
+
+        /* Global Component variables
+        ========================================================================== */
+
+        /*
+         * Link
+         */
+
+        .hook-link-variables();
+
+        /*
+         * Heading
+         */
+
+        .hook-heading-variables();
+
+        /*
+         * Form range
+         */
+
+        .hook-form-range-variables();
+
+        /*
+         * Form
+         */
+
+        .hook-form-variables();
+
+        /*
+         * Grid
+         */
+
+        .hook-grid-variables();
+
+        /*
+         * Animation
+         */
+
+        .hook-animation-variables();
+
+        /*
+         * Width
+         */
+
+        .hook-width-variables();
+
+        /*
+         * Height
+         */
+
+        .hook-height-variables();
+
+        /*
+         * Text
+         */
+
+        .hook-text-variables();
+
+        /*
+         * Background
+         */
+
+        .hook-background-variables();
+
+        /*
+         * Utility
+         */
+
+        .hook-utility-variables();
+
+        /*
+         * Margin
+         */
+
+        .hook-margin-variables();
+
+        /*
+         * Padding
+         */
+
+        .hook-padding-variables();
+
+        /*
+         * Position
+         */
+
+        .hook-position-variables();
+
+        /*
+         * Transition
+         */
+
+        .hook-transition-variables();
+
+        /*
+         * Inverse
+         */
+
+        .hook-inverse-variables();
+
+        /*
+         * Override and new variables
+         */
+
+        .hook-variables();
+    }
+
+
+    /* Component variables
+    ========================================================================== */
+
+    /*
+     * Divider
+     */
+
+    [class*="uk-divider"] { .hook-divider-variables(); }
+
+    /*
+     * List
+     */
+
+    .uk-list { .hook-list-variables(); }
+
+    /*
+     * Description List
+     */
+
+    .uk-description-list { .hook-description-list-variables(); }
+
+    /*
+     * Table
+     */
+
+    .uk-table { .hook-table-variables(); }
+
+    /*
+     * Icon
+     */
+
+    .uk-icon { .hook-icon-variables(); }
+
+    /*
+     * Button
+     */
+
+    .uk-button { .hook-button-variables(); }
+
+    /*
+     * Progress
+     */
+
+    .uk-progress { .hook-progress-variables(); }
+
+    /*
+     * Section
+     */
+
+    .uk-section { .hook-section-variables(); }
+
+    /*
+     * Container
+     */
+
+    .uk-container { .hook-container-variables(); }
+
+    /*
+     * Tile
+     */
+
+    .uk-tile { .hook-tile-variables(); }
+
+    /*
+     * Card
+     */
+
+    .uk-card { .hook-card-variables(); }
+
+    /*
+     * Close
+     */
+
+    .uk-close { .hook-close-variables(); }
+
+    /*
+     * Spinner
+     */
+
+    .uk-spinner { .hook-spinner-variables(); }
+
+    /*
+     * Totop
+     */
+
+    .uk-totop { .hook-totop-variables(); }
+
+    /*
+     * Marker
+     */
+
+    .uk-marker { .hook-marker-variables(); }
+
+    /*
+     * Alert
+     */
+
+    .uk-alert { .hook-alert-variables(); }
+
+    /*
+     * Placeholder
+     */
+
+    .uk-placeholder { .hook-placeholder-variables(); }
+
+    /*
+     * Badge
+     */
+
+    .uk-badge { .hook-badge-variables(); }
+
+    /*
+     * Label
+     */
+
+    .uk-label { .hook-label-variables(); }
+
+    /*
+     * Overlay
+     */
+
+    .uk-overlay { .hook-overlay-variables(); }
+
+    /*
+     * Article
+     */
+
+    .uk-article { .hook-article-variables(); }
+
+    /*
+     * Comment
+     */
+
+    .uk-comment { .hook-comment-variables(); }
+
+    /*
+     * Search
+     */
+
+    .uk-search { .hook-search-variables(); }
+
+    /*
+     * Accordion
+     */
+
+    .uk-accordion { .hook-accordion-variables(); }
+
+    /*
+     * Drop
+     */
+
+    .uk-drop { .hook-drop-variables(); }
+
+    /*
+     * Dropbar
+     */
+
+    .uk-dropbar { .hook-dropbar-variables(); }
+
+    /*
+     * Dropnav
+     */
+
+    .uk-dropnav-dropbar { .hook-dropnav-variables(); }
+
+    /*
+     * Modal
+     */
+
+    .uk-modal { .hook-modal-variables(); }
+
+    /*
+     * Slideshow
+     */
+
+    .uk-slideshow { .hook-slideshow-variables(); }
+
+    /*
+     * Slider
+     */
+
+    .uk-slider { .hook-slider-variables(); }
+
+    /*
+     * Sticky
+     */
+
+    .uk-sticky { .hook-sticky-variables(); }
+
+    /*
+     * Offcanvas
+     */
+
+    .uk-offcanvas { .hook-offcanvas-variables(); }
+
+    /*
+     * Leader
+     */
+
+    .uk-leader { .hook-leader-variables(); }
+
+    /*
+     * Notification
+     */
+
+    .uk-notification { .hook-notification-variables(); }
+
+    /*
+     * Tooltip
+     */
+
+    .uk-tooltip { .hook-tooltip-variables(); }
+
+    /*
+     * Sortable
+     */
+
+    .uk-sortable { .hook-sortable-variables(); }
+
+    /*
+     * Countdown
+     */
+
+    .uk-countdown { .hook-countdown-variables(); }
+
+    /*
+     * Nav
+     */
+
+    .uk-nav, .uk-nav ul { .hook-nav-variables(); }
+
+    /*
+     * Navbar
+     */
+
+    .uk-navbar { .hook-navbar-variables(); }
+
+    /*
+     * Subnav
+     */
+
+    .uk-subnav { .hook-subnav-variables(); }
+
+    /*
+     * Breadcrumb
+     */
+
+    .uk-breadcrumb { .hook-breadcrumb-variables(); }
+
+    /*
+     * Pagination
+     */
+
+    .uk-pagination { .hook-pagination-variables(); }
+
+    /*
+     * Tab
+     */
+
+    .uk-tab { .hook-tab-variables(); }
+
+    /*
+     * Slidenav
+     */
+
+    .uk-slidenav { .hook-slidenav-variables(); }
+
+    /*
+     * Dotnav
+     */
+
+    .uk-dotnav { .hook-dotnav-variables(); }
+
+    /*
+     * Thumbnav
+     */
+
+    .uk-thumbnav { .hook-thumbnav-variables(); }
+
+    /*
+     * Iconnav
+     */
+
+    .uk-iconnav { .hook-iconnav-variables(); }
+
+    /*
+     * Dropdown
+     */
+
+    .uk-dropdown { .hook-dropdown-variables(); }
+
+    /*
+     * Lightbox
+     */
+
+    .uk-lightbox { .hook-lightbox-variables(); }
+
+    /*
+     * Column
+     */
+
+    [class*="uk-column-"] { .hook-column-variables(); }
+
+    /*
+     * Align
+     */
+
+    [class*="uk-align"] { .hook-align-variables(); }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-global-variables() {}
+.hook-variables() {}

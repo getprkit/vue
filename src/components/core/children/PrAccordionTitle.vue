@@ -36,7 +36,7 @@ const { iconName } = useComponentIcon(props, getAccordionIcon)
 
 /**
  * CSS Classes:
- * uk-accordion-title | pr-accordion-icon | uk-accordion-icon
+ * uk-accordion-title | uk-accordion-icon | uk-accordion-icon
  * ========================================================================
  */
 </script>
@@ -44,6 +44,6 @@ const { iconName } = useComponentIcon(props, getAccordionIcon)
 <template>
   <a class="uk-accordion-title" href="">
     <slot />
-    <span v-if="iconName" class="pr-accordion-icon uk-accordion-icon" ref="iconEl" />
+    <span v-if="iconName" class="uk-accordion-icon uk-accordion-icon" ref="iconEl" />
   </a>
 </template>

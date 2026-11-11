@@ -6,7 +6,6 @@ export default defineConfig((configEnv) =>
   mergeConfig(
     viteConfig({
       command: configEnv.command,
-      rtl: undefined,
     }),
     {
       test: {

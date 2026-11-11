@@ -1,4 +1,5 @@
 // TODO: Must review and change in future, also must move in to Doc library.
+// TODO: uk-* pr-tag-component must change to pr-* in future.
 // FIXME: Must review and change in future, also must move in to Doc library.
 
 import MarkdownItShiki from '@shikijs/markdown-exit'
@@ -24,11 +25,12 @@ const prComponentTransformer: ShikiTransformer = {
       .map((child) => child.value)
       .join('')
 
-    if (!/^Pr[A-Z]/.test(text)) {
+    // if (!/^Pr[A-Z]/.test(text) && !/(?:^|[\s<"'])uk-[\w-]+(?=$|[\s="'/>])/.test(text)) {
+    if (!/^\s*(?:Pr[A-Z]\w*|uk-[\w-]+)\s*$/.test(text)) {
       return
     }
 
-    this.addClassToHast(node, `pr-tag-component-${text.toLowerCase()}`)
+    this.addClassToHast(node, `pr-tag-component-${text.replace(/-/g, '').toLowerCase()}`)
   },
 }
 
@@ -68,7 +70,7 @@ export const markdown = Markdown({
         const originalContent = token.content
 
         try {
-          if (language === 'vue' && mode === 'example') {
+          if (language && ['vue', 'html'].includes(language) && mode === 'example') {
             env.prExampleIndex = (env.prExampleIndex ?? 0) + 1
 
             const id = `code-example-${env.prExampleIndex}`
@@ -83,7 +85,7 @@ export const markdown = Markdown({
 
             const preview = (template?.[1] ?? previewSource).trim()
 
-            token.info = 'vue'
+            token.info = language
             token.content = code
 
             const highlighted = await fence(tokens, idx, options, env, self)

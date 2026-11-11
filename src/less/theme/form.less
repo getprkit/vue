@@ -1,0 +1,191 @@
+//
+// Component: Form
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-form-variables() {
+    
+    --form-line-height:                              calc(var(--form-height) - (2* var(--form-border-width)));
+
+    --form-background:                               var(--global-default-color);
+    --form-focus-background:                         var(--global-default-color);
+
+    --form-small-line-height:                        calc(var(--form-small-height) - (2* var(--form-border-width)));
+    --form-large-line-height:                        calc(var(--form-large-height) - (2* var(--form-border-width)));
+
+    --form-radio-background:                         transparent;
+
+    --form-stacked-margin-bottom:                    5px;
+
+    //
+    // New
+    //
+
+    --form-border-width:                             var(--global-border-width);
+    --form-border:                                   var(--global-border);
+
+    --form-focus-border:                             var(--global-primary-color);
+
+    --form-disabled-border:                          var(--global-border);
+
+    --form-danger-border:                            var(--global-danger-color);
+    --form-success-border:                           var(--global-success-color);
+
+    --form-blank-focus-border:                       var(--global-border);
+    --form-blank-focus-border-style:                 solid;
+
+    --form-radio-border-width:                       var(--global-border-width);
+    --form-radio-border:                             var(--global-muted-color);
+
+    --form-radio-focus-border:                       var(--global-primary-color);
+
+    --form-radio-checked-border:                     transparent;
+
+    --form-radio-disabled-border:                    var(--global-border);
+
+    --form-label-color:                              var(--global-color-emphasis);
+    --form-label-font-size:                          var(--global-small-font-size);
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-form() {
+    border: var(--form-border-width) solid var(--form-border);
+    transition: 0.2s ease-in-out;
+    transition-property: color, background-color, border;
+}
+
+.hook-form-single-line() {}
+
+.hook-form-multi-line() {}
+
+.hook-form-focus() { border-color: var(--form-focus-border); }
+
+.hook-form-disabled() { border-color: var(--form-disabled-border); }
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-form-danger() { border-color: var(--form-danger-border); }
+
+.hook-form-success() { border-color: var(--form-success-border); }
+
+.hook-form-blank() { border-color: transparent; }
+
+.hook-form-blank-focus() {
+    border-color: var(--form-blank-focus-border);
+    border-style: var(--form-blank-focus-border-style);
+}
+
+
+// Radio and checkbox
+// ========================================================================
+
+.hook-form-radio() {
+    border: var(--form-radio-border-width) solid var(--form-radio-border);
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, border;
+}
+
+.hook-form-radio-focus() { border-color: var(--form-radio-focus-border); }
+
+.hook-form-radio-checked() { border-color: var(--form-radio-checked-border); }
+
+.hook-form-radio-checked-focus() {}
+
+.hook-form-radio-disabled() { border-color: var(--form-radio-disabled-border); }
+
+
+// Legend
+// ========================================================================
+
+.hook-form-legend() {}
+
+
+// Label
+// ========================================================================
+
+.hook-form-label() {
+    color: var(--form-label-color);
+    font-size: var(--form-label-font-size);
+}
+
+
+// Layout
+// ========================================================================
+
+.hook-form-stacked-label() {}
+
+.hook-form-horizontal-label() {}
+
+
+// Icon
+// ========================================================================
+
+.hook-form-icon() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-form-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-form-variables() {
+    
+    --inverse-form-background:                       var(--inverse-global-default-color);
+    --inverse-form-focus-background:                 var(--inverse-global-default-color);
+
+    --inverse-form-radio-background:                 transparent;
+
+    --inverse-form-border:                           var(--inverse-global-border);
+    --inverse-form-focus-border:                     var(--global-primary-color);
+
+    --inverse-form-disabled-border:                  var(--inverse-global-border);
+
+    --inverse-form-blank-focus-border:               var(--inverse-global-border);
+
+    --inverse-form-radio-border:                     var(--inverse-global-border);
+    --inverse-form-radio-focus-border:               var(--global-primary-color);
+
+    --inverse-form-radio-checked-border:             transparent;
+
+    --inverse-form-radio-disabled-border:            var(--inverse-global-border);
+
+    --inverse-form-label-color:                      var(--inverse-global-color-emphasis);
+    
+}
+
+.hook-inverse-form() { border-color: var(--inverse-form-border); }
+.hook-inverse-form-focus() { border-color: var(--inverse-form-focus-border); }
+.hook-inverse-form-disabled() { border-color: var(--inverse-form-disabled-border); }
+
+.hook-inverse-form-danger() {}
+
+.hook-inverse-form-success() {}
+
+.hook-inverse-form-blank() { border-color: transparent; }
+.hook-inverse-form-blank-focus() { border-color: var(--inverse-form-blank-focus-border); }
+
+.hook-inverse-form-radio() { border-color: var(--inverse-form-radio-border); }
+.hook-inverse-form-radio-focus() { border-color: var(--inverse-form-radio-focus-border); }
+
+.hook-inverse-form-radio-checked() { border-color: var(--inverse-global-primary-color); }
+.hook-inverse-form-radio-checked-focus() {}
+
+.hook-inverse-form-radio-disabled() { border-color: var(--inverse-form-radio-disabled-border); }
+
+.hook-inverse-form-label() { color: var(--inverse-form-label-color); }
+
+.hook-inverse-form-icon() {}

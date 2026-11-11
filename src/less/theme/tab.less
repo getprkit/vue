@@ -1,0 +1,180 @@
+//
+// Component: Tab
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-tab-variables() {
+
+    //
+    // New
+    //
+
+    --tab-border-width:                              var(--global-border-width);
+    --tab-border:                                    var(--global-border);
+
+    --tab-item-border-width:                         var(--global-border-width);
+    --tab-item-font-size:                            var(--global-small-font-size);
+    --tab-item-text-transform:                       uppercase;
+
+    --tab-item-active-border:                        var(--global-primary-color);
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-tab() {
+
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        inset-inline-start: var(--tab-margin-horizontal);
+        inset-inline-end: 0;
+        border-bottom: var(--tab-border-width) solid var(--tab-border);
+    }
+
+}
+
+
+// Items
+// ========================================================================
+
+.hook-tab-item() {
+    border-bottom: var(--tab-item-border-width) solid transparent;
+    font-size: var(--tab-item-font-size);
+    text-transform: var(--tab-item-text-transform);
+    transition: color 0.1s ease-in-out;
+}
+
+.hook-tab-item-hover() {}
+
+.hook-tab-item-active() { border-color: var(--tab-item-active-border); }
+
+.hook-tab-item-disabled() {}
+
+
+// Position modifiers
+// ========================================================================
+
+.hook-tab-bottom() {
+
+    &::before {
+        top: 0;
+        bottom: auto;
+    }
+
+}
+
+.hook-tab-bottom-item() {
+    border-top: var(--tab-item-border-width) solid transparent;
+    border-bottom: none;
+}
+
+.hook-tab-left() {
+
+    &::before {
+        top: 0;
+        bottom: 0;
+        left: auto;
+        right: 0;
+        border-left: var(--tab-border-width) solid var(--tab-border);
+        border-bottom: none;
+    }
+
+}
+
+.hook-tab-left-item() {
+    border-right: var(--tab-item-border-width) solid transparent;
+    border-bottom: none;
+}
+
+.hook-tab-right() {
+
+    &::before {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: auto;
+        border-left: var(--tab-border-width) solid var(--tab-border);
+        border-bottom: none;
+    }
+
+}
+
+.hook-tab-right-item() {
+    border-left: var(--tab-item-border-width) solid transparent;
+    border-bottom: none;
+}
+
+.hook-tab-start() {
+
+    &::before {
+        top: 0;
+        bottom: 0;
+        inset-inline-end: 0;
+        border-inline-start: var(--tab-border-width) solid var(--tab-border);
+        border-bottom: none;
+    }
+
+}
+
+.hook-tab-start-item() {
+    border-inline-end: var(--tab-item-border-width) solid transparent;
+    border-bottom: none;
+}
+
+.hook-tab-end() {
+
+    &::before {
+        top: 0;
+        bottom: 0;
+        inset-inline-start: 0;
+        border-inline-start: var(--tab-border-width) solid var(--tab-border);
+        border-bottom: none;
+    }
+    
+}
+
+.hook-tab-end-item() {
+    border-inline-start: var(--tab-item-border-width) solid transparent;
+    border-bottom: none;
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-tab-misc() {
+
+    .uk-tab .uk-dropdown { margin-inline-start: calc(var(--tab-margin-horizontal) + var(--tab-item-padding-horizontal)); }
+
+}
+
+
+// Inverse
+// ========================================================================
+
+.hook-tab-variables() {
+
+    --inverse-tab-border:                        var(--inverse-global-border);
+    
+}
+
+.hook-inverse-tab() {
+
+    &::before { border-color: var(--inverse-tab-border); }
+
+}
+
+.hook-inverse-tab-item() {}
+.hook-inverse-tab-item-hover() {}
+.hook-inverse-tab-item-active() { border-color: var(--inverse-global-primary-color); }
+.hook-inverse-tab-item-disabled() {}

@@ -1,0 +1,78 @@
+//
+// Component: Label
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-label-variables() {
+
+    //
+    // New
+    //
+
+    --label-border-radius:                           2px;
+    --label-text-transform:                          uppercase;
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-label() {
+    border-radius: var(--label-border-radius);
+    text-transform: var(--label-text-transform);
+}
+
+
+// Color modifiers
+// ========================================================================
+
+.hook-label-success() {}
+
+.hook-label-warning() {}
+
+.hook-label-danger() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-label-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-label-variables() {
+
+    --inverse-label-success-background:             var(--global-success-color);
+    --inverse-label-success-color:                  var(--inverse-global-color-emphasis);
+
+    --inverse-label-warning-background:             var(--global-warning-color);
+    --inverse-label-warning-color:                  var(--inverse-global-color-emphasis);
+
+    --inverse-label-danger-background:              var(--global-danger-color);
+    --inverse-label-danger-color:                   var(--inverse-global-color-emphasis);
+
+}
+
+.hook-inverse-label() {}
+
+.hook-inverse-success-label() {
+    background-color: var(--inverse-label-success-background);
+    color: var(--inverse-label-success-color);
+}
+
+.hook-inverse-warning-label() {
+    background-color: var(--inverse-label-warning-background);
+    color: var(--inverse-label-warning-color);
+}
+
+.hook-inverse-danger-label() {
+    background-color: var(--inverse-label-danger-background);
+    color: var(--inverse-label-danger-color);
+}

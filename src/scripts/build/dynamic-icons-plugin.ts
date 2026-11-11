@@ -16,7 +16,7 @@ export function dynamicIcon(): Plugin {
       existingIcons(outputPath).forEach((icon) => cachedIcons.add(icon))
     },
     async handleHotUpdate({ file }) {
-      if (file && ['.vue', '.md'].some((ext) => file?.endsWith(ext))) {
+      if (file && ['.vue', '.md', '.ts'].some((ext) => file?.endsWith(ext))) {
         const newIcon = new Set<string>()
 
         findIcons(file).forEach(

@@ -1,0 +1,109 @@
+// Name:            Progress
+// Description:     Component to create progress bars
+//
+// Component:       `uk-progress`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-progress-variables() {
+
+    --progress-height:                               15px;
+    --progress-margin-vertical:                      var(--global-margin);
+    --progress-background:                           var(--global-muted-color);
+
+    --progress-bar-background:                       var(--global-primary-color);
+
+}
+
+
+/* ========================================================================
+   Component: Progress
+ ========================================================================== */
+
+/*
+ * 1. Add the correct vertical alignment in all browsers.
+ * 2. Behave like a block element.
+ * 3. Remove borders in Firefox.
+ * 4. Remove default style in Chrome, Safari and Edge.
+ * 5. Style
+ */
+
+.uk-progress {
+    /* 1 */
+    vertical-align: baseline;
+    /* 2 */
+    display: block;
+    width: 100%;
+    /* 3 */
+    border: 0;
+    /* 4 */
+    background-color: var(--progress-background);
+    /* 5 */
+    margin-bottom: var(--progress-margin-vertical);
+    height: var(--progress-height);
+    .hook-progress();
+}
+
+/* Add margin if adjacent element */
+* + .uk-progress { margin-top: var(--progress-margin-vertical); }
+
+/*
+ * Show background color set on `uk-progress` in Chrome, Safari and Edge.
+ */
+
+ .uk-progress::-webkit-progress-bar { background-color: transparent; }
+
+/*
+ * Progress Bar
+ * 1. Transitions don't work on `::-moz-progress-bar` pseudo element in Firefox yet.
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=662351
+ */
+
+.uk-progress::-webkit-progress-value {
+    background-color: var(--progress-bar-background);
+    transition: width 0.6s ease;
+    .hook-progress-bar();
+}
+
+.uk-progress::-moz-progress-bar {
+    background-color: var(--progress-bar-background);
+    /* 1 */
+    transition: width 0.6s ease;
+    .hook-progress-bar();
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-progress-misc();
+
+.hook-progress-variables() {}
+.hook-progress() {}
+.hook-progress-bar() {}
+.hook-progress-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-progress-variables() {
+
+    --inverse-progress-background:                     var(--inverse-global-muted-color);
+    
+}
+
+.hook-inverse() {
+
+    .uk-progress {
+        background-color: var(--inverse-progress-background);
+        .hook-inverse-progress();
+    }
+
+}
+
+.hook-inverse-progress() {}

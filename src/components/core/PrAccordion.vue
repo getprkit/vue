@@ -14,6 +14,8 @@ import { accordionClasses } from '@u/classes'
  * includes default (UIKit), line and hover style, default (UIKit), chevron, plus and
  * circle icon styles, and an item disabling property. can render with array list and
  * child slot. also can compile as ul-li tang or div-div tag.
+ *
+ * TODO: Check for is useful to add icon-text property to render text in icon placement.
  * ========================================================================
  *
  * The PrKit component(here as accordion) structure is based on UIKit component structure + some defined
@@ -97,15 +99,15 @@ import { accordionClasses } from '@u/classes'
  * */
 
 /**
- * Props
+ * Props:
  *
- * UIKit JavaScript Component props:
+ * UIKit Component props (options):
  * active?: number
- * animation?: UIkitBoolean
- * collapsible?: UIkitBoolean
+ * animation?: boolean
+ * collapsible?: boolean
  * content?: string
  * duration?: number
- * multiple?: UIkitBoolean
+ * multiple?: boolean
  * targets?: string
  * toggle?: string
  * transition?: string
@@ -118,6 +120,7 @@ import { accordionClasses } from '@u/classes'
  *
  * Class Props:
  * variant?: 'default' | 'hover' | 'line'
+ * bordered?: boolean
  *
  * Component Props:
  * apiRef?: ApiRef<AccordionApi>
@@ -130,7 +133,6 @@ import { accordionClasses } from '@u/classes'
  * icon: 'default'
  * iconRatio: 0.7
  * collapsible: true
- *
  * ========================================================================
  *
  * We define props for components with this structure:
@@ -157,8 +159,8 @@ import { accordionClasses } from '@u/classes'
  * like: apiRef?: ApiRef<AccordionApi>
  * then use it in component when calling UIkit JavaScript Component in onMounted like:
  * onMounted(() => {
- *   const getAccordion = accordion(el.value, { ...props, active: getActive() })
- *   props.apiRef?.(getAccordion)
+ *   const accordionApi = accordion(el.value, { ...props, active: getActive() })
+ *   props.apiRef?.(accordionApi)
  * })
  * at last we can use it like:
  * import type { AccordionApi } from '@u/types'
@@ -175,8 +177,8 @@ import { accordionClasses } from '@u/classes'
  *
  * PrComponent (main component):
  * onMounted(() => {
- *   const getX = x(el.value, props)
- *   props.apiRef?.(getX)
+ *   const xApi = x(el.value, props)
+ *   props.apiRef?.(xApi)
  * })
  *
  * using:
@@ -184,15 +186,15 @@ import { accordionClasses } from '@u/classes'
  * const xApi = ref<XApi>()
  * <PrX :api-ref="(api) => (xApi = api)" />
  *
- * If component has additional arguments that need to be merged with option we use getX like this:
- * const getX = x(el.value, { ...props, ...additional-args })
+ * If component has additional arguments that need to be merged with option we use xApi like this:
+ * const xApi = x(el.value, { ...props, ...additional-args })
  *
  * Note that near to all of UIkit Javascript Component will be run in onMounted so we usually
  * use UIkit JavaScript Component and apiRef in onMounted.
  *
  * If it's not too important to access the UIkit JavaScript Component from parent we will keep
- * our component clean and more lean, and we will not define prop apiRef and const getX. so we
- * will not define props apiRef and will not use getX and props.apiRef?.(getX) in onMounted.
+ * our component clean and more lean, and we will not define prop apiRef and const xApi. so we
+ * will not define props apiRef and will not use xApi and props.apiRef?.(xApi) in onMounted.
  *
  * For components that use UIKit JavaScript Options in their script or template, for accessing
  * the default value of UIKit Component Option we need to define it in xDefaults. for
@@ -326,9 +328,9 @@ useComponentEmit(el, accordionEmits, emitHandler)
 
 /**
  * CSS Classes:
- * uk-accordion-default | pr-accordion-hover | pr-accordion-line
+ * uk-accordion-default | uk-accordion-hover | uk-accordion-line
  * Child CSS classes:
- * uk-accordion-title | uk-accordion-content | uk-accordion-icon | pr-accordion-icon | pr-accordion-item-disabled
+ * uk-accordion-title | uk-accordion-content | uk-accordion-icon | uk-accordion-icon | uk-accordion-item-disabled
  * ========================================================================
  *
  * We Define CSS classes for components if they have multiple classes with this structure:
@@ -336,7 +338,7 @@ useComponentEmit(el, accordionEmits, emitHandler)
  * <div|component :class="xClass">....</div|component>
  *
  * If component contains multiple appearance/style/mode that is connected to CSS classes like
- * accordion variant (default: uk-accordion-default | hover: pr-accordion-hover | line: pr-accordion-line)
+ * accordion variant (default: uk-accordion-default | hover: uk-accordion-hover | line: uk-accordion-line)
  * for must lean production build and best performance we will use this way.
  *
  * The xClasses function receive props that point to xClassType and for each of xClassType key we
@@ -347,8 +349,8 @@ useComponentEmit(el, accordionEmits, emitHandler)
  *
  * const accordionVariantMap = {
  *   default: 'uk-accordion-default',
- *   hover: 'pr-accordion-hover',
- *   line: 'pr-accordion-line',
+ *   hover: 'uk-accordion-hover',
+ *   line: 'uk-accordion-line',
  * } as const
  *
  * function accordionClasses(props: AccordionClassType) {
@@ -399,13 +401,14 @@ const accordionClass = devComputed(() => accordionClasses(props))
 /**
  * Icons:
  * default | plus | chevron | circle | false | string(customIconName | ex: icon-fa-duotone-plus)
+ * Default: default
  * ========================================================================
  *
  * We Define icons for components with this structure:
- * const { iconName } = useComponentIcon(props, getXIcon)
+ * const { iconName } = useComponentIcon(props, getXIcon, iconKey, refEl = 'iconEl')
  * <span v-if="iconName" ref="iconEl" />
  *
- * useComponentIcon will receive 2 argument:
+ * useComponentIcon will receive 4 argument:
  * 1. props: it will use BaseIconPropsType: icon, iconRatio and strokeRatio defined
  * in props to access props in icon render function.
  * structure of defining icon props is:
@@ -429,6 +432,31 @@ const accordionClass = devComputed(() => accordionClasses(props))
  * }
  * most component will follow the same role as getXIcon if they have multiple icon
  * style/type or conditional icon render.
+ *
+ * 3. iconKey: when you want select icon based on another props you will set icon key
+ * equal to that prop and set the icon prop to true, then you need to specify a condition
+ * in getXIcon function. for example alert icon return icon from variant prop of alert so defined
+ * process for alert will be:
+ * PrAlert.vue:
+ * const { iconName } = useComponentIcon(props, getAlertIcon, 'variant')
+ *
+ * util.ts:
+ * export const alertIconMap = {
+ *   default: 'component-default-alert-default',
+ *   muted: 'component-default-alert-muted',
+ *   ...
+ * } as const
+ * export type AlertIconType = DefaultIcon<keyof typeof alertIconMap>
+ * export function getAlertIcon(icon: AlertIconType, iconKey?: string) {
+ *   if (icon === true) {
+ *     return alertIconMap[iconKey as keyof typeof alertIconMap]
+ *   }
+ *   return alertIconMap[icon as keyof typeof alertIconMap] ?? icon
+ * }
+ *
+ * then for usage: <PrAlert variant="muted" icon>....</PrAlert>
+ *
+ * 4. if you want to change iconEl you need to specify this argument.
  *
  * if components dos'nt have multiple icon style/type or conditional icon rendering they will use
  * this structure (best for performance - Use the direct resolver for simple icons):
@@ -461,8 +489,8 @@ const { iconName } = useComponentIcon(props, getAccordionIcon)
  * itemTag: For set component main and child tag.
  * selected/getActive(): if accordion use array list to render items set selected
  * value of item onClick.
- * accordion() & setAccordion(): UIKit JavaScript Component
- * getAccordion & apiRef: For accessing accordion api from parent.
+ * accordion(): UIKit JavaScript Component
+ * accordionApi & apiRef: For accessing accordion api from parent.
  * devPropsWatch(): watch props change and update the JavaScript Component and icon changes
  *
  * TODO: Change the v-model return value from single item to multiple item and change the v-model
@@ -554,15 +582,15 @@ function getActive() {
 }
 
 onMounted(() => {
-  const getAccordion = accordion(el.value, { ...props, active: getActive() })
-  props.apiRef?.(getAccordion)
+  const accordionApi = accordion(el.value, { ...props, active: getActive() })
+  props.apiRef?.(accordionApi)
 
   if (isDev) {
     devPropsWatch(
       props,
       () => {
-        const getAccordion = accordion(el.value, { ...props, active: getActive() })
-        props.apiRef?.(getAccordion)
+        const accordionApi = accordion(el.value, { ...props, active: getActive() })
+        props.apiRef?.(accordionApi)
       },
       { exclude: ['modelValue', 'apiRef'] },
     )
@@ -574,7 +602,7 @@ onMounted(() => {
   <component :class="accordionClass" :is="tag" ref="el">
     <template v-if="list">
       <template v-for="(item, key) in list" :key>
-        <component :is="itemTag" :class="{ 'pr-accordion-item-disabled': item.disabled }">
+        <component :is="itemTag" :class="{ 'uk-accordion-item-disabled': item.disabled }">
           <a
             class="uk-accordion-title"
             href=""
@@ -584,7 +612,7 @@ onMounted(() => {
             "
           >
             {{ item.title }}
-            <span v-if="iconName" class="pr-accordion-icon uk-accordion-icon" ref="iconEl" />
+            <span v-if="iconName" class="uk-accordion-icon" ref="iconEl" />
           </a>
           <div class="uk-accordion-content">
             <p>{{ item.content }}</p>

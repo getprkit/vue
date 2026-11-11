@@ -1,0 +1,96 @@
+//
+// Component: Table
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-table-variables() {
+
+    --table-header-cell-font-size:                   var(--global-small-font-size);
+    --table-header-cell-font-weight:                 normal;
+    --table-header-cell-color:                       var(--global-color-muted);
+
+    //
+    // New
+    //
+
+    --table-striped-border-width:                    var(--global-border-width);
+    --table-striped-border:                          var(--global-border);
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-table-header-cell() { text-transform: uppercase; }
+
+.hook-table-cell() {}
+
+.hook-table-footer() {  }
+
+.hook-table-caption() {}
+
+.hook-table-row-active() {}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-table-divider() {}
+
+.hook-table-striped() {
+    border-top: var(--table-striped-border-width) solid var(--table-striped-border);
+    border-bottom: var(--table-striped-border-width) solid var(--table-striped-border);
+}
+
+.hook-table-hover() {}
+
+
+// Size modifier
+// ========================================================================
+
+.hook-table-small() {}
+
+.hook-table-large() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-table-misc() {
+
+    .uk-table tbody tr { transition: background-color 0.1s linear; }
+
+    .uk-table-striped > tr:nth-of-type(even):last-child,
+    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom: var(--table-striped-border-width) solid var(--table-striped-border); }
+
+}
+
+
+// Inverse
+// ========================================================================
+
+.hook-table-variables() {
+
+    --inverse-table-header-cell-color:               var(--inverse-global-color-muted);
+
+}
+
+.hook-inverse-table-header-cell() {}
+.hook-inverse-table-caption() {}
+.hook-inverse-table-row-active() {}
+.hook-inverse-table-divider() {}
+.hook-inverse-table-striped() {
+    border-top-color: var(--inverse-global-border);
+    border-bottom-color: var(--inverse-global-border);
+}
+.hook-inverse-table-hover() {}
+
+.hook-inverse() {
+    .uk-table-striped > tr:nth-of-type(even):last-child,
+    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom-color: var(--inverse-global-border); }
+}

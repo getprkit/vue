@@ -4,8 +4,7 @@ Since all developers need some tools to speed up their work, we came up with the
 
 For the core, we used the UIkit CSS framework because, unlike modern libraries, it offers many additional features like Slideshow, Parallax, and more.
 
-Our goal is for this library to be a collection of Vue components and a set of ready-to-use pages.
-This WHITE PAPER is still a work in progress.
+Our goal is for this library to be a collection of Vue components and a set of ready-to-use pages. This WHITE PAPER is still a work in progress.
 
 # Vision
 
@@ -18,6 +17,8 @@ We will prevent to use components in components for exmaple a main compnent that
 we are making all project (CSS framework and vue components and starter kit) in one project and will separate them to our vision at last.
 
 components are collection of UIKit components (with additional property and style) + some usable component that not exists in UIKit library (we can find other usable components name in library like shadcn or shuriken-ui)
+
+We write all css classes with `uk-` prefix so it easier to write the new classes with `pr-` prefix and better to apply style, at last we can change all of them, even those belgons to uikit with our prefix, and we want to set our prefix to all classes and javascript at last. We comment the new component added in .less files with Pr[ComponentName] and Comment new CSS added .less files in hooks with PrNew.
 
 ## Visions
 
@@ -46,9 +47,24 @@ components are collection of UIKit components (with additional property and styl
 
 ### TODO
 
+- [ ] add [https://nuqtaicons.com/icons](https://nuqtaicons.com/icons) icons
 - [ ] add mx-icons to project
 - [ ] add icon versions to icon-libraries
 - [ ] add isocons component icons
+- [ ] add streamlinehq icons
+- [ ] add [Zappicon](https://ui8.net/zappicon/products/zappicon-library---22000-icons) icons
+- [ ] add [Magi E-commerce](https://ui8.net/seyfdesigner/products/magicoon---6500-e-commerce-and-shopping-icons-set) icons
+- [ ] add [Magi 2G](https://ui8.net/seyfdesigner/products/magicoon-2g---essential-ui-icons-set) icons
+- [ ] add [Iconstica](https://ui8.net/iconstica/products/iconstica-icon-pack) icons
+- [ ] add [Haicon](https://ui8.net/keffi-studio/products/haicon-v20---iconset) icons
+- [ ] add [WithIcons](https://withicons.com/) icons
+- [ ] add [Icoonia](https://ui8.net/kawalanstudio/products/icoonia-pro--8000-ultimate-vector-icon) icons
+- [ ] add [Uxercon](https://ui8.net/uxercon/products) icons
+- [ ] add [Orbicon](https://ui8.net/wonderland/products/wonder-icon-set) icons
+- [ ] add [Craft Icons Pro](https://ui8.net/eusha/products/craft-icons---pro-icon-pack) icons
+- [ ] add [Angleicons](https://ui8.net/gala-yask/products/angleicons-ui-icon-set) icons
+- [ ] add [Roundicons](https://roundicons.com/icon-packs/accent-duo-tone-icons/) icons
+- [ ] add Material Symbol icons
 
 - [ ] Create all vue component from `uikit` `shurikenui` `shadcn`
 - [ ] Create document hub for `PrKit` and `Vue`
@@ -58,6 +74,12 @@ components are collection of UIKit components (with additional property and styl
 - [ ] Migrate to modern CSS rgb
 - [ ] Fix accordion-circle icon for line-circle icon styles
 - [ ] Change import UIkit library in app.ts from full library to specific components for lean final production build file.
+- [ ] check oklch color is good to replace it with rgb in css/less files?
+- [ ] check if we need to our define hooks in less files or not! we have uikit hooks, but we need to check its useful to define hooks for new component/classes or not.
+- [ ] change all css margin-right/left, position-right/left, padding-right/left to margin-inline-start/end, inset-inline-start/end, padding-inline-start/end in uikit and our .less files also.
+- [ ] check if its good to add ability import icons as <use> tag instead of importing them directly when using uikit icons or any icons. its good for caching, and browser will load them once, will reduce the html page size, and other things but has some limits with css and other things. also will not show until browser load the svg file, so we need handle it with height and width for svg tag.
+      – [ ] check for adding color pattern with oklch
+- [ ] check is good to move variables from :root in .uk-component for every component, for now they all load in :root and its not too user friendly.
 
 ## Tasklists (sub roadmap)
 

@@ -1,0 +1,104 @@
+// Name:            Inverse
+// Description:     Inverse component style for light or dark backgrounds
+//
+// Component:       `uk-light`
+//                  `uk-dark`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@inverse-global-color-mode:                     light; // FIXME: need to change inverse process
+
+.hook-inverse-variables() {
+
+    --inverse-global-color-mode:                     @inverse-global-color-mode;
+
+    /*
+     * Palettes
+     */
+
+    --inverse-global-default-color:                  var(--global-muted-color-950);
+
+    --inverse-global-muted-color:                    var(--global-muted-color-900);
+    --inverse-global-muted-color-soft:               var(--global-muted-color-850); // inverse hover
+    --inverse-global-muted-color-softer:             var(--global-muted-color-800); // inverse active
+
+    --inverse-global-primary-color:                  var(--global-primary-color);
+    --inverse-global-primary-color-soft:             var(--global-primary-color-450); // inverse hover
+    --inverse-global-primary-color-softer:           var(--global-primary-color-400); // inverse active
+
+    --inverse-global-secondary-color:                var(--global-secondary-color);
+    --inverse-global-secondary-color-soft:           var(--global-secondary-color-750); // inverse hover
+    --inverse-global-secondary-color-softer:         var(--global-secondary-color-700); // inverse active
+
+    /*
+     * Colors
+     */
+
+    --inverse-global-color:                          rgb(from var(--global-color-inverse) r g b / 0.7);
+    --inverse-global-color-emphasis:                 var(--global-color-inverse);
+    --inverse-global-color-muted:                    rgb(from var(--global-color-inverse) r g b / 0.5);
+    --inverse-global-color-inverse:                  var(--global-color);
+
+    /*
+     * Borders
+     */
+
+    --inverse-global-border:                         rgb(from var(--global-color-inverse) r g b / 0.2);
+
+    /*
+     * Box-Shadows
+     */
+
+    --inverse-global-small-box-shadow:               0 2px 8px rgba(0,0,0,0.28);
+    --inverse-global-medium-box-shadow:              0 5px 15px rgba(0,0,0,0.28);
+    --inverse-global-large-box-shadow:               0 14px 25px rgba(0,0,0,0.36);
+    --inverse-global-xlarge-box-shadow:              0 28px 50px rgba(0,0,0,0.36);
+
+}
+
+
+
+/* ========================================================================
+   Component: Inverse
+ ========================================================================== */
+
+/*
+ * Implemented class depends on the general theme color
+ * `uk-light` is for light colors on dark backgrounds
+ * `uk-dark` is or dark colors on light backgrounds
+ */
+
+.uk-light when (@inverse-global-color-mode = light) {
+
+    .hook-inverse();
+
+}
+
+.uk-dark when (@inverse-global-color-mode = dark) {
+
+    .hook-inverse();
+
+}
+
+/*
+ * Pass dropbar behind color to JS
+ */
+
+* { --uk-inverse: initial; }
+
+.uk-light { --uk-inverse: light; }
+.uk-dark { --uk-inverse: dark; }
+
+.uk-inverse-light { --uk-inverse: light !important; }
+.uk-inverse-dark { --uk-inverse: dark !important; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-inverse-variables() {}
+.hook-inverse() {}

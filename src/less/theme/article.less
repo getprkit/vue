@@ -1,0 +1,80 @@
+//
+// Component: Article
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-article-variables() {
+
+    //
+    // New
+    //
+
+    --article-meta-link-color:                       var(--article-meta-color);
+    --article-meta-link-hover-color:                 var(--global-color);
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-article() {}
+
+
+// Adjacent sibling
+// ========================================================================
+
+.hook-article-adjacent() {}
+
+
+// Title
+// ========================================================================
+
+.hook-article-title() {}
+
+
+// Meta
+// ========================================================================
+
+.hook-article-meta() {
+
+    a { color: var(--article-meta-link-color); }
+
+    a:hover {
+        color: var(--article-meta-link-hover-color);
+        text-decoration: none;
+    }
+
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-article-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-article-variables() {
+
+    --inverse-article-meta-link-color:              var(--inverse-article-meta-color);
+    --inverse-article-meta-link-hover-color:        var(--inverse-global-color);
+
+}
+
+.hook-inverse-article-meta() {
+
+    a { color: var(--inverse-article-meta-link-color); }
+
+    a:hover {
+        color: var(--inverse-article-meta-link-hover-color);
+        text-decoration: none;
+    }
+
+}

@@ -1,0 +1,132 @@
+//
+// Component: Search
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-search-variables() {
+
+    --search-default-background:                         transparent;
+
+    --search-navbar-focus-background:                    var(--search-navbar-background);
+
+    --search-medium-background:                          transparent;
+
+    --search-large-background:                           transparent;
+
+    //
+    // New
+    //
+
+    --search-default-border-width:                       var(--global-border-width);
+    --search-default-border:                             var(--global-border);
+    --search-default-focus-border:                       var(--global-primary-color);
+
+    --search-navbar-border-width:                        var(--global-border-width);
+    --search-navbar-border:                              var(--global-border);
+    --search-navbar-focus-border:                        var(--global-primary-color);
+
+    --search-medium-border-width:                        var(--global-border-width);
+    --search-medium-border:                              var(--global-border);
+    --search-medium-focus-border:                        var(--global-primary-color);
+
+    --search-large-border-width:                         var(--global-border-width);
+    --search-large-border:                               var(--global-border);
+    --search-large-focus-border:                         var(--global-primary-color);
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-search() {}
+
+.hook-search-input() {}
+
+
+// Icon
+// ========================================================================
+
+.hook-search-icon() {}
+
+
+// Default modifiers
+// ========================================================================
+
+.hook-search-default-input() { border: var(--search-default-border-width) solid var(--search-default-border); }
+
+.hook-search-default-input-focus() { border-color: var(--search-default-focus-border); }
+
+
+// Navbar modifiers
+// ========================================================================
+
+.hook-search-navbar-input() { border: var(--search-navbar-border-width) solid var(--search-navbar-border); }
+
+.hook-search-navbar-input-focus() { border-color: var(--search-navbar-focus-border); }
+
+
+// Medium modifiers
+// ========================================================================
+
+.hook-search-medium-input() { border: var(--search-medium-border-width) solid var(--search-medium-border); }
+
+.hook-search-medium-input-focus() { border-color: var(--search-medium-focus-border); }
+
+
+// Large modifiers
+// ========================================================================
+
+.hook-search-large-input() { border: var(--search-large-border-width) solid var(--search-large-border); }
+
+.hook-search-large-input-focus() { border-color: var(--search-large-focus-border); }
+
+
+// Toggle
+// ========================================================================
+
+.hook-search-toggle() {}
+
+.hook-search-toggle-hover() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-search-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-search-variables() {
+
+    --inverse-search-default-background:             transparent;
+
+    --inverse-search-navbar-background:              transparent;
+    --inverse-search-navbar-focus-background:        var(--inverse-search-navbar-background);
+
+    --inverse-search-medium-background:              transparent;
+
+    --inverse-search-large-background:               transparent;
+    
+}
+
+.hook-inverse-search-default-input() { border-color: var(--inverse-global-border); }
+.hook-inverse-search-default-input-focus() { border-color: var(--inverse-global-color); }
+
+.hook-inverse-search-navbar-input() { border-color: var(--inverse-global-border); }
+.hook-inverse-search-navbar-input-focus() { border-color: var(--inverse-global-color); }
+
+.hook-inverse-search-medium-input() { border-color: var(--inverse-global-border); }
+.hook-inverse-search-medium-input-focus() { border-color: var(--inverse-global-color); }
+
+.hook-inverse-search-large-input() { border-color: var(--inverse-global-border); }
+.hook-inverse-search-large-input-focus() { border-color: var(--inverse-global-color); }
+
+.hook-inverse-search-toggle() {}
+.hook-inverse-search-toggle-hover() {}

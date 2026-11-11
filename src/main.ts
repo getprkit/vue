@@ -15,10 +15,10 @@ import i18n from './scripts/i18n'
 
 import App from './App.vue'
 
-import UIkit from 'uikit'
+import PRkit from 'prkit'
 import Icons from '@t/uikit-icons'
 
-UIkit.icon.add(Icons())
+PRkit.icon.add(Icons())
 
 const app = createApp(App)
 

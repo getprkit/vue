@@ -11,10 +11,12 @@ const darkMode = useDarkModeStore()
 <template>
   <!-- Just For Docs - will remove in future and move to docs project -->
   <div
-    class="uk-width-medium uk-position-fixed uk-position-left uk-overflow-auto uk-height-viewport"
-    style="border-right: 1px solid #e7e7e1"
+    class="uk-width-medium uk-position-fixed uk-position-start uk-overflow-auto uk-height-viewport uk-visible@m"
+    :style="{
+      'border-inline-end': `1px solid ${darkMode.light === 'uk-light' ? 'var(--global-border)' : 'var(--inverse-global-border)'}`,
+    }"
   >
-    <div class="uk-padding" :class="darkMode.light === 'uk-dark' && 'uk-light'">
+    <div class="uk-padding">
       <h3 class="uk-margin-medium-bottom">
         Documentation
         <a class="uk-link uk-link-text" @click="darkMode.changeMode()">

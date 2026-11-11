@@ -1,0 +1,257 @@
+// Name:            List
+// Description:     Styles for lists
+//
+// Component:       `uk-list`
+//
+// Modifiers:       `uk-list-disc`
+//                  `uk-list-circle`
+//                  `uk-list-square`
+//                  `uk-list-decimal`
+//                  `uk-list-hyphen`
+//                  `uk-list-muted`
+//                  `uk-list-emphasis`
+//                  `uk-list-primary`
+//                  `uk-list-secondary`
+//                  `uk-list-bullet`
+//                  `uk-list-divider`
+//                  `uk-list-striped`
+//                  `uk-list-large`
+//                  `uk-list-collapse`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-list-variables() {
+
+    --list-margin-top:                               var(--global-small-margin);
+
+    --list-padding-inline-start:                     30px;
+
+    --list-marker-height:                            calc(var(--global-line-height) * 1em);
+
+    --list-muted-color:                              var(--global-color-muted);
+    --list-emphasis-color:                           var(--global-color-emphasis);
+    --list-primary-color:                            var(--global-primary-color);
+    --list-secondary-color:                          var(--global-secondary-color);
+
+    --list-bullet-icon-color:                        var(--global-color);
+
+    --list-divider-margin-top:                       var(--global-small-margin);
+    --list-divider-border-width:                     var(--global-border-width);
+    --list-divider-border:                           var(--global-border);
+
+    --list-striped-padding-vertical:                 var(--global-small-margin);
+    --list-striped-padding-horizontal:               var(--global-small-margin);
+    --list-striped-background:                       var(--global-muted-color);
+
+    --list-large-margin-top:                         var(--global-margin);
+    --list-large-divider-margin-top:                 var(--global-margin);
+    --list-large-striped-padding-vertical:           var(--global-margin);
+    --list-large-striped-padding-horizontal:         var(--global-small-margin);
+
+    --internal-list-bullet-image:                    url("../../images/backgrounds/list-bullet.svg");
+
+}
+
+
+/* ========================================================================
+   Component: List
+ ========================================================================== */
+
+.uk-list {
+    padding: 0;
+    list-style: none;
+    .hook-list();
+}
+
+/*
+ * Avoid column break within the list item, when using `column-count`
+ */
+
+.uk-list > * { break-inside: avoid-column; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-list > * > :last-child { margin-bottom: 0; }
+
+/*
+ * Style
+ */
+
+.uk-list > :nth-child(n+2),
+.uk-list > * > ul { margin-top: var(--list-margin-top); }
+
+
+/* Marker modifiers
+ ========================================================================== */
+
+.uk-list-disc,
+.uk-list-circle,
+.uk-list-square,
+.uk-list-decimal,
+.uk-list-hyphen { padding-inline-start: var(--list-padding-inline-start); }
+
+.uk-list-disc { list-style-type: disc; }
+.uk-list-circle { list-style-type: circle; }
+.uk-list-square { list-style-type: square; }
+.uk-list-decimal { list-style-type: decimal; }
+.uk-list-hyphen { list-style-type: '–  '; }
+
+/*
+ * Color modifiers
+ */
+
+.uk-list-muted > ::marker { color: var(--list-muted-color) !important; }
+.uk-list-emphasis > ::marker { color: var(--list-emphasis-color) !important; }
+.uk-list-primary > ::marker { color: var(--list-primary-color) !important; }
+.uk-list-secondary > ::marker { color: var(--list-secondary-color) !important; }
+
+
+/* Image bullet modifier
+ ========================================================================== */
+
+.uk-list-bullet > * {
+    position: relative;
+    padding-inline-start: var(--list-padding-inline-start);
+}
+
+.uk-list-bullet > ::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    width: var(--list-padding-inline-start);
+    height: calc(var(--global-line-height) * 1em);
+    // .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
+    background-image: var(--internal-list-bullet-image);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Divider
+ */
+
+.uk-list-divider > :nth-child(n+2) {
+    margin-top: var(--list-divider-margin-top);
+    padding-top: var(--list-divider-margin-top);
+    border-top: var(--list-divider-border-width) solid var(--list-divider-border);
+    .hook-list-divider();
+}
+
+/*
+ * Striped
+ */
+
+.uk-list-striped > * {
+    padding: var(--list-striped-padding-vertical) var(--list-striped-padding-horizontal);
+    .hook-list-striped();
+}
+
+.uk-list-striped > :nth-of-type(odd) { background: var(--list-striped-background); }
+
+.uk-list-striped > :nth-child(n+2) { margin-top: 0; }
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-list-large > :nth-child(n+2),
+.uk-list-large > * > ul { margin-top: var(--list-large-margin-top); }
+
+.uk-list-collapse > :nth-child(n+2),
+.uk-list-collapse > * > ul { margin-top: 0; }
+
+/*
+ * Divider
+ */
+
+.uk-list-large.uk-list-divider > :nth-child(n+2) {
+    margin-top: var(--list-large-divider-margin-top);
+    padding-top: var(--list-large-divider-margin-top);
+}
+
+.uk-list-collapse.uk-list-divider > :nth-child(n+2) {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/*
+ * Striped
+ */
+
+.uk-list-large.uk-list-striped > * { padding: var(--list-large-striped-padding-vertical) var(--list-large-striped-padding-horizontal); }
+
+.uk-list-collapse.uk-list-striped > * {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.uk-list-large.uk-list-striped > :nth-child(n+2),
+.uk-list-collapse.uk-list-striped > :nth-child(n+2) { margin-top: 0; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-list-misc();
+
+.hook-list-variables() {}
+.hook-list() {}
+.hook-list-divider() {}
+.hook-list-striped() {}
+.hook-list-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-list-variables() {
+
+    --inverse-list-muted-color:                        var(--inverse-global-color-muted);
+    --inverse-list-emphasis-color:                     var(--inverse-global-color-emphasis);
+    --inverse-list-primary-color:                      var(--inverse-global-primary-color);
+    --inverse-list-secondary-color:                    var(--inverse-global-primary-color);
+
+    --inverse-list-divider-border:                     var(--inverse-global-border);
+    --inverse-list-striped-background:                 var(--inverse-global-muted-color);
+
+    --inverse-list-bullet-icon-color:                  var(--inverse-global-color);
+    
+}
+
+.hook-inverse() {
+
+    .uk-list-muted > ::marker { color: var(--inverse-list-muted-color) !important; }
+    .uk-list-emphasis > ::marker { color: var(--inverse-list-emphasis-color) !important; }
+    .uk-list-primary > ::marker { color: var(--inverse-list-primary-color) !important; }
+    .uk-list-secondary > ::marker { color: var(--inverse-list-secondary-color) !important; }
+
+    .uk-list-bullet > ::before {
+        background-color: var(--inverse-list-bullet-icon-color);
+    }
+
+    .uk-list-divider > :nth-child(n+2) {
+        border-top-color: var(--inverse-list-divider-border);
+        .hook-inverse-list-divider();
+    }
+
+    .uk-list-striped > * {
+        .hook-inverse-list-striped();
+    }
+
+    .uk-list-striped > :nth-of-type(odd) { background-color: var(--inverse-list-striped-background); }
+
+}
+
+.hook-inverse-list-divider() {}
+.hook-inverse-list-striped() {}

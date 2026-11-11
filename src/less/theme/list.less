@@ -1,0 +1,60 @@
+//
+// Component: List
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-list-variables() {
+
+    //
+    // New
+    //
+
+    --list-striped-border-width:                     var(--global-border-width);
+    --list-striped-border:                           var(--global-border);
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-list() {}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-list-divider() {}
+
+.hook-list-striped() {
+
+    &:nth-of-type(odd) {
+        border-top: var(--list-striped-border-width) solid var(--list-striped-border);
+        border-bottom: var(--list-striped-border-width) solid var(--list-striped-border);
+    }
+
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-list-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-inverse-list-divider() {}
+.hook-inverse-list-striped() {
+
+    &:nth-of-type(odd) {
+        border-top-color: var(--inverse-global-border);
+        border-bottom-color: var(--inverse-global-border);
+    }
+
+}

@@ -1,0 +1,76 @@
+//
+// Component: Text
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-text-variables() {
+
+    //
+    // New
+    //
+
+    --text-meta-link-color:                          var(--text-meta-color);
+    --text-meta-link-hover-color:                    var(--global-color);
+
+    --internal-text-background-color-gradient:         linear-gradient(calc(90deg * var(--uk-dir-sign)), var(--text-background-color) 0%, hsl(from var(--text-background-color) calc(h + 40) s l) 100%);
+
+}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-text-lead() {}
+
+.hook-text-meta() {
+
+    > a { color: var(--text-meta-link-color); }
+
+    > a:hover {
+        color: var(--text-meta-link-hover-color);
+        text-decoration: none;
+    }
+
+}
+
+
+// Size modifiers
+// ========================================================================
+
+.hook-text-small() {}
+
+.hook-text-large() {}
+
+
+// Background modifier
+// ========================================================================
+
+.hook-text-background() { background-image: var(--internal-text-background-color-gradient); }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-text-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-text-variables() {
+
+    --inverse-text-meta-link-color:                  var(--inverse-text-meta-color);
+    --inverse-text-meta-link-hover-color:            var(--inverse-global-color);
+
+}
+
+.hook-inverse-text-lead() {}
+.hook-inverse-text-meta() {
+    > a { color: var(--inverse-text-meta-link-color); }
+
+    > a:hover { color: var(--inverse-text-meta-link-hover-color); }
+}

@@ -1,0 +1,1033 @@
+// Name:            Alert
+// Description:     Component to create alert messages
+//
+// Component:       `uk-alert`
+//
+// Adopted:         `uk-alert-close`
+//
+// Modifiers:       `uk-alert-bordered`
+//                  `uk-alert-default`
+//                  `uk-alert-muted`
+//                  `uk-alert-primary`
+//                  `uk-alert-info`
+//                  `uk-alert-success`
+//                  `uk-alert-warning`
+//                  `uk-alert-danger`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-alert-variables() {
+
+    --alert-margin-vertical:                            var(--global-margin);
+    --alert-padding:                                    var(--global-small-gutter);
+
+    --alert-border-width:                               var(--global-border-width);
+    --alert-border-radius:                              var(--global-border-radius-default);
+
+    --alert-gap:                                        var(--global-small-gutter);
+
+    --alert-close-border-radius:                        var(--global-border-radius-default);
+
+    --alert-close-opacity:                              0.2;
+    --alert-close-hover-opacity:                        0.5;
+    --alert-close-active-opacity:                       0.8;
+    --alert-close-background-opacity:                   0.2;
+    --alert-close-background-hover-opacity:             0.4;
+    --alert-close-background-active-opacity:            0.6;
+
+    --alert-close-min-height:                           32px;
+    --alert-close-min-width:                            var(--alert-close-min-height);
+    --alert-close-padding:                              var(--global-xxsmall-gutter);
+
+    --alert-close-top:                                  ~'min(((var(--alert-padding) / 2) - (var(--alert-close-margin-base-top) / 2)), 7px)';
+    --alert-close-inline-end:                           0;
+
+    --alert-close-margin-base-top:                      5px;
+    --alert-close-margin-base-inline-end:               10px;
+    --alert-close-margin-top:                           calc(var(--alert-close-margin-base-top) - var(--alert-padding));
+    --alert-close-margin-inline-end:                    calc(var(--alert-close-margin-base-inline-end) - var(--alert-padding));
+
+    --alert-close-end-margin-inline-end:                calc((var(--alert-padding) + var(--alert-close-min-width)) * -1);
+    --alert-close-end-x:                                ~'translateX(calc((50% - var(--alert-close-min-height)) * var(--uk-dir-sign)))';
+
+    --alert-close-top-y:                                translateY(-50%);
+    --alert-close-top-margin-top:                       calc(var(--alert-padding) * -1);
+
+    --alert-close-corner-top:                           6px;
+    --alert-close-corner-inline-end:                    var(--alert-close-corner-top);
+
+    --alert-icon-box-padding:                           5px;
+    --alert-icon-box-icon-padding:                      8px;
+
+    --alert-icon-box-close-margin-base-top:             5px;
+    --alert-icon-box-close-margin-base-inline-end:      5px;
+    --alert-icon-box-close-margin-top:                  calc(var(--alert-icon-box-close-margin-base-top) - var(--alert-icon-box-padding));
+    --alert-icon-box-close-margin-inline-end:           calc(var(--alert-icon-box-close-margin-base-inline-end) - var(--alert-icon-box-padding));
+    --alert-icon-box-close-margin-bottom:               var(--alert-icon-box-close-margin-base-inline-end);
+    --alert-icon-box-close-top:                         ~'min(var(--alert-icon-box-padding), 6px)';
+
+    --alert-icon-box-border-radius:                     var(--global-border-radius-default);
+
+    --alert-icon-box-close-end-margin-inline-end:       calc((var(--alert-icon-box-padding) + var(--alert-close-min-width)) * -1);
+    --alert-icon-box-close-end-x:                       ~'translateX(calc((50% - var(--alert-close-min-height)) * var(--uk-dir-sign)))';
+
+    --alert-icon-box-close-top-margin-top:              calc(var(--alert-icon-box-padding) * -1);
+
+    --alert-icon-box-close-corner-top:                  6px;
+    --alert-icon-box-close-corner-inline-end:           var(--alert-icon-box-close-corner-top);
+
+    --alert-default-background:                         var(--global-default-color);
+    --alert-default-color:                              var(--global-muted-color-700);
+
+    --alert-muted-background:                           var(--global-muted-color);
+    --alert-muted-color:                                var(--global-muted-color-700);
+
+    --alert-primary-background:                         var(--global-primary-color-100);
+    --alert-primary-color:                              var(--global-primary-color-700);
+
+    --alert-info-background:                            var(--global-info-color-100);
+    --alert-info-color:                                 var(--global-info-color-700);
+
+    --alert-success-background:                         var(--global-success-color-100);
+    --alert-success-color:                              var(--global-success-color-700);
+
+    --alert-warning-background:                         var(--global-warning-color-100);
+    --alert-warning-color:                              var(--global-warning-color-700);
+
+    --alert-danger-background:                          var(--global-danger-color-100);
+    --alert-danger-color:                               var(--global-danger-color-700);
+
+    --alert-bordered-border-color-default:              var(--global-border);
+    --alert-bordered-border-color-muted:                var(--global-border);
+    --alert-bordered-border-color-primary:              var(--global-primary-color-200);
+    --alert-bordered-border-color-info:                 var(--global-info-color-200);
+    --alert-bordered-border-color-success:              var(--global-success-color-200);
+    --alert-bordered-border-color-warning:              var(--global-warning-color-200);
+    --alert-bordered-border-color-danger:               var(--global-danger-color-200);
+
+    --alert-icon-box-color:                             var(--global-default-color);
+
+    --alert-icon-box-background-default:                var(--global-muted-color-500);
+    --alert-icon-box-background-muted:                  var(--global-muted-color-500);
+    --alert-icon-box-background-primary:                var(--global-primary-color);
+    --alert-icon-box-background-info:                   var(--global-info-color);
+    --alert-icon-box-background-success:                var(--global-success-color);
+    --alert-icon-box-background-warning:                var(--global-warning-color);
+    --alert-icon-box-background-danger:                 var(--global-danger-color);
+
+    --alert-close-pill-background-default:              var(--global-muted-color-300);
+    --alert-close-pill-background-muted:                var(--global-muted-color-300);
+    --alert-close-pill-background-primary:              var(--global-primary-color-300);
+    --alert-close-pill-background-info:                 var(--global-info-color-300);
+    --alert-close-pill-background-success:              var(--global-success-color-300);
+    --alert-close-pill-background-warning:              var(--global-warning-color-300);
+    --alert-close-pill-background-danger:               var(--global-danger-color-300);
+
+    --alert-close-pill-solid-background:                var(--global-default-color);
+
+    --alert-close-pill-solid-outline-width:             var(--global-border-width);
+    --alert-close-pill-solid-border-width:              3px;
+    --alert-close-pill-solid-border-color:              var(--global-border);
+    --alert-close-pill-solid-hover-border-color:        var(--global-default-color);
+
+}
+
+
+/* ========================================================================
+   Component: Alert
+ ========================================================================== */
+
+/*
+ * Base
+ */
+
+.uk-alert {
+    position: relative;
+    margin-bottom: var(--alert-margin-vertical);
+    padding: var(--alert-padding);
+    border-radius: var(--alert-border-radius);
+    color: var(--alert-color);
+    background-color: var(--alert-background);
+    .hook-alert();
+}
+
+/* Add margin if adjacent element */
+* + .uk-alert { margin-top: var(--alert-margin-vertical); }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-alert > :last-child { margin-bottom: 0; }
+
+/*
+ * Content
+ */
+
+.uk-alert h1,
+.uk-alert h2,
+.uk-alert h3,
+.uk-alert h4,
+.uk-alert h5,
+.uk-alert h6 {
+    color: inherit;
+    .hook-alert-heading();
+}
+
+.uk-alert a:not([class]) {
+    color: inherit;
+    text-decoration: underline;
+    .hook-alert-link();
+}
+
+.uk-alert a:not([class]):hover {
+    color: inherit;
+    text-decoration: underline;
+    .hook-alert-link-hover();
+}
+
+/*
+ * Icon and close icon
+ */
+
+/*
+ * 1. If there is an icon or close element show content as grid.
+ * 2. Always middle the content and icon/close elements.
+ * 3. Set the content to expand width and icon/close to auto width.
+ * 4. Gap of the icon and close with content.
+ */
+.uk-alert:has(> .uk-alert-close),
+.uk-alert:has(> .uk-alert-icon) {
+    /* 1 */
+    display: grid;
+    /* 2 */
+    align-items: center;
+    /* 3 */
+    grid-template-columns: 1fr auto;
+    /* 4 */
+    column-gap: var(--alert-gap);
+}
+
+/* Alert icon always be at row 1 and column 1 */
+.uk-alert-icon { grid-area: 1 / 1; }
+
+/** Close always be at row 1 and column 2. */
+.uk-alert-close { grid-area: 1 / 2; }
+
+/* If icon exists or icon and close element both exists:
+ * 1. Set the content to middle and icon to left/start and close to right/end.
+ * 2. Content column always be 2 and set its width to expand and row to auto.
+ * 3. Set Close to always be column 3.
+ */
+
+/* 1 */
+.uk-alert:has(> .uk-alert-close):has(> .uk-alert-icon) { grid-template-columns: auto 1fr auto; }
+
+/* 2 */
+.uk-alert:has(> .uk-alert-icon) > :not(.uk-alert-icon):not(.uk-alert-close) ~ :not(.uk-alert-icon):not(.uk-alert-close) {
+    grid-column: 2 / -1;
+    justify-self: start;
+}
+
+.uk-alert:has(> .uk-alert-close):has(> .uk-alert-icon) > .uk-alert-close { grid-area: 1 / 3; }
+
+/* If just alert icon exists:
+ * Set the first column width (icon) to auto and content width to expand.
+ */
+.uk-alert:has(> .uk-alert-icon) { grid-template-columns: auto 1fr; }
+
+/* If just Close exists:
+ * Set the first column width (contents) to expand and close width to auto.
+ */
+.uk-alert:has(> .uk-alert-close):not(:has(> .uk-alert-icon)) > :not(.uk-alert-close) ~ :not(.uk-alert-close) { grid-column: 1 / -1; }
+
+/*
+ * Miscellaneous
+ */
+
+/* Fix alert will not flicker when closing with animation if top component has margin with it */
+.uk-alert-close-transition-fix.uk-alert.uk-togglable-leave + * { margin-top: 0; }
+
+
+/* Colors
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-alert-default {
+    --alert-background: var(--alert-default-background);
+    --alert-color: var(--alert-default-color);
+    .hook-alert-default();
+}
+
+/*
+ * Muted
+ */
+
+.uk-alert-muted {
+    --alert-background: var(--alert-muted-background);
+    --alert-color: var(--alert-muted-color);
+    .hook-alert-muted();
+}
+
+/*
+ * Primary
+ */
+
+.uk-alert-primary {
+    --alert-background: var(--alert-primary-background);
+    --alert-color: var(--alert-primary-color);
+    .hook-alert-primary();
+}
+
+/*
+ * Info
+ */
+
+.uk-alert-info {
+    --alert-background: var(--alert-info-background);
+    --alert-color: var(--alert-info-color);
+    .hook-alert-info();
+}
+
+/*
+ * Success
+ */
+
+.uk-alert-success {
+    --alert-background: var(--alert-success-background);
+    --alert-color: var(--alert-success-color);
+    .hook-alert-success();
+}
+
+/*
+ * Warning
+ */
+
+.uk-alert-warning {
+    --alert-background: var(--alert-warning-background);
+    --alert-color: var(--alert-warning-color);
+    .hook-alert-warning();
+}
+
+/*
+ * Danger
+ */
+
+.uk-alert-danger {
+    --alert-background: var(--alert-danger-background);
+    --alert-color: var(--alert-danger-color);
+    .hook-alert-danger();
+}
+
+
+/* Style: Bordered
+ ======================================================================== */
+
+/*
+ * Base
+ */
+
+.uk-alert-bordered {
+    border: var(--alert-border-width) solid var(--alert-bordered-border-color);
+    .hook-alert-bordered();
+}
+
+/*
+ * Default
+ */
+
+.hook-alert-default() { --alert-bordered-border-color: var(--alert-bordered-border-color-default); }
+
+/*
+ * Muted
+ */
+
+.hook-alert-muted() { --alert-bordered-border-color: var(--alert-bordered-border-color-muted); }
+
+/*
+ * Primary
+ */
+
+.hook-alert-primary() { --alert-bordered-border-color: var(--alert-bordered-border-color-primary); }
+
+/*
+ * Info
+ */
+
+.hook-alert-info() { --alert-bordered-border-color: var(--alert-bordered-border-color-info); }
+
+/*
+ * Success
+ */
+
+.hook-alert-success() { --alert-bordered-border-color: var(--alert-bordered-border-color-success); }
+
+/*
+ * Warning
+ */
+
+.hook-alert-warning() { --alert-bordered-border-color: var(--alert-bordered-border-color-warning); }
+
+/*
+ * Danger
+ */
+
+.hook-alert-danger() { --alert-bordered-border-color: var(--alert-bordered-border-color-danger); }
+
+
+/* Icon Box
+ ======================================================================== */
+
+/*
+ * Base
+ */
+
+.uk-alert-icon-box:has(> .uk-alert-icon) {
+    padding: var(--alert-icon-box-padding);
+    .hook-alert-icon-box();
+}
+
+.uk-alert-icon-box .uk-alert-icon {
+    padding: var(--alert-icon-box-icon-padding);
+    color: var(--alert-icon-box-color);
+    border-radius: var(--alert-icon-box-border-radius);
+    background-color: var(--alert-icon-box-background);
+    .hook-alert-icon-box-icon();
+}
+
+/*
+ * Default
+ */
+
+.hook-alert-default() { --alert-icon-box-background: var(--alert-icon-box-background-default); }
+
+/*
+ * Muted
+ */
+
+.hook-alert-muted() { --alert-icon-box-background: var(--alert-icon-box-background-muted); }
+
+/*
+ * Primary
+ */
+
+.hook-alert-primary() { --alert-icon-box-background: var(--alert-icon-box-background-primary); }
+
+/*
+ * Info
+ */
+
+.hook-alert-info() { --alert-icon-box-background: var(--alert-icon-box-background-info); }
+
+/*
+ * Success
+ */
+
+.hook-alert-success() { --alert-icon-box-background: var(--alert-icon-box-background-success); }
+
+/*
+ * Warning
+ */
+
+.hook-alert-warning() { --alert-icon-box-background: var(--alert-icon-box-background-warning); }
+
+/*
+ * Danger
+ */
+
+.hook-alert-danger() { --alert-icon-box-background: var(--alert-icon-box-background-danger); }
+
+
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+
+/*
+ * Base
+ */
+
+/*
+ * 1. Center close icon
+ * 2. Stay at corner if first row grow.
+ * 3. Decrease height with margin to reduce close icon height effect in
+ *    alert and fix the position, also alert padding will effect on it.
+ * 4. Miscellaneous
+ */
+
+.uk-alert-close {
+    isolation: isolate;
+    position: relative;
+    box-sizing: border-box;
+    /* 1 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 2 */
+    align-self: baseline;
+    justify-self: end;
+    order: 9999;
+    /* 3 */
+    padding: var(--alert-close-padding);
+    margin-inline-end: var(--alert-close-margin-inline-end);
+    margin-top: var(--alert-close-margin-top);
+    inset-inline-end: var(--alert-close-inline-end);
+    top: var(--alert-close-top);
+    /* 4 */
+    font-size: 0.75rem;
+    color: rgb(from currentColor r g b / var(--alert-close-opacity));
+    border-radius: var(--alert-close-border-radius);
+    min-height: var(--alert-close-min-height);
+    min-width: var(--alert-close-min-width);
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, color;
+    .hook-alert-close();
+}
+
+/*
+ * Remove margin from adjacent element
+ * Fix margin not collapsing at first content item in grid
+ */
+
+.uk-alert-close + *:not(.uk-alert-icon),
+.uk-alert-icon + *:not(.uk-alert-close) { margin-block: 0; }
+
+/*
+ * Hover
+ */
+
+.uk-alert-close:hover {
+    color: rgb(from currentColor r g b / var(--alert-close-hover-opacity));
+    /* If close icon use text instead if link */
+    text-decoration: none;
+    .hook-alert-close-hover();
+}
+
+/*
+ * Focus/Active
+ */
+
+.uk-alert-close:is(:focus-visible, :active) {
+    color: rgb(from currentColor r g b / var(--alert-close-active-opacity));
+    .hook-alert-close-active();
+}
+
+/* Set close to effect alert icon-box padding instead of alert padding */
+.uk-alert-icon-box:has(> .uk-alert-icon) .uk-alert-close {
+    margin-inline-end: var(--alert-icon-box-close-margin-inline-end);
+    margin-top: var(--alert-icon-box-close-margin-top);
+    margin-bottom: var(--alert-icon-box-close-margin-bottom);
+    top: var(--alert-icon-box-close-top);
+}
+
+/*
+ * Position
+ */
+
+.uk-alert-close-end {
+    transform: var(--alert-close-end-x);
+    margin-inline-end: var(--alert-close-end-margin-inline-end);
+}
+
+.uk-alert-close-top {
+    top: 0;
+    transform: var(--alert-close-top-y);
+    margin-top: var(--alert-close-top-margin-top);
+}
+
+.uk-alert-close-corner {
+    top: var(--alert-close-corner-top);
+    inset-inline-end: var(--alert-close-corner-inline-end);
+    transform: var(--alert-close-end-x) var(--alert-close-top-y);
+    margin-inline-end: var(--alert-close-end-margin-inline-end);
+    margin-top: var(--alert-close-top-margin-top);
+}
+
+/*
+ * Position: Icon box
+ */
+
+.uk-alert-icon-box .uk-alert-close-end {
+    transform: var(--alert-icon-box-close-end-x);
+    margin-inline-end: var(--alert-icon-box-close-end-margin-inline-end);
+}
+
+.uk-alert-icon-box .uk-alert-close-top {
+    top: 0;
+    transform: var(--alert-close-top-y);
+    margin-top: var(--alert-icon-box-close-top-margin-top);
+}
+
+.uk-alert-icon-box .uk-alert-close-corner {
+    top: var(--alert-icon-box-close-corner-top);
+    inset-inline-end: var(--alert-icon-box-close-corner-inline-end);
+    transform: var(--alert-icon-box-close-end-x) var(--alert-close-top-y);
+    margin-inline-end: var(--alert-icon-box-close-end-margin-inline-end);
+    margin-top: var(--alert-icon-box-close-top-margin-top);
+}
+
+/*
+ * Circle
+ */
+
+.uk-alert-close-circle { border-radius: var(--global-border-radius-circle); }
+
+/*
+ * Icon animation
+ */
+
+.uk-alert-close-icon-animation > svg { transition: transform 0.2s ease-in-out; }
+
+.uk-alert-close-icon-animation:hover > svg { transform: translate(0, 0) rotate(calc(90deg * var(--uk-dir-sign))); }
+
+.uk-alert-close-icon-animation:is(:focus-visible, :active) > svg { transform: translate(0, 0) rotate(0); }
+
+/* Set icon svg alignment at the start of any element or text */
+.uk-alert-close > svg {
+    order: -1;
+    z-index: 1;
+}
+
+
+/* Close base style
+ ======================================================================== */
+
+/*
+ * Base
+ */
+
+:is(.uk-alert-close-pill, .uk-alert-close-pill-hover, .uk-alert-close-pill-solid)::before {
+    content: "";
+    position: absolute;
+    display: block;
+    z-index: -1;
+    inset: 0;
+    opacity: 0;
+    border-radius: calc(var(--alert-close-border-radius) - 1px);
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, color, opacity;
+    .hook-alert-close-pill();
+}
+
+.uk-alert-close-circle::before { border-radius: var(--global-border-radius-circle); }
+
+:is(.uk-alert-close-pill, .uk-alert-close-pill-hover, .uk-alert-close-pill-solid):hover::before { opacity: var(--alert-close-background-hover-opacity); }
+
+:is(.uk-alert-close-pill, .uk-alert-close-pill-hover, .uk-alert-close-pill-solid):is(:focus-visible, :active)::before { opacity: var(--alert-close-background-active-opacity); }
+
+:is(.uk-alert-close-pill, .uk-alert-close-pill-hover, .uk-alert-close-pill-solid)::before { background-color: var(--alert-close-pill-background); }
+
+/*
+ * Default
+ */
+
+.hook-alert-default() { --alert-close-pill-background: var(--alert-close-pill-background-default); }
+
+/*
+ * Muted
+ */
+
+.hook-alert-muted() { --alert-close-pill-background: var(--alert-close-pill-background-muted); }
+
+/*
+ * Primary
+ */
+
+.hook-alert-primary() { --alert-close-pill-background: var(--alert-close-pill-background-primary); }
+
+/*
+ * Info
+ */
+
+.hook-alert-info() { --alert-close-pill-background: var(--alert-close-pill-background-info); }
+
+/*
+ * Success
+ */
+
+.hook-alert-success() { --alert-close-pill-background: var(--alert-close-pill-background-success); }
+
+/*
+ * Warning
+ */
+
+.hook-alert-warning() { --alert-close-pill-background: var(--alert-close-pill-background-warning); }
+
+/*
+ * Danger
+ */
+
+.hook-alert-danger() { --alert-close-pill-background: var(--alert-close-pill-background-danger); }
+
+
+/* Close style: pill
+======================================================================== */
+
+/* Fix background transparent when close is on the box */
+.uk-alert-close-pill { background-color: var(--alert-close-pill-back); }
+
+.uk-alert-close-pill::before { opacity: var(--alert-close-background-opacity); }
+
+/*
+ * Default
+ */
+
+.hook-alert-default() { --alert-close-pill-back: var(--alert-default-background); }
+
+/*
+ * Muted
+ */
+
+.hook-alert-muted() { --alert-close-pill-back: var(--alert-muted-background); }
+
+/*
+ * Primary
+ */
+
+.hook-alert-primary() { --alert-close-pill-back: var(--alert-primary-background); }
+
+/*
+ * Info
+ */
+
+.hook-alert-info() { --alert-close-pill-back: var(--alert-info-background); }
+
+/*
+ * Success
+ */
+
+.hook-alert-success() { --alert-close-pill-back: var(--alert-success-background); }
+
+/*
+ * Warning
+ */
+
+.hook-alert-warning() { --alert-close-pill-back: var(--alert-warning-background); }
+
+/*
+ * Danger
+ */
+
+.hook-alert-danger() { --alert-close-pill-back: var(--alert-danger-background); }
+
+
+/* Close style: pill-solid
+======================================================================== */
+
+/*
+ * Base
+ */
+
+.uk-alert-close-pill-solid {
+    background-color: var(--alert-close-pill-solid-background);
+    outline: var(--alert-close-pill-solid-outline-width) solid var(--alert-close-pill-solid-border-color);
+    border: var(--alert-close-pill-solid-border-width) solid transparent;
+    .hook-alert-close-pill-solid();
+}
+
+.uk-alert-close-pill-solid,
+.uk-alert-close-pill-solid:hover,
+.uk-alert-close:is(:focus-visible, :active) { color: currentColor; }
+
+.uk-alert-close-pill-solid:hover::before { border-color: var(--alert-close-pill-solid-hover-border-color); }
+
+
+// Hooks
+// ========================================================================
+
+.hook-alert-misc();
+
+.hook-alert-variables() {}
+.hook-alert() {}
+.hook-alert-heading() {}
+.hook-alert-link() {}
+.hook-alert-link-hover() {}
+.hook-alert-default() {}
+.hook-alert-muted() {}
+.hook-alert-primary() {}
+.hook-alert-info() {}
+.hook-alert-success() {}
+.hook-alert-warning() {}
+.hook-alert-danger() {}
+.hook-alert-bordered() {}
+.hook-alert-icon-box() {}
+.hook-alert-icon-box-icon() {}
+.hook-alert-close() {}
+.hook-alert-close-hover() {}
+.hook-alert-close-active() {}
+.hook-alert-close-pill() {}
+.hook-alert-close-pill-solid() {}
+.hook-alert-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-alert-variables() {
+
+    --inverse-alert-close-opacity:                              0.4;
+    --inverse-alert-close-hover-opacity:                        0.7;
+    --inverse-alert-close-active-opacity:                       1;
+    --inverse-alert-close-background-opacity:                   0.1;
+    --inverse-alert-close-background-hover-opacity:             0.3;
+    --inverse-alert-close-background-active-opacity:            0.5;
+
+    --inverse-alert-default-background:                         var(--inverse-global-default-color);
+    --inverse-alert-default-color:                              var(--global-muted-color-300);
+
+    --inverse-alert-muted-background:                           var(--inverse-global-muted-color);
+    --inverse-alert-muted-color:                                var(--global-muted-color-300);
+
+    --inverse-alert-primary-background:                         rgb(from var(--global-primary-color-900) r g b / 0.2);
+    --inverse-alert-primary-color:                              var(--global-primary-color-300);
+
+    --inverse-alert-info-background:                            rgb(from var(--global-info-color-900) r g b / 0.2);
+    --inverse-alert-info-color:                                 var(--global-info-color-300);
+
+    --inverse-alert-success-background:                         rgb(from var(--global-success-color-900) r g b / 0.2);
+    --inverse-alert-success-color:                              var(--global-success-color-300);
+
+    --inverse-alert-warning-background:                         rgb(from var(--global-warning-color-900) r g b / 0.2);
+    --inverse-alert-warning-color:                              var(--global-warning-color-300);
+
+    --inverse-alert-danger-background:                          rgb(from var(--global-danger-color-900) r g b / 0.2);
+    --inverse-alert-danger-color:                               var(--global-danger-color-300);
+
+    --inverse-alert-bordered-border-color-default:              var(--inverse-global-border);
+    --inverse-alert-bordered-border-color-muted:                var(--inverse-global-border);
+    --inverse-alert-bordered-border-color-primary:              var(--global-primary-color-900);
+    --inverse-alert-bordered-border-color-info:                 var(--global-info-color-900);
+    --inverse-alert-bordered-border-color-success:              var(--global-success-color-900);
+    --inverse-alert-bordered-border-color-warning:              var(--global-warning-color-900);
+    --inverse-alert-bordered-border-color-danger:               var(--global-danger-color-900);
+
+    --inverse-alert-close-pill-background-default:              var(--global-muted-color-500);
+    --inverse-alert-close-pill-background-muted:                var(--global-muted-color-500);
+    --inverse-alert-close-pill-background-primary:              var(--global-primary-color-700);
+    --inverse-alert-close-pill-background-info:                 var(--global-info-color-700);
+    --inverse-alert-close-pill-background-success:              var(--global-success-color-700);
+    --inverse-alert-close-pill-background-warning:              var(--global-warning-color-700);
+    --inverse-alert-close-pill-background-danger:               var(--global-danger-color-700);
+
+    --inverse-alert-close-pill-solid-background:                var(--inverse-global-default-color);
+
+    --inverse-alert-close-pill-solid-border-color:              var(--inverse-global-border);
+
+    --inverse-alert-close-pill-solid-hover-border-color:        var(--inverse-global-default-color);
+
+    --inverse-alert-icon-box-background-default:                var(--global-muted-color-600);
+    --inverse-alert-icon-box-background-muted:                  var(--global-muted-color-600);
+    --inverse-alert-icon-box-background-primary:                var(--global-primary-color-600);
+    --inverse-alert-icon-box-background-info:                   var(--global-info-color-600);
+    --inverse-alert-icon-box-background-success:                var(--global-success-color-600);
+    --inverse-alert-icon-box-background-warning:                var(--global-warning-color-600);
+    --inverse-alert-icon-box-background-danger:                 var(--global-danger-color-600);
+
+}
+
+.hook-inverse() {
+
+    .uk-alert {
+        color: var(--alert-color);
+        .hook-inverse-alert();
+    }
+
+    //
+    // Content
+    //
+
+    .uk-alert h1,
+    .uk-alert h2,
+    .uk-alert h3,
+    .uk-alert h4,
+    .uk-alert h5,
+    .uk-alert h6 {
+        color: inherit;
+        .hook-inverse-alert-heading();
+    }
+
+    .uk-alert a:not([class]) {
+        .hook-inverse-alert-link();
+    }
+
+    .uk-alert a:not([class]):hover {
+        .hook-inverse-alert-link-hover();
+    }
+
+    //
+    // Colors
+    //
+
+    .uk-alert-default {
+        --alert-background: var(--inverse-alert-default-background);
+        --alert-color: var(--inverse-alert-default-color);
+        .hook-inverse-alert-default();
+    }
+
+    .uk-alert-muted {
+        --alert-background: var(--inverse-alert-muted-background);
+        --alert-color: var(--inverse-alert-muted-color);
+        .hook-inverse-alert-muted();
+    }
+
+    .uk-alert-primary {
+        --alert-background: var(--inverse-alert-primary-background);
+        --alert-color: var(--inverse-alert-primary-color);
+        .hook-inverse-alert-primary();
+    }
+
+    .uk-alert-info {
+        --alert-background: var(--inverse-alert-info-background);
+        --alert-color: var(--inverse-alert-info-color);
+        .hook-inverse-alert-info();
+    }
+
+    .uk-alert-success {
+        --alert-background: var(--inverse-alert-success-background);
+        --alert-color: var(--inverse-alert-success-color);
+        .hook-inverse-alert-success();
+    }
+
+    .uk-alert-warning {
+        --alert-background: var(--inverse-alert-warning-background);
+        --alert-color: var(--inverse-alert-warning-color);
+        .hook-inverse-alert-warning();
+    }
+
+    .uk-alert-danger {
+        --alert-background: var(--inverse-alert-danger-background);
+        --alert-color: var(--inverse-alert-danger-color);
+        .hook-inverse-alert-danger();
+    }
+
+    //
+    // Bordered
+    //
+
+    .uk-alert-bordered {
+        .hook-inverse-alert-bordered();
+    }
+
+    .hook-inverse-alert-default() { --alert-bordered-border-color: var(--inverse-alert-bordered-border-color-default); }
+
+    .hook-inverse-alert-muted() { --alert-bordered-border-color: var(--inverse-alert-bordered-border-color-muted); }
+
+    .hook-inverse-alert-primary() { --alert-bordered-border-color: var(--inverse-alert-bordered-border-color-primary); }
+
+    .hook-inverse-alert-info() { --alert-bordered-border-color: var(--inverse-alert-bordered-border-color-info); }
+
+    .hook-inverse-alert-success() { --alert-bordered-border-color: var(--inverse-alert-bordered-border-color-success); }
+
+    .hook-inverse-alert-warning() { --alert-bordered-border-color: var(--inverse-alert-bordered-border-color-warning); }
+
+    .hook-inverse-alert-danger() { --alert-bordered-border-color: var(--inverse-alert-bordered-border-color-danger); }
+
+    //
+    // Icon box
+    //
+
+    .uk-alert-icon-box .uk-alert-icon {
+        .hook-inverse-alert-icon-box-icon();
+    }
+
+    .hook-inverse-alert-default() { --alert-icon-box-background: var(--inverse-alert-icon-box-background-default); }
+
+    .hook-inverse-alert-muted() { --alert-icon-box-background: var(--inverse-alert-icon-box-background-muted); }
+
+    .hook-inverse-alert-primary() { --alert-icon-box-background: var(--inverse-alert-icon-box-background-primary); }
+
+    .hook-inverse-alert-info() { --alert-icon-box-background: var(--inverse-alert-icon-box-background-info); }
+
+    .hook-inverse-alert-success() { --alert-icon-box-background: var(--inverse-alert-icon-box-background-success); }
+
+    .hook-inverse-alert-warning() { --alert-icon-box-background: var(--inverse-alert-icon-box-background-warning); }
+
+    .hook-inverse-alert-danger() { --alert-icon-box-background: var(--inverse-alert-icon-box-background-danger); }
+
+    //
+    // Close
+    //
+
+    .uk-alert-close {
+        color: rgb(from currentColor r g b / var(--inverse-alert-close-opacity));
+        .hook-inverse-alert-close();
+    }
+
+    .uk-alert-close:hover {
+        color: rgb(from currentColor r g b / var(--inverse-alert-close-hover-opacity));
+        .hook-inverse-alert-close-hover();
+    }
+
+    .uk-alert-close:is(:focus-visible, :active) {
+        color: rgb(from currentColor r g b / var(--inverse-alert-close-active-opacity));
+        .hook-inverse-alert-close-active();
+    }
+
+    // Fix background transparent when close is on the box
+    .uk-alert-close-pill:is(.uk-alert-close-end, .uk-alert-close-top, .uk-alert-close-corner) { backdrop-filter: blur(20px); }
+
+    //
+    // Close base style
+    //
+
+    :is(.uk-alert-close-pill, .uk-alert-close-pill-hover, .uk-alert-close-pill-solid):hover::before { opacity: var(--inverse-alert-close-background-hover-opacity); }
+
+    :is(.uk-alert-close-pill, .uk-alert-close-pill-hover, .uk-alert-close-pill-solid):is(:focus-visible, :active)::before { opacity: var(--inverse-alert-close-background-active-opacity); }
+
+    .hook-inverse-alert-default() { --alert-close-pill-background: var(--inverse-alert-close-pill-background-default); }
+
+    .hook-inverse-alert-muted() { --alert-close-pill-background: var(--inverse-alert-close-pill-background-muted); }
+
+    .hook-inverse-alert-primary() { --alert-close-pill-background: var(--inverse-alert-close-pill-background-primary); }
+
+    .hook-inverse-alert-info() { --alert-close-pill-background: var(--inverse-alert-close-pill-background-info); }
+
+    .hook-inverse-alert-success() { --alert-close-pill-background: var(--inverse-alert-close-pill-background-success); }
+
+    .hook-inverse-alert-warning() { --alert-close-pill-background: var(--inverse-alert-close-pill-background-warning); }
+
+    .hook-inverse-alert-danger() { --alert-close-pill-background: var(--inverse-alert-close-pill-background-danger); }
+
+    //
+    // Close Style: pill
+    //
+
+    .uk-alert-close-pill { background-color: transparent; }
+
+    .uk-alert-close-pill::before { opacity: var(--inverse-alert-close-background-opacity); }
+
+    //
+    // Close Style: pill-solid
+    //
+
+    .uk-alert-close-pill-solid {
+        background-color: var(--inverse-alert-close-pill-solid-background);
+        outline-color: var(--inverse-alert-close-pill-solid-border-color);
+    }
+
+    .uk-alert-close-pill-solid .uk-alert-close:hover::before { border-color: var(--inverse-alert-close-pill-solid-hover-border-color); }
+
+}
+
+.hook-inverse-alert() {}
+.hook-inverse-alert-heading() {}
+.hook-inverse-alert-link() {}
+.hook-inverse-alert-link-hover() {}
+.hook-inverse-alert-default() {}
+.hook-inverse-alert-muted() {}
+.hook-inverse-alert-primary() {}
+.hook-inverse-alert-info() {}
+.hook-inverse-alert-success() {}
+.hook-inverse-alert-warning() {}
+.hook-inverse-alert-danger() {}
+.hook-inverse-alert-bordered() {}
+.hook-inverse-alert-icon-box-icon() {}
+.hook-inverse-alert-close() {}
+.hook-inverse-alert-close-hover() {}
+.hook-inverse-alert-close-active() {}

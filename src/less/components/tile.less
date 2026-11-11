@@ -1,0 +1,333 @@
+// Name:            Tile
+// Description:     Component to create tiled boxes
+//
+// Component:       `uk-tile`
+//
+// Modifiers:       `uk-tile-xsmall`
+//                  `uk-tile-small`
+//                  `uk-tile-large`
+//                  `uk-tile-xlarge`
+//                  `uk-tile-default`
+//                  `uk-tile-muted`
+//                  `uk-tile-primary`
+//                  `uk-tile-secondary`
+//
+// States:          `uk-preserve-color`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@tile-default-color-mode:                      dark; // FIXME: need to change inverse process
+
+@tile-muted-color-mode:                        dark; // FIXME: need to change inverse process
+
+@tile-primary-color-mode:                      light; // FIXME: need to change inverse process
+
+@tile-secondary-color-mode:                    light; // FIXME: need to change inverse process
+
+.hook-tile-variables() {
+
+    --tile-padding-horizontal:                      15px;
+    --tile-padding-horizontal-s:                    var(--global-gutter);
+    --tile-padding-horizontal-m:                    var(--global-medium-gutter);
+    --tile-padding-vertical:                        var(--global-medium-margin);
+    --tile-padding-vertical-m:                      var(--global-large-margin);
+
+    --tile-xsmall-padding-vertical:                 var(--global-margin);
+
+    --tile-small-padding-vertical:                  var(--global-medium-margin);
+
+    --tile-large-padding-vertical:                  var(--global-large-margin);
+    --tile-large-padding-vertical-m:                var(--global-xlarge-margin);
+
+    --tile-xlarge-padding-vertical:                 var(--global-xlarge-margin);
+    --tile-xlarge-padding-vertical-m:               calc(var(--global-large-margin) + var(--global-xlarge-margin));
+
+    --tile-default-background:                      var(--global-default-color);
+    --tile-default-color-mode:                      @tile-default-color-mode;
+
+    --tile-muted-background:                        var(--global-color-muted);
+    --tile-muted-color-mode:                        @tile-muted-color-mode;
+
+    --tile-primary-background:                      var(--global-primary-color);
+    --tile-primary-color-mode:                      @tile-primary-color-mode;
+
+    --tile-secondary-background:                    var(--global-secondary-color);
+    --tile-secondary-color-mode:                    @tile-secondary-color-mode;
+
+}
+
+
+/* ========================================================================
+   Component: Tile
+ ========================================================================== */
+
+.uk-tile {
+    display: flow-root;
+    position: relative;
+    box-sizing: border-box;
+    padding-inline-start: var(--tile-padding-horizontal);
+    padding-inline-end: var(--tile-padding-horizontal);
+    padding-top: var(--tile-padding-vertical);
+    padding-bottom: var(--tile-padding-vertical);
+    .hook-tile();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-tile {
+        padding-inline-start: var(--tile-padding-horizontal-s);
+        padding-inline-end: var(--tile-padding-horizontal-s);
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-tile {
+        padding-inline-start: var(--tile-padding-horizontal-m);
+        padding-inline-end: var(--tile-padding-horizontal-m);
+        padding-top: var(--tile-padding-vertical-m);
+        padding-bottom: var(--tile-padding-vertical-m);
+    }
+
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-tile > :last-child { margin-bottom: 0; }
+
+
+/* Size modifiers
+ ========================================================================== */
+
+/*
+ * XSmall
+ */
+
+.uk-tile-xsmall {
+    padding-top: var(--tile-xsmall-padding-vertical);
+    padding-bottom: var(--tile-xsmall-padding-vertical);
+}
+
+/*
+ * Small
+ */
+
+.uk-tile-small {
+    padding-top: var(--tile-small-padding-vertical);
+    padding-bottom: var(--tile-small-padding-vertical);
+}
+
+/*
+ * Large
+ */
+
+.uk-tile-large {
+    padding-top: var(--tile-large-padding-vertical);
+    padding-bottom: var(--tile-large-padding-vertical);
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-tile-large {
+        padding-top: var(--tile-large-padding-vertical-m);
+        padding-bottom: var(--tile-large-padding-vertical-m);
+    }
+
+}
+
+
+/*
+ * XLarge
+ */
+
+.uk-tile-xlarge {
+    padding-top: var(--tile-xlarge-padding-vertical);
+    padding-bottom: var(--tile-xlarge-padding-vertical);
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-tile-xlarge {
+        padding-top: var(--tile-xlarge-padding-vertical-m);
+        padding-bottom: var(--tile-xlarge-padding-vertical-m);
+    }
+
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-tile-default {
+    --uk-inverse: var(--tile-default-color-mode);
+    background-color: var(--tile-default-background);
+    .hook-tile-default();
+}
+
+.uk-tile-default.uk-tile-hover:hover {
+    .hook-tile-default-hover();
+}
+
+// Color Mode
+.uk-tile-default:not(.uk-preserve-color):extend(.uk-light all) when (@tile-default-color-mode = light) {}
+.uk-tile-default:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-default-color-mode = dark) {}
+
+/*
+ * Muted
+ */
+
+.uk-tile-muted {
+    --uk-inverse: var(--tile-muted-color-mode);
+    background-color: var(--tile-muted-background);
+    .hook-tile-muted();
+}
+
+.uk-tile-muted.uk-tile-hover:hover {
+    .hook-tile-muted-hover();
+}
+
+// Color Mode
+.uk-tile-muted:not(.uk-preserve-color):extend(.uk-light all) when (@tile-muted-color-mode = light) {}
+.uk-tile-muted:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-muted-color-mode = dark) {}
+
+/*
+ * Primary
+ */
+
+.uk-tile-primary {
+    --uk-inverse: var(--tile-primary-color-mode);
+    background-color: var(--tile-primary-background);
+    .hook-tile-primary();
+}
+
+.uk-tile-primary.uk-tile-hover:hover {
+    .hook-tile-primary-hover();
+}
+
+// Color Mode
+.uk-tile-primary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-primary-color-mode = light) {}
+.uk-tile-primary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-primary-color-mode = dark) {}
+
+/*
+ * Secondary
+ */
+
+.uk-tile-secondary {
+    --uk-inverse: var(--tile-secondary-color-mode);
+    background-color: var(--tile-secondary-background);
+    .hook-tile-secondary();
+}
+
+.uk-tile-secondary.uk-tile-hover:hover {
+    .hook-tile-secondary-hover();
+}
+
+// Color Mode
+.uk-tile-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-secondary-color-mode = light) {}
+.uk-tile-secondary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-secondary-color-mode = dark) {}
+
+
+// Hooks
+// ========================================================================
+
+.hook-tile-misc();
+
+.hook-tile-variables() {}
+.hook-tile() {}
+.hook-tile-default() {}
+.hook-tile-default-hover() {}
+.hook-tile-muted() {}
+.hook-tile-muted-hover() {}
+.hook-tile-primary() {}
+.hook-tile-primary-hover() {}
+.hook-tile-secondary() {}
+.hook-tile-secondary-hover() {}
+.hook-tile-misc() {}
+
+// Inverse
+// ========================================================================
+
+.hook-title-variables() {
+
+    --inverse-tile-default-background:                   var(--inverse-global-default-color);
+    --inverse-tile-muted-background:                     var(--inverse-global-muted-color);
+
+}
+
+.hook-inverse() {
+
+    //
+    // Default
+    //
+
+    .uk-tile-default {
+        background-color: var(--inverse-tile-default-background);
+        .hook-inverse-tile-default();
+    }
+
+    .uk-tile-default.uk-tile-hover:hover {
+        .hook-inverse-tile-default-hover();
+    }
+
+    //
+    // Muted
+    //
+
+    .uk-tile-muted {
+        background-color: var(--inverse-tile-muted-background);
+        .hook-inverse-tile-muted();
+    }
+
+    .uk-tile-muted.uk-tile-hover:hover {
+        .hook-inverse-tile-muted-hover();
+    }
+
+    //
+    // Primary
+    //
+
+    .uk-tile-primary {
+        .hook-inverse-tile-primary();
+    }
+
+    .uk-tile-primary.uk-tile-hover:hover {
+        .hook-inverse-tile-primary-hover();
+    }
+    
+    //
+    // Secondary
+    //
+
+    .uk-tile-secondary {
+        .hook-inverse-tile-secondary();
+    }
+
+    .uk-tile-secondary.uk-tile-hover:hover {
+        .hook-inverse-tile-secondary-hover();
+    }
+
+}
+
+.hook-inverse-tile-default() {}
+.hook-inverse-tile-default-hover() {}
+.hook-inverse-tile-muted() {}
+.hook-inverse-tile-muted-hover() {}
+.hook-inverse-tile-primary() {}
+.hook-inverse-tile-primary-hover() {}
+.hook-inverse-tile-secondary() {}
+.hook-inverse-tile-secondary-hover() {}

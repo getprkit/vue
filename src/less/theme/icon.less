@@ -1,0 +1,337 @@
+//
+// Component: Icon
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-icon-variables() {
+
+  //
+  // New
+  //
+
+  --icon-primary-color:                              var(--global-icon-primary-color);
+  --icon-secondary-color:                            var(--global-icon-secondary-color);
+  --icon-secondary-color-opacity:                    var(--global-icon-secondary-color-opacity);
+  --icon-tertiary-color:                             var(--global-icon-tertiary-color);
+  --icon-tertiary-color-opacity:                     var(--global-icon-tertiary-color-opacity);
+  --icon-quaternary-color:                           var(--global-icon-quaternary-color);
+  --icon-quaternary-color-opacity:                   var(--global-icon-quaternary-color-opacity);
+
+  --icon-duotone-primary:                            var(--global-icon-duotone-primary-color);
+  --icon-duotone-secondary:                          var(--global-icon-duotone-secondary-color);
+  --icon-duotone-secondary-opacity:                  var(--global-icon-duotone-secondary-opacity);
+
+  --icon-twotone-primary:                            var(--global-icon-twotone-primary-color);
+  --icon-twotone-secondary:                          var(--global-icon-twotone-secondary-color);
+  --icon-twotone-secondary-opacity:                  var(--global-icon-twotone-secondary-opacity);
+
+  --icon-bulk-primary:                               var(--global-icon-bulk-primary-color);
+  --icon-bulk-secondary:                             var(--global-icon-bulk-secondary-color);
+  --icon-bulk-secondary-opacity:                     var(--global-icon-bulk-secondary-opacity);
+
+  --icon-iso-solid-stroke:                           var(--global-icon-iso-solid-stroke-color);
+
+  --icon-iso-primary:                                var(--global-icon-iso-primary-color);
+  --icon-iso-secondary:                              var(--global-icon-iso-secondary-color);
+  --icon-iso-tertiary:                               var(--global-icon-iso-tertiary-color);
+  --icon-iso-quaternary:                             var(--global-icon-iso-quaternary-color);
+
+  --icon-iso-duotone-primary:                        var(--global-icon-iso-duotone-primary-color);
+  --icon-iso-duotone-secondary:                      var(--global-icon-iso-duotone-secondary-color);
+  --icon-iso-duotone-tertiary:                       var(--global-icon-iso-duotone-tertiary-color);
+  --icon-iso-duotone-quaternary:                     var(--global-icon-iso-duotone-quaternary-color);
+
+  --icon-favorite-color:                             var(--global-icon-favorite-color);
+  --icon-favorite-color-tertiary:                    var(--icon-favorite-color-tertiary);
+
+}
+
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-icon-misc() {
+
+  // Monochrome Icon Styles: usable for icons with +2 colors (ex: unicons-monochrome)
+  // ========================================================================
+
+  .pr-icon-primary {
+    fill: var(--icon-primary-color);
+  }
+
+  .pr-icon-secondary {
+    fill: var(--icon-secondary-color);
+    opacity: var(--icon-secondary-color-opacity);
+  }
+
+  .pr-icon-tertiary {
+    fill: var(--icon-tertiary-color);
+    opacity: var(--icon-tertiary-color-opacity);
+  }
+
+  .pr-icon-quaternary {
+    fill: var(--icon-quaternary-color);
+    opacity: var(--icon-quaternary-color-opacity);
+  }
+
+  // Duotone Icon Styles: usable for icons with 2 color (almost fillable | ex: hugeicons-duotone)
+  // ========================================================================
+
+  .pr-icon-duotone-primary {
+    fill: var(--icon-duotone-primary);
+  }
+
+  .pr-icon-duotone-primary-stroke {
+    stroke: var(--icon-duotone-primary);
+  }
+
+  .pr-icon-duotone-secondary {
+    fill: var(--icon-duotone-secondary);
+  }
+
+  .pr-icon-duotone-secondary-stroke {
+    stroke: var(--icon-duotone-secondary);
+  }
+
+  .pr-icon-duotone-secondary:not([opacity]),
+  .pr-icon-duotone-secondary-stroke:not([opacity]) {
+    opacity: var(--icon-duotone-secondary-opacity);
+  }
+
+  // Twotone Icon Styles: usable for icons with 2 color (almost stroke | ex: hugeicons-twotone)
+  // ========================================================================
+  .pr-icon-twotone-primary {
+    fill: var(--icon-twotone-primary);
+  }
+
+  .pr-icon-twotone-primary-stroke {
+    stroke: var(--icon-twotone-primary);
+  }
+
+  .pr-icon-twotone-secondary {
+    fill: var(--icon-twotone-secondary);
+    opacity: var(--icon-twotone-secondary-opacity);
+  }
+
+  .pr-icon-twotone-secondary-stroke {
+    stroke: var(--icon-twotone-secondary);
+    opacity: var(--icon-twotone-secondary-opacity);
+  }
+
+  // Bulk Icon Styles: usable for icons with 2 color (always fillable | ex: hugeicons-bulk)
+  // ========================================================================
+  .pr-icon-bulk-primary {
+    fill: var(--icon-bulk-primary);
+  }
+
+  .pr-icon-bulk-secondary {
+    fill: var(--icon-bulk-secondary);
+    opacity: var(--icon-bulk-secondary-opacity);
+  }
+
+  // Iso Icon Styles: usable for isometric icons (ex: isocons)
+  // ========================================================================
+  .pr-icon-iso-solid-stroke {
+    stroke: var(--icon-iso-solid-stroke);
+  }
+
+  .pr-icon-iso-primary {
+    fill: var(--icon-iso-primary);
+  }
+
+  .pr-icon-iso-secondary {
+    fill: var(--icon-iso-secondary);
+  }
+
+  .pr-icon-iso-tertiary {
+    fill: var(--icon-iso-tertiary);
+  }
+
+  .pr-icon-iso-quaternary {
+    fill: var(--icon-iso-quaternary);
+  }
+
+  .pr-icon-iso-primary-stroke {
+    stroke: var(--icon-iso-primary);
+  }
+
+  .pr-icon-iso-secondary-stroke {
+    stroke: var(--icon-iso-secondary);
+  }
+
+  .pr-icon-iso-tertiary-stroke {
+    stroke: var(--icon-iso-tertiary);
+  }
+
+  .pr-icon-iso-quaternary-stroke {
+    stroke: var(--icon-iso-quaternary);
+  }
+
+  // iso duotone
+  .pr-icon-iso-duotone-primary {
+    fill: var(--icon-iso-duotone-primary);
+  }
+
+  .pr-icon-iso-duotone-secondary {
+    fill: var(--icon-iso-duotone-secondary);
+  }
+
+  .pr-icon-iso-duotone-tertiary {
+    fill: var(--icon-iso-duotone-tertiary);
+  }
+
+  .pr-icon-iso-duotone-quaternary {
+    fill: var(--icon-iso-duotone-quaternary);
+  }
+
+  .pr-icon-iso-duotone-primary-stroke {
+    stroke: var(--icon-iso-duotone-primary);
+  }
+
+  .pr-icon-iso-duotone-secondary-stroke {
+    stroke: var(--icon-iso-duotone-secondary);
+  }
+
+  .pr-icon-iso-duotone-tertiary-stroke {
+    stroke: var(--icon-iso-duotone-tertiary);
+  }
+
+  .pr-icon-iso-duotone-quaternary-stroke {
+    stroke: var(--icon-iso-duotone-quaternary);
+  }
+
+  // TODO:
+  //  may change
+  .pr-icon-favorite [class*='pr-icon-'] {
+    fill: var(--icon-favorite-color);
+  }
+
+  // Golden Style
+  .pr-icon-favorite .pr-icon-tertiary {
+    fill: var(--icon-favorite-color-tertiary);
+  }
+
+}
+
+//
+// Link
+//
+
+.hook-icon-link() {}
+
+.hook-icon-link-hover() {}
+
+.hook-icon-link-active() {}
+
+//
+// Button
+//
+
+.hook-icon-button() {
+  transition: 0.1s ease-in-out;
+  transition-property: color, background-color;
+}
+
+.hook-icon-button-hover() {}
+
+.hook-icon-button-active() {}
+
+//
+// Overlay
+//
+
+.hook-icon-overlay() {
+  transition: 0.1s ease-in-out;
+  transition-property: color;
+}
+
+.hook-icon-overlay-hover() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-icon-misc() {
+
+  // Fill Icon Instead Button
+  // ========================================================================
+
+  [class*='pr-fill-instead'] {
+    background-color: transparent;
+  }
+
+  //
+  // Styles
+  //
+
+  .pr-fill-instead-primary > * {
+    background-color: var(--button-primary-background);
+    color: var(--button-primary-color);
+  }
+
+  .pr-fill-instead-primary:hover > * {
+    background-color: var(--button-primary-hover-background);
+    color: var(--button-primary-hover-color);
+  }
+
+  .pr-fill-instead-primary:active > * {
+    background-color: var(--button-primary-active-background);
+    color: var(--button-primary-active-color);
+  }
+
+}
+
+// Inverse
+// ========================================================================
+
+.hook-icon-variables() {
+  --inverse-icon-link-color:                         var(--inverse-global-muted-color);
+  --inverse-icon-link-hover-color:                   var(--inverse-global-color);
+  --inverse-icon-link-active-color:                  var(--inverse-global-color);
+  --inverse-icon-button-background:                  var(--inverse-global-muted-color-default);
+  --inverse-icon-button-color:                       var(--inverse-global-muted-color);
+  --inverse-icon-button-hover-background:            rgb(from var(--inverse-icon-button-background) r g b / ~'calc(alpha + 0.05)');
+  --inverse-icon-button-hover-color:                 var(--inverse-global-color);
+  --inverse-icon-button-active-background:           rgb(from var(--inverse-icon-button-background) r g b / ~'calc(alpha + 0.1)');
+  --inverse-icon-button-active-color:                var(--inverse-global-color);
+}
+
+//
+// Style modifiers | may remove
+//
+
+.hook-inverse() {
+
+  .pr-icon-primary {
+    color: var(--global-icon-primary-color-light);
+  }
+
+  .pr-icon-secondary {
+    color: var(--global-icon-secondary-color-light);
+  }
+
+  .pr-icon-tertiary {
+    color: var(--global-icon-tertiary-color-light);
+  }
+
+  .pr-icon-quaternary {
+    color: var(--global-icon-quaternary-color-light);
+  }
+
+}
+
+.hook-inverse-icon-link() {}
+.hook-inverse-icon-link-hover() {}
+.hook-inverse-icon-link-active() {}
+
+.hook-inverse-icon-button() {}
+.hook-inverse-icon-button-hover() {}
+.hook-inverse-icon-button-active() {}
+
+.hook-inverse-icon-overlay() {}
+.hook-inverse-icon-overlay-hover() {}

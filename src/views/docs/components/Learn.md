@@ -39,7 +39,7 @@ onMounted(() => {
   }
 
   accordionEl.value
-    ?.querySelectorAll<HTMLElement>('.pr-accordion-icon')
+    ?.querySelectorAll<HTMLElement>('.uk-accordion-icon')
     .forEach((el) => icon(el, options))
 })
 
@@ -48,31 +48,73 @@ onMounted(() => {
 
 # Learn
 
-**Future doc**: write about how use component and utilities.
+**Future doc**: Write about how use component and utilities.
 
 ---
 
 ## Component Usage
 
-**Future doc**: write about how use components.
+**Future doc**: Write about how use components.
 
 ---
 
 ## Component configuration and defaults
 
-**Future doc**: config about how set component default props and configs.
+**Future doc**: Config about how set component default props and configs.
 
 ---
 
 ## Manually initialization component
 
-Manually, components may be initialized with the predefined CSS classes, HTML elements and JavaScript components. The JavaScript component accept `element` and `options` arguments and `element` argument may be any `templateRef`, `Node`, `selector`, `jQuery object` or `HTMLElement`. You'll receive the initialized component as a return value as component api. `JavaScript Functional Components` (e.g. `Notification`) should omit the `element` parameter.
+Components can be built manually using their predefined CSS classes and HTML elements. Interactive components can be initialized in two ways: by adding `uk-*` or `data-uk-*` attributes to HTML elements, or by calling their UIkit JavaScript component functions.
+
+For `CSS/HTML` part we define all classes and structure in related component doc page in manual-initialization section (e.g. [Accordion Component Manual Initialization](accordion.md#manual-initialization)).
+
+```html
+<div class="uk-alert uk-alert-primary uk-alert-bordered">
+  <a href="" class="uk-alert-close" />
+  <span class="uk-alert-icon" />
+  ....
+</div>
+```
+
+```vue example
+<template>
+  <div class="uk-alert uk-alert-primary uk-alert-bordered">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+  </div>
+</template>
+```
+
+You can initialize interactive UIkit components by adding `uk-*` or `data-uk-*` attributes to your HTML elements without writing a single line of JavaScript.
+
+```html
+<div class="uk-alert-primary uk-alert-bordered" uk-alert>
+  <a href="" class="uk-alert-close" uk-icon="icon: component-default-alert-close" />
+  <span class="uk-alert-icon" uk-icon="component-default-alert-primary" />
+  ....
+</div>
+
+<ul class="uk-accordion-hover" uk-accordion="multiple: true">....</div>
+```
+
+```html example
+<div class="uk-alert-primary uk-alert-bordered" uk-alert>
+  <a href="" class="uk-alert-close" uk-icon="icon: component-default-alert-close; ratio: 0.5" />
+  <span class="uk-alert-icon" uk-icon="component-default-alert-primary" />
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+</div>
+```
+
+**Note** When initializing interactive UIkit components using `uk-*` or `data-uk-*` attributes, or via JavaScript, the component's main CSS class is automatically added to the element. For example, initializing an element with `uk-alert` automatically adds the `uk-alert` class to it.
+
+You can also initialize components manually via JavaScript and apply them to elements in your document. JavaScript component functions accept `element` and `options` arguments. The `element` argument can be a `Node`, selector, jQuery object, or `HTMLElement`. In Vue, you can pass `templateRef.value` after the component has mounted. The initialized component is returned as its component API. JavaScript functional components (e.g. `Notification`) do not require the `element` argument.
 
 ```js
 import { accordion, notification } from '@u/util'
 
 // passing a selector/HTMLElement and an options object.
-const accordionApi = accordion('.pr-accordion', { collapse: false, duration: 300 })
+const accordionApi = accordion('.uk-accordion', { collapse: false, duration: 300 })
 
 // with template ref
 const accordionEl = useTemplateRef('accordionEl')
@@ -84,29 +126,15 @@ const notificationApi = notification('MyMessage', 'danger')
 
 **Note** The `options` argument is an object that accept options that listed in each component doc page in component-props section (not the **`bold`** ones) (e.g. [Accordion Component Props](accordion.md#component-props)) and must be in their camel-cased representation, e.g. `show-on-up` becomes `showOnUp`.
 
-For `CSS/HTML` part we define all classes and structure in related component doc page in manual-initialization section (e.g. [Accordion Component Manual Initialization](accordion.md#manual-initialization)).
-
-```html
-<ul class="pr-accordion-hover">
-  <li>
-    <a class="uk-accordion-title">
-      ...
-      <span class="pr-accordion-icon uk-accordion-icon" />
-    </a>
-    <div class="uk-accordion-content">...</div>
-  </li>
-</ul>
-```
-
 The following source is complete example of manually initializing a component using templateRef target:
 
 ```vue example
 <template>
-  <ul class="pr-accordion-hover" ref="accordionEl">
+  <ul class="uk-accordion-pill" ref="accordionEl">
     <li>
       <a class="uk-accordion-title">
         Accordion Item 1
-        <span class="pr-accordion-icon uk-accordion-icon" />
+        <span class="uk-accordion-icon uk-accordion-icon" />
       </a>
       <div class="uk-accordion-content">
         <p>
@@ -118,7 +146,7 @@ The following source is complete example of manually initializing a component us
     <li>
       <a class="uk-accordion-title">
         Accordion Item 2
-        <span class="pr-accordion-icon uk-accordion-icon" />
+        <span class="uk-accordion-icon uk-accordion-icon" />
       </a>
       <div class="uk-accordion-content">
         <p>
@@ -130,7 +158,7 @@ The following source is complete example of manually initializing a component us
     <li>
       <a class="uk-accordion-title">
         Accordion Item 2
-        <span class="pr-accordion-icon uk-accordion-icon" />
+        <span class="uk-accordion-icon uk-accordion-icon" />
       </a>
       <div class="uk-accordion-content">
         <p>
@@ -158,7 +186,7 @@ onMounted(() => {
 
   // using icon JavaScript Component to set icons for each item of accordion
   accordionEl.value
-    ?.querySelectorAll<HTMLElement>('.pr-accordion-icon')
+    ?.querySelectorAll<HTMLElement>('.uk-accordion-icon')
     .forEach((el) => icon(el, options))
 })
 </script>
@@ -170,7 +198,7 @@ After initialization, you can get your JavaScript component by calling the same 
 
 ```js
 // accordion is now the prior initialized components
-const accordionApi = accordion('.pr-accordion')
+const accordionApi = accordion('.uk-accordion')
 
 // with template ref
 const accordionEl = useTemplateRef('accordionEl')
@@ -254,7 +282,7 @@ accordionApi.$destroy()
 
 Sometimes, components like Height or Tab are hidden in the markup. This may happen when used in combination with the Switcher, Modal or Dropdown. Once they become visible, often they need to adjust or fix their height and other dimensions.
 
-PrKit offers several ways of updating a component. Omitting the `type` parameter will trigger an `update` event.
+UIkit offers several ways of updating a component. Omitting the `type` parameter will trigger an `update` event.
 
 ```js
 import { utilUpdate } from '@u/util'
@@ -370,13 +398,13 @@ accordionToggle(accordionEl, 1, false)
 
 ## Use component props
 
-**Future doc**: write about how use component props.
+**Future doc**: Write about how use component props.
 
 ---
 
 ## Use component emits
 
-**Future doc**: write about how use component emits.
+**Future doc**: Write about how use component emits.
 
 when using `emits` (as event) manually with component api which listed in component documentation page (e.g. [Accordion Emits](accordion.md#emits)), it will not receive **`bold`** arguments exist in the component emit lists.
 
@@ -384,6 +412,28 @@ when using `emits` (as event) manually with component api which listed in compon
 
 ## PrKit api and utils
 
-**Future doc**: write about existing api and utils.
+**Future doc**: Write about existing api and utils.
+
+---
+
+## Icons & Component Icons
+
+**Future doc**: Write about how use icons and component icons.
+
+write about icon styles and custom icons.
+
+---
+
+## CSS variables
+
+**Future doc**: Write about how to use css variables and change component css variables.
+
+The rest of CSS Variables which not exists in the list of Component documentation page (e.g. [Accordion Css Variables](accordion.md#css-varialbes)) are component default variables or global variables that connected to component, and most of times doesn't need to be change or may change as custom or global CSS variables.
+
+Write all CSS `color variables`.
+
+Write about how to write custom Component `CSS/Style`.
+
+Write about how use `hook-*-variables` for each component to override component variables without duplication.
 
 <DocNavigation />

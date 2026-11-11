@@ -1,0 +1,81 @@
+//
+// Component: Dropdown
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+.hook-dropdown-variables() {
+
+  --dropdown-padding:                              25px;
+  --dropdown-background:                           var(--global-default-color);
+
+  --dropdown-dropbar-padding-top:                  5px;
+
+  --dropdown-nav-subtitle-font-size:               12px;
+
+  //
+  // New
+  //
+
+  --dropdown-nav-font-size:                        var(--global-small-font-size);
+
+  --dropdown-box-shadow:                           0 5px 12px rgba(0,0,0,0.15);
+
+}
+
+
+// Component
+// ========================================================================
+
+.hook-dropdown() { box-shadow: var(--dropdown-box-shadow); }
+
+
+// Dropbar modifier
+// ========================================================================
+
+.hook-dropdown-dropbar() { box-shadow: none; }
+
+.hook-dropdown-dropbar-large() {}
+
+
+// Nav
+// ========================================================================
+
+.hook-dropdown-nav() { font-size: var(--dropdown-nav-font-size); }
+
+.hook-dropdown-nav-item() {}
+
+.hook-dropdown-nav-item-hover() {}
+
+.hook-dropdown-nav-subtitle() {}
+
+.hook-dropdown-nav-header() {}
+
+.hook-dropdown-nav-divider() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-dropdown-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-dropdown-variables() {
+
+  --inverse-dropdown-background:                  var(--inverse-global-default-color);
+  --inverse-dropdown-box-shadow:                  0 5px 12px rgba(0,0,0,0.35);
+
+}
+
+
+.hook-inverse-dropdown() { box-shadow: var(--inverse-dropdown-box-shadow); }
+.hook-inverse-dropdown-nav-item() {}
+.hook-inverse-dropdown-nav-item-hover() {}
+.hook-inverse-dropdown-nav-header() {}
+.hook-inverse-dropdown-nav-divider() {}
