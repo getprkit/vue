@@ -244,6 +244,27 @@ You can set the `:icon-ratio="2"` props to the `PrAlert` component to double ico
 
 ---
 
+## Animation
+
+Apply animations when closing the alert by adding the `animation="uk-animation-*"` option with one of the classes from the [Animation component](animation.md). You can also determine the animation's duration. Just add the `duration` prop with a value in milliseconds.
+
+```vue
+<PrAlert animation="uk-animation-slide-top-small" :duration="500">....</PrAlert>
+```
+
+```vue example
+<template>
+  <PrAlert variant="primary" animation="uk-animation-slide-end-medium">
+    Your email address has been verified. You can now receive notifications.
+  </PrAlert>
+  <PrAlert variant="danger" animation="uk-animation-slide-end-medium" :duration="500">
+    Your password has expired. Please update it to continue using your account.
+  </PrAlert>
+</template>
+```
+
+---
+
 ## Close button
 
 To disable close button and its functionality, set the `:close="false"` prop to alert component. Learn more about how [Use Close component](close.md).
