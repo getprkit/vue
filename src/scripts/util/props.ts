@@ -81,7 +81,7 @@
 
 // New component template error fix
 // TODO: Must remove when creating component props work done.
-import type { OptionsAccordion as OptionsComponent, AccordionApi as ComponentApi } from '@u/types.ts'
+import type { UIkitAccordionOptions as OptionsComponent, UIkitAccordionElement as ComponentApi } from 'prkit'
 import type { AccordionIconType as ComponentIconType } from '@u/util.ts'
 import type { AccordionClassType as ComponentClassType } from '@u/classes'
 
@@ -89,14 +89,94 @@ import type { AccordionClassType as ComponentClassType } from '@u/classes'
  * Imports
  * ======================================================================== */
 
+// UIkit types
+import type {
+  // Component Api
+  UIkitAccordionElement as AccordionApi,
+  UIkitAlertElement as AlertApi,
+  // UIkitCountdownElement as CountdownApi,
+  // UIkitElementBase as CoverApi,
+  // UIkitDropElement as DropApi,
+  // UIkitElementBase as DropnavApi,
+  // UIkitDropdownElement as DropdownApi,
+  // UIkitElementBase as FilterApi,
+  // UIkitElementBase as FormApi,
+  // UIkitElementBase as GridApi,
+  // UIkitElementBase as HeightViewportApi,
+  // UIkitElementBase as HeightMatchApi,
+  // UIkitElementBase as HeightPlaceholderApi,
+  // UIkitElementBase as ImageApi,
+  // UIkitElementBase as InverseApi,
+  // UIkitElementBase as LeaderApi,
+  // UIkitLightboxElement as LightboxApi,
+  // UIkitElementBase as MarginApi,
+  // UIkitModalElement as ModalApi,
+  // UIkitNavElement as NavApi,
+  // UIkitElementBase as NavbarApi,
+  // UIkitNotificationElement as NotificationApi,
+  // UIkitOffcanvasElement as OffcanvasApi,
+  // UIkitElementBase as ParallaxApi,
+  // UIkitScrollElement as ScrollApi,
+  // UIkitElementBase as ScrollspyApi,
+  // UIkitElementBase as ScrollspyNavApi,
+  // UIkitSliderElement as SliderApi,
+  // UIkitSlideshowElement as SlideshowApi,
+  // UIkitElementBase as SortableApi,
+  // UIkitElementBase as StickyApi,
+  // UIkitSvgElement as SvgApi,
+  // UIkitSwitcherElement as SwitcherApi,
+  // UIkitTabElement as TabApi,
+  // UIkitToggleElement as ToggleApi,
+  // UIkitTooltipElement as TooltipApi,
+  // UIkitElementBase as UploadApi,
+  // UIkitElementBase as VideoApi,
+
+  // Component options
+  UIkitAccordionOptions as OptionsAccordion,
+  UIkitAlertOptions as OptionsAlert,
+  // UIkitCountdownOptions as OptionsCountdown,
+  // UIkitCoverOptions as OptionsCover,
+  // UIkitDropOptions as OptionsDrop,
+  // UIkitDropdownOptions as OptionsDropdown,
+  // UIkitDropnavOptions as OptionsDropnav,
+  // UIkitFilterOptions as OptionsFilter,
+  // UIkitFormCustomOptions as OptionsForm,
+  // UIkitGridOptions as OptionsGrid,
+  // UIkitHeightViewportOptions as OptionsHeightViewport,
+  // UIkitHeightMatchOptions as OptionsHeightMatch,
+  // UIkitHeightPlaceholderOptions as OptionsHeightPlaceholder,
+  // UIkitIconOptions as OptionsIcon,
+  // UIkitImgOptions as OptionsImage,
+  // UIkitInverseOptions as OptionsInverse,
+  // UIkitLeaderOptions as OptionsLeader,
+  // UIkitLightboxOptions as OptionsLightbox,
+  // UIkitMarginOptions as OptionsMargin,
+  // UIkitModalOptions as OptionsModal,
+  // UIkitNavOptions as OptionsNav,
+  // UIkitNavbarOptions as OptionsNavbar,
+  // UIkitNotificationOptions as OptionsNotification,
+  // UIkitOffcanvasOptions as OptionsOffcanvas,
+  // UIkitParallaxOptions as OptionsParallax,
+  // UIkitScrollOptions as OptionsScroll,
+  // UIkitScrollspyOptions as OptionsScrollspy,
+  // UIkitScrollspyNavOptions as OptionsScrollspyNav,
+  // UIkitSliderOptions as OptionsSlider,
+  // UIkitSlideshowOptions as OptionsSlideshow,
+  // UIkitSortableOptions as OptionsSortable,
+  // UIkitStickyOptions as OptionsSticky,
+  // UIkitSvgOptions as OptionsSvg,
+  // UIkitSwitcherOptions as OptionsSwitcher,
+  // UIkitTabOptions as OptionsTab,
+  // UIkitToggleOptions as OptionsToggle,
+  // UIkitTooltipOptions as OptionsTooltip,
+  // UIkitUploadOptions as OptionsUpload,
+  // UIkitVideoOptions as OptionsVideo,
+} from 'prkit'
+
 import type {
   BaseIconPropsType,
   BaseClosePropsType,
   ApiRef,
-  OptionsAccordion,
-  AccordionApi,
-  OptionsAlert,
-  AlertApi,
 } from '@u/types.ts'
 
 import type { AccordionIconType, AlertIconType } from '@u/util.ts'
