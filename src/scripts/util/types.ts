@@ -100,8 +100,9 @@
  * Imports
  * ======================================================================== */
 
-import type { MaybeRef, TemplateRef } from 'vue';
+import type { MaybeRef, TemplateRef } from 'vue'
 import type { IconStyles } from '@u/config'
+
 
 /**
  * Generic|Custom Types
@@ -111,7 +112,7 @@ import type { IconStyles } from '@u/config'
 export type ApiRef<T> = (componentApi: T) => void
 
 // for accepting UIkit JavaScript Component elements, will use in UIkit JavaScript Function and methods.
-export type ElementTarget = object | HTMLElement | string | null;
+export type ElementTarget = object | HTMLElement | string | null
 
 // for UIkit.update function, there is no type for it, so we define our type
 // null element will trigger document.body update, type also accept custom event with string
@@ -153,6 +154,7 @@ export interface BaseClosePropsType<T = DefaultIcon> {
   /** Set text after close icon, if close icon be false, only text will shown */
   closeText?: string
 }
+
 
 /**
  * Composable Component Types
