@@ -1,70 +1,110 @@
-# prkit
+# PrKit Vue
 
-This template should help get you started developing with Vue 3 in Vite.
+A Vue 3 component library built on top of PrKit Core.
 
-## Recommended IDE Setup
+> **Status:** Under active development. The library is not yet ready for production use.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Since all developers need some tools to speed up their work, we came up with the idea of creating a framework based on UIkit that is structured in Vue, making it easier to implement the UI of our projects. in future, we will also use AI to use this template to create ui.
 
-## Recommended Browser Setup
+For the core, we forked the UIkit CSS framework because, unlike modern libraries, it offers many additional features like Slideshow, Parallax, and more.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Overview
 
-## Type Support for `.vue` Imports in TS
+PrKit Vue provides reusable Vue 3 components powered by PrKit Core. It combines Vue's Composition API and TypeScript with PrKit's styling system and JavaScript functionality to build flexible and performant user interfaces.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+The project focuses on modularity, predictable component APIs, and keeping production bundles lightweight.
 
-## Customize configuration
+## Current Status
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+The following components have completed implementations and documentation:
 
-## Project Setup
+- Accordion
+- Alert
 
-```sh
+Additional components are currently under development.
+
+## Features
+
+- Vue 3 and Composition API
+- TypeScript support
+- Integration with PrKit Core
+- Reusable component architecture
+- Customizable component styles and variants
+- Performance-focused implementation
+- Icon integration and selective icon compilation
+
+## Development Setup
+
+### Requirements
+
+- Node.js 22.18.x or 24.12+
+- npm
+
+### Installation
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Development Server
 
-```sh
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+The development application includes the component documentation and examples at `/docs`.
 
-```sh
+### Type Checking
+
+```bash
+npm run type-check
+```
+
+### Production Build
+
+```bash
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Unit Tests
 
-```sh
+```bash
 npm run test:unit
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+### End-to-End Tests
 
-```sh
+```bash
 npm run test:e2e:dev
 ```
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
+### Lint
 
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
+```bash
 npm run lint
 ```
+
+### Format
+
+```bash
+npm run format
+```
+
+## Project Documentation
+
+- [Architecture](ARCHITECTURE.md)
+- [Contributing](CONTRIBUTING.md)
+- [Roadmap](ROADMAP.md)
+- [Changelog](CHANGELOG.md)
+
+## Development Guides
+
+- [Component Development](docs/development/component-development.md)
+- [Core Integration](docs/development/core-integration.md)
+- [Icon System](docs/development/icon-system.md)
+- [Styling](docs/development/styles.md)
+- [Documentation System](docs/development/documentation-system.md)
+
+## License
+
+See the repository's license information.
