@@ -148,7 +148,7 @@
  * Slide Animation (Used in slide and push mode)
  */
 
-.uk-offcanvas-bar-animation { transition: inset-inline-start 0.3s ease-out; }
+.uk-offcanvas-bar-animation { transition: inset-inline-start var(--global-duration-slow) var(--global-ease-out); }
 .uk-offcanvas-flip .uk-offcanvas-bar-animation { transition-property: inset-inline-end; }
 
 /*
@@ -169,7 +169,7 @@
     width: 0;
     overflow: hidden;
     /* 3 */
-    transition: width 0.3s ease-out;
+    transition: width var(--global-duration-slow) var(--global-ease-out);
 }
 
 .uk-offcanvas-reveal .uk-offcanvas-bar {
@@ -301,7 +301,7 @@
 .uk-offcanvas-container {
     position: relative;
     inset-inline-start: 0;
-    transition: inset-inline-start 0.3s ease-out;
+    transition: inset-inline-start var(--global-duration-slow) var(--global-ease-out);
     /* 1 */
     box-sizing: border-box;
     width: 100%;

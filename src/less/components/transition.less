@@ -29,7 +29,7 @@
 
 .hook-transition-variables() {
 
-    --transition-duration:                           0.3s;
+    --transition-duration:                           var(--global-duration-slow);
 
     --transition-scale:                              1.03;
 
@@ -72,7 +72,7 @@
     transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y))
                translate(var(--uk-translate-x), var(--uk-translate-y))
                scale(var(--uk-scale-x), var(--uk-scale-y));
-    transition: var(--transition-duration) ease-out;
+    transition: var(--transition-duration) var(--global-ease-out);
     transition-property: opacity, transform, filter;
     opacity: 0;
 }

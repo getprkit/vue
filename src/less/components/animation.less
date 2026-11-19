@@ -46,7 +46,7 @@
    Component: Animation
  ========================================================================== */
 
-[class*="uk-animation-"] { animation: var(--animation-duration) ease-out both; }
+[class*="uk-animation-"] { animation: var(--animation-duration) var(--global-ease-out) both; }
 
 
 /* Animations
@@ -137,7 +137,7 @@
 
 .uk-animation-reverse {
     animation-direction: reverse;
-    animation-timing-function: ease-in;
+    animation-timing-function: var(--global-ease-in);
 }
 
 
@@ -312,7 +312,7 @@
  */
 
  @keyframes uk-stroke {
-    0% { stroke-dashoffset: var(--uk-animation-stroke); }
+    0% { stroke-dashoffset: calc(var(--uk-animation-stroke) * var(--uk-dir-sign) ); }
     100% { stroke-dashoffset: 0; }
 }
 

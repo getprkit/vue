@@ -69,7 +69,7 @@
 
 .uk-drop-parent-icon {
     margin-inline-start: var(--drop-parent-icon-margin-inline-start);
-    transition: transform 0.3s ease-out;
+    transition: transform var(--global-duration-slow) var(--global-ease-out);
 }
 
 [aria-expanded="true"] > .uk-drop-parent-icon { transform: rotateX(calc(180deg * var(--uk-dir-sign))); }

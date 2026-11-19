@@ -57,13 +57,13 @@
 }
 
 @keyframes uk-spinner-dash {
-    0% { stroke-dashoffset: var(--spinner-circumference); }
+    0% { stroke-dashoffset: calc(var(--spinner-circumference) * var(--uk-dir-sign)); }
     50% {
-        stroke-dashoffset: calc(var(--spinner-circumference) / 4);
+        stroke-dashoffset: calc((var(--spinner-circumference) / 4) * var(--uk-dir-sign));
         transform: rotate(calc(135deg * var(--uk-dir-sign)));
     }
     100% {
-        stroke-dashoffset: var(--spinner-circumference);
+        stroke-dashoffset: calc(var(--spinner-circumference) * var(--uk-dir-sign));
         transform: rotate(calc(450deg * var(--uk-dir-sign)));
     }
 }

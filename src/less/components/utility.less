@@ -42,7 +42,7 @@
 
     --border-rounded-border-radius:                  5px;
 
-    --box-shadow-duration:                           0.1s;
+    --box-shadow-duration:                           var(--global-duration-fast);
 
     --box-shadow-bottom-height:                      30px;
     --box-shadow-bottom-bottom:                      calc(var(--box-shadow-bottom-height) * -1);
@@ -368,7 +368,7 @@
  * Hover
  */
 
-[class*="uk-box-shadow-hover"] { transition: box-shadow var(--box-shadow-duration) ease-in-out; }
+[class*="uk-box-shadow-hover"] { transition: box-shadow var(--box-shadow-duration) var(--global-ease-in-out); }
 
 .uk-box-shadow-hover-small:hover { box-shadow: var(--global-small-box-shadow); }
 .uk-box-shadow-hover-medium:hover { box-shadow: var(--global-medium-box-shadow); }
