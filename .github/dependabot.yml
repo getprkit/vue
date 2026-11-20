@@ -5,8 +5,8 @@ updates:
     schedule:
       interval: weekly
     groups:
-      dev-dependencies:
+      dependencies:
         patterns:
           - '*'
     commit-message:
-      prefix: 'pnpm'
+      prefix: 'npm'
