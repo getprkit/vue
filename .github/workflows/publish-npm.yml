@@ -1,0 +1,68 @@
+name: Publish dev to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Publish dev version even if commit message is not feat/fix/refactor/perf'
+        type: boolean
+        default: true
+  push:
+    branches:
+      - 'develop'
+
+permissions:
+  contents: read
+
+jobs:
+  check-eligibility:
+    if: |
+      github.ref != 'refs/heads/main' &&
+      (
+        github.event_name == 'workflow_dispatch' ||
+        github.ref == 'refs/heads/develop'
+      )
+    runs-on: ubuntu-slim
+    outputs:
+      publish: ${{ steps.eligibility.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check publication eligibility
+        id: eligibility
+        env:
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+        run: |
+          if [ "$FORCE" = "true" ] || git log -1 --pretty=%s | grep -Eq '^(revert: )?(feat|fix|refactor|perf)(\(.+\))?: .{1,50}'; then
+            echo 'publish=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'publish=false' >> "$GITHUB_OUTPUT"
+          fi
+
+  publish-dev:
+    needs: check-eligibility
+    if: needs.check-eligibility.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 26
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: pnpm install
+
+      - run: pnpm eslint
+
+      - run: node build/ci-publish-dev.js
+
+      - name: Publish to NPM
+        run: npm publish --tag dev
