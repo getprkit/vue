@@ -3,7 +3,6 @@
   "title": "PrKit Vue",
   "description": "A Vue 3 component library built on top of PrKit Core.",
   "version": "1.0.0-beta.1",
-  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,10 +15,17 @@
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "lint": "run-s \"lint:*\"",
+    "lint": "run-s lint:oxlint lint:eslint",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
+    "lint:check": "run-s lint:oxlint:check lint:eslint:check",
+    "lint:oxlint:check": "oxlint .",
+    "lint:eslint:check": "eslint . --cache",
     "format": "prettier --write --experimental-cli src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getprkit/vue.git"
   },
   "dependencies": {
     "pinia": "^4.0.2",

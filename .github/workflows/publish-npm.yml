@@ -49,18 +49,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
-
       - uses: actions/setup-node@v6
         with:
           node-version: 26
-          cache: 'pnpm'
+          cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: pnpm install
+      - run: npm ci
 
-      - run: pnpm eslint
+      - run: npm exec -- eslint .
 
       - run: node build/ci-publish-dev.js
 
