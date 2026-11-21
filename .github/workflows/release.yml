@@ -61,6 +61,14 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: npm ci
+
+      # TODO: Must remove after eslint support typescript 7
+      - name: Install TypeScript compatibility for tooling
+        run: |
+          npm install --no-save --package-lock=false --force \
+            "typescript@npm:@typescript/typescript6@^6.0.2" \
+            "@typescript/native@npm:typescript@^7.0.2"
+
       - run: npm exec -- eslint .
 
       - name: Prepare release pull request
