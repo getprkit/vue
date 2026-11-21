@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { OptionsIcon } from '@/scripts/util/types'
+import type { UIkitIconOptions as OptionsIcon } from 'prkit'
 import { icon } from 'prkit'
 import { useTemplateRef, onMounted, watchEffect } from 'vue'
 
