@@ -20,7 +20,7 @@ Please open an issues only for a bug report or feature request. Make sure no one
 ### PrKit Version
 
 _Check if the issue is reproducible with the latest stable version._
-1.0.0-beta.1
+1.0.0-beta.2
 
 ### Actual Behavior
 

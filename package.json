@@ -2,7 +2,7 @@
   "name": "@prkit/vue",
   "title": "PrKit Vue",
   "description": "A Vue 3 component library built on top of PrKit Core.",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
