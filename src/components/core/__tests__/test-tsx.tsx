@@ -1,8 +1,8 @@
-/*import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 
 export default defineComponent({
   // A simple accumulator
-  name: 'Add',
+  name: 'AddTest',
   setup() {
     const times = ref(0)
     // use computed
@@ -23,5 +23,5 @@ export default defineComponent({
         <div>{doubleTimes.value}</div>
       </div>
     )
-  }
-})*/
+  },
+})
