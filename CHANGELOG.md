@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## [1.0.0-beta.2] (2026-11-21)
 
 ### Changed
 
