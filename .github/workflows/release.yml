@@ -49,6 +49,11 @@ jobs:
     outputs:
       tag: ${{ steps.build.outputs.tag }}
     steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && 'develop' || github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 0
+
       - uses: actions/setup-node@v6
         with:
           node-version: 26
