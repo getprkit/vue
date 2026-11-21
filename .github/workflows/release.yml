@@ -78,11 +78,11 @@ jobs:
           RELEASE_BUMP: ${{ inputs.bump }}
           RELEASE_PREID: ${{ inputs.preid }}
         run: |
-          RELEASE_VERSION=$(node build/ci-release.js --resolve --bump "$RELEASE_BUMP" --preid "$RELEASE_PREID")
+          RELEASE_VERSION=$(node src/scripts/build/ci-release.js --resolve --bump "$RELEASE_BUMP" --preid "$RELEASE_PREID")
           echo "Preparing release v$RELEASE_VERSION"
           branch="release/v$RELEASE_VERSION"
           if ! git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
-            node build/ci-release.js --prepare --version "$RELEASE_VERSION"
+            node src/scripts/build/ci-release.js --prepare --version "$RELEASE_VERSION"
             npm install --package-lock-only --ignore-scripts
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -107,7 +107,7 @@ jobs:
         env:
           RELEASE_BRANCH: ${{ github.event.pull_request.head.ref }}
           RELEASE_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: node build/ci-release.js --build
+        run: node src/scripts/build/ci-release.js --build
 
       - name: Publish GitHub release
         if: github.event_name == 'pull_request'
