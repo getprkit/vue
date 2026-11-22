@@ -47,6 +47,14 @@ We will prevent to use components in components for example a main component tha
 
 ## TODO
 
+- [ ] we need make this project separate to 4 npm libraries:
+  - icons libraries: _placed at **src/images/core**_
+  - core theme components: _placed at **src/components/** or **src/components/core**_ (the ui framework)
+  - documents: _placed at **src/views/docs**_
+  - starter kit: _ready-to-use pages: including all pre-build pages and layouts, vite build, vite build scripts and etc_
+- [ ] design it for **Nuxt** (starter kit)
+- [ ] we need add a setting.css file for customizing the style of the main css like: changing global and main colors, changing fonts and changing default icons
+
 - [ ] add [https://nuqtaicons.com/icons](https://nuqtaicons.com/icons) icons
 - [ ] add mx-icons to project
 - [ ] add icon versions to icon-libraries
@@ -80,11 +88,25 @@ We will prevent to use components in components for example a main component tha
 - [ ] check if its good to add ability import icons as <use> tag instead of importing them directly when using uikit icons or any icons. its good for caching, and browser will load them once, will reduce the html page size, and other things but has some limits with css and other things. also will not show until browser load the svg file, so we need handle it with height and width for svg tag.
       – [ ] check for adding color pattern with oklch
 - [ ] check is good to move variables from :root in .uk-component for every component, for now they all load in :root and its not too user friendly.
-
-- [ ] we need make this project separate to 4 npm libraries:
-  - icons libraries: _placed at **src/images/core**_
-  - core theme components: _placed at **src/components/** or **src/components/core**_ (the ui framework)
-  - documents: _placed at **src/views/docs**_
-  - starter kit: _ready-to-use pages: including all pre-build pages and layouts, vite build, vite build scripts and etc_
-- [ ] design it for **Nuxt** (starter kit)
-- [ ] we need add a setting.css file for customizing the style of the main css like: changing global and main colors, changing fonts and changing default icons
+- [ ] change divider css to column-rule property
+- [ ] add tag render for components which use `<a>` tag: like add button tag and default is `<a>` tag
+- [ ] child `_component.vue` sample
+- [ ] add font weight vars
+- [ ] round color palettes
+- [ ] fix svg-fill method or change the process
+- [ ] add alert cover: close or @click method
+- [ ] add minimal theme and current them is default theme (platform theme / website time)
+- [ ] make uikit javascript component accept string animate like alert
+- [ ] check, rewrite and clean github actions
+- [ ] add prkit/core `remove attribute feature`
+- [ ] check get component function to add in util.ts
+- [ ] add docs about core utils.ts
+- [ ] check dot-nav colors
+- [ ] check for adding hard-colors to alert
+- [ ] check modal-close color
+- [ ] add directional reading to less file (remove top-bottom and replace with inline, must check if its good to add)
+- [ ] make icons to accept texts (e.g. accordion)
+- [ ] define multiple color palettes (persian and tailwind)
+- [ ] add text-secondary color
+- [ ] check for adding lightbox inverse color
+- [ ] check, rewrite and clean github workflows
