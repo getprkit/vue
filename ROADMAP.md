@@ -110,3 +110,24 @@ We will prevent to use components in components for example a main component tha
 - [ ] add text-secondary color
 - [ ] check for adding lightbox inverse color
 - [ ] check, rewrite and clean github workflows
+- [ ] add background and background hover classes, also in inverse mode
+- [ ] add text and text hover classes, also in inverse mode
+- [ ] fix ins background color in inverse mode at base.less
+- [ ] check link and button colors in component like card or inverse component
+- [ ] fix subtitle active color in nav list
+- [ ] add scroll component, also in inverse mode
+- [ ] check overlay color in components, also in inverse mode
+- [ ] add header/footer for card primary or secondary
+- [ ] check for adding uk-match for same usage of component in each others
+- [ ] add and fix uk-marker colors (default, secondary, primary etc.)
+- [ ] fix close outside hover color in modal
+- [ ] check lightbox colors, also in inverse mode
+- [ ] fix table row active color, also in inverse mode
+- [ ] add javascript position start/end to each component contains right/left position
+- [ ] write doc about develop guide
+- [ ] check if its good to migrate to vitepress
+- [ ] add css build process to remove unused vars
+- [ ] write doc about border radius
+- [ ] write doc about project colors and inverse colors
+- [ ] add tests for core and vue
+- [ ] check if its need to define variable for css transition in each component (currently using global variable)
