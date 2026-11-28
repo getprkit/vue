@@ -70,7 +70,7 @@
     "shiki": "^4.5.0",
     "start-server-and-test": "^3.0.13",
     "svgo": "^4.1.0",
-    "typescript": "~7.0.2",
+    "typescript": "^6.0.3",
     "unplugin-vue-markdown": "^32.1.1",
     "vite": "^8.3.8",
     "vite-plugin-vue-devtools": "^8.1.5",
